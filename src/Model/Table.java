@@ -9,6 +9,7 @@ public class Table {
 	private TableSettings settings;
 	private List<Card> cards;
 	private List<Bet> bets;
+	private Croupier croupier;
 	//Constructor
 	public Table(TableSettings settings)
 	{
@@ -42,6 +43,11 @@ public class Table {
 	public void setBets(List<Bet> bets)
 	{
 		this.bets = bets;
+	}
+	
+	//Entrance to the game to start
+	public void start() {
+		croupier = new Croupier(this);//Croupier comes to table and shit is about to get crazy ladies and jentelmens
 	}
 	
 }
