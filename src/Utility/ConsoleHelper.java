@@ -25,7 +25,7 @@ public class ConsoleHelper {
 	}
 	
 	//Singleton realization
-	public static ConsoleHelper GetInstance()
+	public static ConsoleHelper getInstance()
 	{
 		if(instance == null)
 		{
@@ -35,7 +35,7 @@ public class ConsoleHelper {
 	}
 	
 	//Public Methods
-	public int ReadInt()
+	public int readInt()
 	{
 		while(true)
 		{
@@ -54,7 +54,7 @@ public class ConsoleHelper {
 		}
 	}
 	
-	public String ReadString()
+	public String readString()
 	{
 		try {
 			return br.readLine();
@@ -64,7 +64,7 @@ public class ConsoleHelper {
 		return null;
 	}
 	
-	public void ClearConsole()
+	public void clearConsole()
 	{
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -77,8 +77,8 @@ public class ConsoleHelper {
 		}
 	}
 	
-	public boolean ReadYes()
+	public boolean readYes()
 	{
-		return ReadString().toLowerCase().equalsIgnoreCase("y");
+		return readString().toLowerCase().equalsIgnoreCase("y");
 	}
 }

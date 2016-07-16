@@ -11,5 +11,4 @@ public enum ActionType {
 	{
 		this.action = action;
 	}
-	
 }

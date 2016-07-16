@@ -4,7 +4,7 @@ public class Player {
 	//fields
 	private int balance;
 	
-	public int GetBalance() {
+	public int getBalance() {
 		return balance;
 	}
 

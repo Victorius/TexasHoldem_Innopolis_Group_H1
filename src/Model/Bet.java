@@ -13,13 +13,13 @@ public class Bet {
 		this.amount = amount;
 	}
 	//Getters
-	public int GetCircle() {
+	public int getCircle() {
 		return circle;
 	}
-	public int GetAmount() {
+	public int getAmount() {
 		return amount;
 	}
-	public Player GetPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 	

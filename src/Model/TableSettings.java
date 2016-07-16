@@ -17,23 +17,23 @@ public class TableSettings {
 		this.policy = policy;
 	}
 	//Getters/Setters
-	public int GetNumberOfPlayers()
+	public int getNumberOfPlayers()
 	{
 		return numberOfPlayers;
 	}
-	public int GetStartingMoney()
+	public int getStartingMoney()
 	{
 		return startingMoney;
 	}
-	public int GetBlindAmount()
+	public int getBlindAmount()
 	{
 		return blindAmount;
 	}
-	public void SetBlindAmount (int value)
+	public void setBlindAmount (int value)
 	{
 		blindAmount = value;
 	}
-	public RaisingPolicy GetRaisingPolicy()
+	public RaisingPolicy getRaisingPolicy()
 	{
 		return policy;
 	}

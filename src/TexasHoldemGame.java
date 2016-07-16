@@ -3,14 +3,14 @@ import Utility.ConsoleHelper;
 public class TexasHoldemGame {
 	//private 
 	
-	public void Run()
+	public void run()
 	{
 		System.out.println("Hello, this is texas holdem - the game.");
 		
-		MenuDialog();
+		menuDialog();
 	}
 	
-	private void MenuDialog()
+	private void menuDialog()
 	{
 		while(true)
 		{
@@ -18,13 +18,13 @@ public class TexasHoldemGame {
 			System.out.println("1 - Start a new table");
 			System.out.println("0 - Exit");
 			
-			switch (ConsoleHelper.GetInstance().ReadInt())
+			switch (ConsoleHelper.getInstance().readInt())
 			{
 			case 0:
-				EndGame();
+				endGame();
 				break;
 			case 1:
-				SettingsDialog();
+				settingsDialog();
 				break;
 			default:
 				System.out.println("Incorrect value entered, please try again once more...");
@@ -33,16 +33,14 @@ public class TexasHoldemGame {
 		}
 	}
 
-	private void SettingsDialog() {
-		// TODO Auto-generated method stub
-		
+	private void settingsDialog() {
 	}
 
-	private void EndGame()
+	private void endGame()
 	{
-		ConsoleHelper.GetInstance().ClearConsole();
+		ConsoleHelper.getInstance().clearConsole();
 		System.out.println("Do you really want to quit? (y)");
-		if(ConsoleHelper.GetInstance().ReadYes())
+		if(ConsoleHelper.getInstance().readYes())
 		{
 			System.exit(0);
 		}

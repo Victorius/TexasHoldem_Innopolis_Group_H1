@@ -15,31 +15,31 @@ public class Table {
 		this.settings = settings;
 	}
 	//Fields
-	public LinkedList<Player> GetPlayers()
+	public LinkedList<Player> getPlayers()
 	{
 		return players;
 	}
-	public void SetPlayers(LinkedList<Player> players)
+	public void setPlayers(LinkedList<Player> players)
 	{
 		this.players = players;
 	}
-	public TableSettings GetSettings()
+	public TableSettings getSettings()
 	{
 		return settings;
 	}
-	public List<Card> GetCards()
+	public List<Card> getCards()
 	{
 		return cards;
 	}
-	public void SetCards(List<Card> cards) 
+	public void setCards(List<Card> cards) 
 	{
 		this.cards = cards;
 	}
-	public List<Bet> GetBets()
+	public List<Bet> getBets()
 	{
 		return bets;
 	}
-	public void SetBets(List<Bet> bets)
+	public void setBets(List<Bet> bets)
 	{
 		this.bets = bets;
 	}

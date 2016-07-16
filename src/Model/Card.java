@@ -18,12 +18,12 @@ public class Card
 		this.value = value;
 	}
 	//Getters
-	public CardType GetType()
+	public cardType GetType()
 	{
 		return type;
 	}
 	
-	public CardValue GetValue()
+	public cardValue GetValue()
 	{
 		return value;
 	}
