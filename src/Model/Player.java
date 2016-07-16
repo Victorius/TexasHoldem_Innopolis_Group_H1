@@ -1,6 +1,6 @@
 package Model;
 
-public class Player {
+public class Player extends CombinationCounter{
 	//fields
 	private int balance;
 	

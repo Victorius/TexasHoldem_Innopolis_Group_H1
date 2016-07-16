@@ -6,7 +6,7 @@ package Model;
 import Model.Enumerations.CardType;
 import Model.Enumerations.CardValue;
 
-public class Card 
+public class Card implements Comparable
 {
 	//Fields
 	private final CardType type;
@@ -26,5 +26,12 @@ public class Card
 	public CardValue getValue()
 	{
 		return value;
+	}
+	@Override
+	public int compareTo(Object o) {
+		if(o instanceof Card){
+			return this.value.compareTo(((Card)o).value);			
+		}
+		return 0;
 	}
 }

@@ -8,14 +8,14 @@ public enum StageType {
 	
 	private final int value;
 	
-	StageType(int value)
-	{
-		this.value = value;
-	}
-	StageType()
-	{
-		this.value = 0;
-	}
+		StageType(int value)
+		{
+			this.value = value;
+		}
+		StageType()
+		{
+			this.value = 0;
+		}
 	
 	public int getValue()
 	{
