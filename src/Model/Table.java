@@ -7,7 +7,7 @@ import java.util.List;
 public class Table {
 
     //Fields
-    private LinkedList<Player> players;
+    private LinkedList<Player> players = new LinkedList<Player>();
     private TableSettings settings;
     private List<Card> cards;
     private List<Bet> bets;
@@ -68,6 +68,14 @@ public class Table {
 	public Player[] getAiPlayers() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Object getBetsAmount() {
+		int sum = 0;
+		for(Bet b : bets){
+			sum += b.getAmount();
+		}
+		return sum;
 	}
 
 }
