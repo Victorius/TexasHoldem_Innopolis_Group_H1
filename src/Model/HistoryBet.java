@@ -17,6 +17,8 @@ public class HistoryBet {
 		this.BetType=BetType;
 		this.amount=amount;
 		this.StatusFin =true;
+		// 
+		
 		
 	
 	}

@@ -18,6 +18,7 @@ public class HistoryBets {
 		history = new ArrayList<HistoryBet>();
 		CurrentIndex =-1;
 		LastFindIndex=-1;
+		//
 		
 	}
 	
