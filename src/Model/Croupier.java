@@ -1,18 +1,14 @@
 package Model;
 
-import java.util.LinkedList;
-
 public class Croupier {
     //Fields
     private final Table table;
-    private LinkedList<Player> players;
     private int smallBlind = 0;
     private int bigBlind = 1;
 
     //Constructor
     public Croupier(Table table) {
         this.table = table;
-        players = table.getPlayers();
         setInitialBlinds();
     }
 
@@ -27,11 +23,11 @@ public class Croupier {
 
     //move blinds clockwise
     public void moveBlinds() {
-        if (players.size() >= 3) { //more than 3 players
-            if (bigBlind == players.size() - 1) {
+        if (table.getPlayers().size() >= 3) { //more than 3 players
+            if (bigBlind == table.getPlayers().size() - 1) {
                 bigBlind = 0;
-                smallBlind = players.size() - 1;
-            } else if (smallBlind == players.size() - 1) {
+                smallBlind = table.getPlayers().size() - 1;
+            } else if (smallBlind == table.getPlayers().size() - 1) {
                 bigBlind = 1;
                 smallBlind = 0;
             } else {
@@ -53,12 +49,12 @@ public class Croupier {
 
     //assigning blinds to players
     private void assignBlinds() {
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).clearBlinds();
+        for (int i = 0; i < table.getPlayers().size(); i++) {
+        	table.getPlayers().get(i).clearBlinds();
         }
         
-        Player bigBlindPlayer = players.get(bigBlind);
-        Player smallBlindPlayer = players.get(smallBlind);
+        Player bigBlindPlayer = table.getPlayers().get(bigBlind);
+        Player smallBlindPlayer = table.getPlayers().get(smallBlind);
 
         smallBlindPlayer.setSmallBlind(true);
         smallBlindPlayer.makeBet(table.getSettings().getBlindAmount());
@@ -70,7 +66,7 @@ public class Croupier {
     //collecting all bets from players - to the table
     public void collectBetsFromPlayers() {
         int pot = 0;
-        for (Player player : players) {
+        for (Player player : table.getPlayers()) {
             if (player.getBet() != null) {
                 pot += player.getBet().getAmount();
                 table.addBetToList(player.getBet());
@@ -82,7 +78,7 @@ public class Croupier {
 
     //pay pot to one player
     public void payPotToPlayer(Player player) {
-        for (Player pickedPlayer : players) {
+        for (Player pickedPlayer : table.getPlayers()) {
             if (pickedPlayer == player) {
                 pickedPlayer.addToBalance(table.getPot());
             }
@@ -92,7 +88,7 @@ public class Croupier {
 
     //pay pot 50/50 to 2 players
     public void separateAndPayPot(Player player1, Player player2) {
-        for (Player pickedPlayer : players) {
+        for (Player pickedPlayer : table.getPlayers()) {
             if (pickedPlayer == player1) {
                 pickedPlayer.addToBalance(table.getPot() / 2);
             }
