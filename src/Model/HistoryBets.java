@@ -18,7 +18,7 @@ public class HistoryBets {
 		history = new ArrayList<HistoryBet>();
 		CurrentIndex =-1;
 		LastFindIndex=-1;
-		//
+		
 		
 	}
 	
@@ -56,11 +56,9 @@ public class HistoryBets {
 	}
 	public HistoryBet getHistoryBetByPlayer(Player pl, StageType var_st)
 	{
-		HistoryBet hb =new HistoryBet();
-		
+		HistoryBet hb =new HistoryBet();		
 		hb = history.get(this.getIndexHistoryBetByPlayer(pl,var_st));
 		return hb;
-
 
 	}
 	
@@ -70,12 +68,9 @@ public class HistoryBets {
 		for(int i=0;i<history.size();i++)
 		{
 			if(history.get(i).nPlayer.equals(pl) && history.get(i).StatusFin.equals(true))
-				amount += history.get(i).amount;
-			
+				amount += history.get(i).amount;	
 		}
-		
 		return amount;
-		
 		
 	}
 	

@@ -17,10 +17,7 @@ public class HistoryBet {
 		this.BetType=BetType;
 		this.amount=amount;
 		this.StatusFin =true;
-		// 
 		
-		
-	
 	}
 	HistoryBet()
 	{
@@ -29,9 +26,7 @@ public class HistoryBet {
 		this.BetType=null;
 		this.amount=(Integer) null;
 		this.StatusFin = false;
-		
-		
-	
+
 	}
 	public int getKittyCircle(StageType input_type){
 		
