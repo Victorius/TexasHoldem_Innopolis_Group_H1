@@ -54,6 +54,7 @@ public class Table {
 
     //Entrance to the game to start
     public void start() {
+    	init();
         croupier = new Croupier(this);//Croupier comes to table and shit is about to get crazy ladies and jentelmens
     }
 
@@ -76,6 +77,14 @@ public class Table {
 			sum += b.getAmount();
 		}
 		return sum;
+	}
+	
+	private void init(){
+		players.add(new Player("Player", settings.getStartingMoney()));
+		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
+		{
+			players.add(new Player("Ai "+(i+1),settings.getStartingMoney()));
+		}
 	}
 
 }

@@ -5,16 +5,16 @@ public class Player extends CombinationCounter {
     //Fields
     private int balance;
     private String name;
-    private boolean bigBlind;
-    private boolean smallBlind;
+    private boolean isBigBlind;
+    private boolean isSmallBlind;
     private Bet bet;
 
     //Constructor
     public Player(String name, int balance) {
         this.name = name;
         this.balance = balance;
-        bigBlind = false;
-        smallBlind = false;
+        isBigBlind = false;
+        isSmallBlind = false;
     }
 
     //Setters
@@ -28,10 +28,10 @@ public class Player extends CombinationCounter {
         this.bet = bet;
     }
     public void setSmallBlind(boolean smallBlind) {
-        this.smallBlind = smallBlind;
+        this.isSmallBlind = smallBlind;
     }
     public void setBigBlind(boolean bigBlind) {
-        this.bigBlind = bigBlind;
+        this.isBigBlind = bigBlind;
     }
 
 
@@ -46,10 +46,10 @@ public class Player extends CombinationCounter {
         return name;
     }
     public boolean isBigBlind() {
-        return bigBlind;
+        return isBigBlind;
     }
     public boolean isSmallBlind() {
-        return smallBlind;
+        return isSmallBlind;
     }
 
 
@@ -84,8 +84,8 @@ public class Player extends CombinationCounter {
     }
 
     public void clearBlinds() {
-        smallBlind = false;
-        bigBlind = false;
+        isSmallBlind = false;
+        isBigBlind = false;
     }
 
     //adding amount(pot) to player's balance
@@ -98,9 +98,9 @@ public class Player extends CombinationCounter {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
         sb.append(" " + balance);
-        if (smallBlind)
+        if (isSmallBlind)
             sb.append(" S ");
-        if (bigBlind)
+        if (isBigBlind)
             sb.append(" B ");
 
         return sb.toString();

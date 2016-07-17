@@ -4,56 +4,17 @@ import java.util.LinkedList;
 
 public class Croupier {
     //Fields
-    private Table table;
-    private int smallBlind;
-    private int bigBlind;
-    private int blindAmount;
+    private final Table table;
     private LinkedList<Player> players;
+    private int smallBlind = 0;
+    private int bigBlind = 1;
 
     //Constructor
     public Croupier(Table table) {
         this.table = table;
-        smallBlind = 0;
-        bigBlind = 1;
         players = table.getPlayers();
         setInitialBlinds();
-        blindAmount = table.getSettings().getBlindAmount();
     }
-
-    //Getters
-    public Table getTable() {
-        return table;
-    }
-    public int getSmallBlind() {
-        return smallBlind;
-    }
-    public int getBigBlind() {
-        return bigBlind;
-    }
-    public int getBlindAmount() {
-        return blindAmount;
-    }
-    public LinkedList<Player> getPlayers() {
-        return players;
-    }
-
-    //Setters
-    public void setTable(Table table) {
-        this.table = table;
-    }
-    public void setSmallBlind(int smallBlind) {
-        this.smallBlind = smallBlind;
-    }
-    public void setBigBlind(int bigBlind) {
-        this.bigBlind = bigBlind;
-    }
-    public void setBlindAmount(int blindAmount) {
-        this.blindAmount = blindAmount;
-    }
-    public void setPlayers(LinkedList<Player> players) {
-        this.players = players;
-    }
-
 
     //setting up blinds as game starts
     public void setInitialBlinds() {
@@ -95,14 +56,15 @@ public class Croupier {
         for (int i = 0; i < players.size(); i++) {
             players.get(i).clearBlinds();
         }
+        
         Player bigBlindPlayer = players.get(bigBlind);
         Player smallBlindPlayer = players.get(smallBlind);
 
         smallBlindPlayer.setSmallBlind(true);
-        smallBlindPlayer.makeBet(blindAmount);
+        smallBlindPlayer.makeBet(table.getSettings().getBlindAmount());
 
         bigBlindPlayer.setBigBlind(true);
-        bigBlindPlayer.makeBet(blindAmount * 2);
+        bigBlindPlayer.makeBet(table.getSettings().getBlindAmount() * 2);
     }
 
     //collecting all bets from players - to the table
