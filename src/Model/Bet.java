@@ -22,5 +22,8 @@ public class Bet {
 	public Player getPlayer() {
 		return player;
 	}
-	
+
+	public void raise(int raise){
+		amount += raise;
+	}
 }
