@@ -1,9 +1,11 @@
+package UI;
 import Model.TableSettings;
 import Model.Enumerations.RaisingPolicy;
 import Utility.ConsoleHelper;
 
 public class Menu {
 	public static TableSettings settingsDialog() {
+
 		System.out.println("Table settings...");
 		
 		while(true)
@@ -62,4 +64,6 @@ public class Menu {
 			ConsoleHelper.getInstance().clearConsole();
 		}
 	}
+	
+	
 }

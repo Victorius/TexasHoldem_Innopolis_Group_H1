@@ -40,6 +40,16 @@ public class Table {
 	{
 		return bets;
 	}
+	//returning total bets amount currently on table
+	public int getBetsAmount()
+	{
+		int sum = 0;
+		for(Bet b : bets)
+		{
+			sum += b.getAmount();
+		}
+		return sum;
+	}
 	public void setBets(List<Bet> bets)
 	{
 		this.bets = bets;
@@ -48,6 +58,14 @@ public class Table {
 	//Entrance to the game to start
 	public void start() {
 		croupier = new Croupier(this);//Croupier comes to table and shit is about to get crazy ladies and jentelmens
+	}
+	public Player getPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Player[] getAiPlayers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

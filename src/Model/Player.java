@@ -8,4 +8,13 @@ public class Player extends CombinationCounter{
 		return balance;
 	}
 
+	public Card[] getHand() {
+		return (Card[]) cards.toArray();
+	}
+
+	public Object getLastAction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

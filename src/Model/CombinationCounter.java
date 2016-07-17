@@ -7,10 +7,9 @@ import java.util.List;
 import Model.Enumerations.Combination;
 
 public abstract class CombinationCounter {
-	protected List<Card> cards;
+	protected List<Card> cards = new ArrayList<Card>();
 	protected Table aTable;
 	protected Combination combination;
-	
 	
 	public Combination getCombination(){
 		List<Card> allCards = new ArrayList<Card>();
