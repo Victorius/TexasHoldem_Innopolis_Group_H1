@@ -1,7 +1,7 @@
-package Model;
+package main.java.Model;
 
-import Model.Enumerations.ActionType;
-import Model.Enumerations.StageType;
+import main.java.Model.Enumerations.ActionType;
+import main.java.Model.Enumerations.StageType;
 
 public class HistoryBet {
 	public final StageType type;
@@ -17,7 +17,6 @@ public class HistoryBet {
 		this.BetType=BetType;
 		this.amount=amount;
 		this.StatusFin =true;
-		
 	}
 	HistoryBet()
 	{
@@ -29,7 +28,6 @@ public class HistoryBet {
 
 	}
 	public int getKittyCircle(StageType input_type){
-		
 		return 1;
 	}
 }

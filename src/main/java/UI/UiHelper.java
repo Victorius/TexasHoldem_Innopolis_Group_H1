@@ -1,12 +1,12 @@
-package UI;
+package main.java.UI;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Card;
-import Model.Player;
-import Model.Table;
-import Utility.ConsoleHelper;
+import main.java.Model.Card;
+import main.java.Model.Player;
+import main.java.Model.Table;
+import main.java.Utility.ConsoleHelper;
 
 public class UiHelper {
 	public static void updateTableInfo(Table table){

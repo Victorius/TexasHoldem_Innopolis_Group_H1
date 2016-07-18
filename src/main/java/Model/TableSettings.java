@@ -1,6 +1,6 @@
-package Model;
+package main.java.Model;
 
-import Model.Enumerations.RaisingPolicy;
+import main.java.Model.Enumerations.RaisingPolicy;
 
 public class TableSettings {
 	//Field
