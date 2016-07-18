@@ -1,4 +1,4 @@
-package tests.java;
+package Tests.java;
 
 import main.java.Model.Croupier;
 import main.java.Model.Enumerations.RaisingPolicy;
@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 
 /**
