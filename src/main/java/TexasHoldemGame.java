@@ -1,5 +1,6 @@
 package main.java;
 
+import main.java.Model.Croupier;
 import main.java.Model.Table;
 import main.java.UI.Menu;
 import main.java.Utility.ConsoleHelper;
@@ -11,7 +12,7 @@ public class TexasHoldemGame {
 		
 		while(true)
 		{
-			ConsoleHelper.getInstance().clearConsole();
+			System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
 			System.out.println("Please enter one of options...");
 			System.out.println("1 - Start a new table");
 			System.out.println("0 - Exit");
@@ -23,7 +24,9 @@ public class TexasHoldemGame {
 				break;
 			case 1:
 				Table t = new Table(Menu.settingsDialog());
-				t.start(); //game entry point
+				t.init();
+				Croupier c = new Croupier(t);//Croupier comes to table and shit is about to get crazy ladies and jentelmens
+				c.StartGame();
 				break;
 			default:
 				break;
@@ -34,7 +37,7 @@ public class TexasHoldemGame {
 	//close application
 	private void endGame()
 	{
-		ConsoleHelper.getInstance().clearConsole();
+		System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
 		System.out.println("Do you really want to quit? (y)");
 		if(ConsoleHelper.getInstance().readYes())
 		{

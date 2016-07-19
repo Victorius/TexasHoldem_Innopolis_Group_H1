@@ -6,7 +6,7 @@ package main.java.Model;
 import main.java.Model.Enumerations.CardType;
 import main.java.Model.Enumerations.CardValue;
 
-public class Card implements Comparable
+public class Card implements Comparable<Card>
 {
 	//Fields
 	private final CardType type;
@@ -30,9 +30,9 @@ public class Card implements Comparable
 	}
 
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(Card o) {
 		if(o instanceof Card){
-			return this.value.compareTo(((Card)o).value);			
+			return this.value.compareTo(o.value);			
 		}
 		return 0;
 	}

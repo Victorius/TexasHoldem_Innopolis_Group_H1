@@ -11,7 +11,6 @@ public class Table {
     private TableSettings settings;
     private List<Card> cards;
     private List<Bet> bets;
-    private Croupier croupier;
     private int pot;
 
     //Constructor
@@ -52,23 +51,21 @@ public class Table {
         this.pot = pot;
     }
 
-    //Entrance to the game to start
-    public void start() {
-    	init();
-        croupier = new Croupier(this);//Croupier comes to table and shit is about to get crazy ladies and jentelmens
-    }
-
     public void addBetToList(Bet bet) {
         bets.add(bet);
     }
     
 	public Player getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return players.getFirst();
 	}
-	public Player[] getAiPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Player> getAiPlayers() {
+		List<Player> result = new ArrayList<Player>();
+		for(Player p : players){
+			if(p.getName() != "Player"){
+				result.add(p);
+			}
+		}
+		return result;
 	}
 
 	public Object getBetsAmount() {
@@ -79,11 +76,11 @@ public class Table {
 		return sum;
 	}
 	
-	private void init(){
-		players.add(new Player("Player", settings.getStartingMoney()));
+	public void init(){
+		players.add(new HumanPlayer("Player", settings.getStartingMoney()));
 		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
 		{
-			players.add(new Player("Ai "+(i+1),settings.getStartingMoney()));
+			players.add(new AiPlayer(settings.getStartingMoney()));
 		}
 	}
 

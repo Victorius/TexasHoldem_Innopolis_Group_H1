@@ -1,5 +1,7 @@
 package main.java.Model;
 
+import main.java.Model.Enumerations.ActionType;
+
 public class PlayerAction {
 	private ActionType type;
 	private int amount;

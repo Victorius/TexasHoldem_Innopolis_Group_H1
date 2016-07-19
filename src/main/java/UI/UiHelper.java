@@ -6,14 +6,13 @@ import java.util.List;
 import main.java.Model.Card;
 import main.java.Model.Player;
 import main.java.Model.Table;
-import main.java.Utility.ConsoleHelper;
 
 public class UiHelper {
 	public static void updateTableInfo(Table table){
 		
 		Player player = table.getPlayer();
-		Player[] computers = table.getAiPlayers();
-		ConsoleHelper.getInstance().clearConsole();
+		List<Player> computers = table.getAiPlayers();
+		System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
 		String format = "Player(you): $%d\n"
 				+ "Hand:%s (%s)\n"
 				+ "-\n"
