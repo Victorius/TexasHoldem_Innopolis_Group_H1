@@ -1,8 +1,10 @@
 package main.java.Model;
 
+import java.util.List;
+
 import main.java.Interfaces.IPlayer;
 
-public class Player extends CombinationCounter implements IPlayer {
+public abstract class Player extends CombinationCounter implements IPlayer {
 
     //Fields
     private int balance;
@@ -12,9 +14,10 @@ public class Player extends CombinationCounter implements IPlayer {
     private Bet bet;
 
     //Constructor
-    public Player(String name, int balance) {
+    public Player(String name, Table table) {
         this.name = name;
-        this.balance = balance;
+        this.balance = table.getSettings().getStartingMoney();
+        this.aTable = table;
         isBigBlind = false;
         isSmallBlind = false;
     }
@@ -95,8 +98,8 @@ public class Player extends CombinationCounter implements IPlayer {
         balance += amount;
     }
 
-	public Card[] getHand() {
-		return (Card[]) cards.toArray();
+	public List<Card> getHand() {
+		return cards;
 	}
 
 	public Object getLastAction() {

@@ -1,5 +1,6 @@
-package Tests.java;
+package tests.java;
 
+import main.java.Model.AiPlayer;
 import main.java.Model.Croupier;
 import main.java.Model.Enumerations.RaisingPolicy;
 import main.java.Model.Player;
@@ -25,10 +26,10 @@ public class CroupierTest {
 
         LinkedList<Player> players = new LinkedList<>();
 
-        players.add(new Player("John", 10000));
-        players.add(new Player("Smith", 10000));
-        players.add(new Player("Bob", 10000));
-        players.add(new Player("Rob", 10000));
+        players.add(new AiPlayer(table));
+        players.add(new AiPlayer( table));
+        players.add(new AiPlayer( table));
+        players.add(new AiPlayer(table));
 
 
         table.setPlayers(players);

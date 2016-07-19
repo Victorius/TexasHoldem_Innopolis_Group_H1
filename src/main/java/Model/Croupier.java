@@ -1,5 +1,7 @@
 package main.java.Model;
 
+import main.java.UI.UiHelper;
+
 public class Croupier {
     //Fields
     private final Table table;
@@ -96,4 +98,10 @@ public class Croupier {
         }
         table.setPot(0);
     }
+    
+    
+
+	public void StartGame() {
+		UiHelper.updateTableInfo(table);
+	}
 }
