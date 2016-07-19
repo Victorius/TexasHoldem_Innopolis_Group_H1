@@ -17,11 +17,9 @@ public abstract class CombinationCounter {
 		allCards.addAll(this.aTable.getCards());
 		allCards.addAll(this.cards);
 		Collections.sort(allCards);
-		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<ArrayList<Card>> pairs = new ArrayList<ArrayList<Card>>();
 		ArrayList<Card> toStraight = new ArrayList<Card>();		
 		ArrayList<Card> toFlash = new ArrayList<Card>();
-		boolean flag = true;
 		int sp=0;
 		int pointerOfStraight = 0;
 		boolean isFlash =false;
@@ -37,7 +35,7 @@ public abstract class CombinationCounter {
 					isFlash=false;
 			}
 			if(isFlash){
-				toFlash.add(i, allCards.get(i));
+				toFlash.add(i, allCards.get(i)); //FIXME VV java.lang.IndexOutOfBoundsException:
 				break;
 			}
 				
