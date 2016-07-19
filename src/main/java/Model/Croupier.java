@@ -98,6 +98,8 @@ public class Croupier {
         }
         table.setPot(0);
     }
+    
+    
 
 	public void StartGame() {
 		UiHelper.updateTableInfo(table);
