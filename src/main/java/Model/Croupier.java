@@ -1,5 +1,7 @@
 package main.java.Model;
 
+import java.util.ArrayList;
+
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -99,9 +101,35 @@ public class Croupier {
         table.setPot(0);
     }
     
-    
-
-	public void StartGame() {
+    public void StartGame() {
+    	ArrayList<Card> deck = Deck.getNewRandomDeck();
+		//drawing table info
 		UiHelper.updateTableInfo(table);
+		//settings blinds
+		setInitialBlinds();
+		//draw 2 cards each player
+		for(Player p : table.getPlayers()){
+			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
+		}
+		//bet circle
+		RaisingIteration();
+		//preflop this table 
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
+		//one more iteration
+		RaisingIteration();
+		//flop
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+		//one more iteration
+		RaisingIteration();
+		//shit its too late now to remember last phase of the game
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+		//last one
+		RaisingIteration();
+		
+	}
+
+	private void RaisingIteration() {
+		// TODO Auto-generated method stub
+		
 	}
 }
