@@ -5,8 +5,8 @@ import java.util.Random;
 public class AiPlayer extends Player{
 	private static String[] computerNames = {"Orbb","Klesk","Visor","Xaero","Sarge","Grunt","Doom","Ranger","Sorlag","Cormack","Crash","Anarki"};
 
-	public AiPlayer(int balance) {
-		super(getRandomAiName(), balance);
+	public AiPlayer(Table table) {
+		super(getRandomAiName(), table);
 	}
 
 	@Override

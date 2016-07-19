@@ -14,9 +14,10 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     private Bet bet;
 
     //Constructor
-    public Player(String name, int balance) {
+    public Player(String name, Table table) {
         this.name = name;
-        this.balance = balance;
+        this.balance = table.getSettings().getStartingMoney();
+        this.aTable = table;
         isBigBlind = false;
         isSmallBlind = false;
     }

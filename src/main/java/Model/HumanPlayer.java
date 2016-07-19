@@ -2,8 +2,8 @@ package main.java.Model;
 
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(String name, int balance) {
-		super(name, balance);
+	public HumanPlayer(String name, Table table) {
+		super(name, table);
 	}
 
 	@Override
