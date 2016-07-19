@@ -87,7 +87,7 @@ public abstract class CombinationCounter {
 			switch(pairs.get(i).size()){
 			case 2:
 				for(int j=0;j<pairs.size();j++){
-					if(i!=j && pairs.get(j).size()==2){						
+					if(i!=j && pairs.get(j).size()==2){
 						if(pointerOfStraight>=5)
 							return new Combination(CombinationType.Straight,toStraight);
 						else if(isFlash)
@@ -102,9 +102,18 @@ public abstract class CombinationCounter {
 						twoPair.add(allCards.get(allCards.size()-1));
 						return new Combination(CombinationType.TwoPairs,twoPair);
 					}else if(i!=j && pairs.get(j).size()==3){
-						return new Combination(CombinationType.FullHouse,null);
+						ArrayList<Card> fullHouse = new ArrayList<Card>();
+						fullHouse.addAll(pairs.get(i));
+						fullHouse.addAll(pairs.get(j));
+						return new Combination(CombinationType.FullHouse,fullHouse);
 					}else if(i!=j && pairs.get(j).size()==4){
-						return new Combination( CombinationType.Quads,null);
+						ArrayList<Card> quad = new ArrayList<Card>();
+						for(int ii=0;ii<pairs.get(j).size();ii++){
+							allCards.remove(pairs.get(j).get(ii));							
+						}
+						quad.addAll(pairs.get(j));
+						quad.add(allCards.get(allCards.size()-1));
+						return new Combination( CombinationType.Quads,quad);
 					}
 				}
 				return new Combination(CombinationType.Pair,null);
@@ -120,7 +129,14 @@ public abstract class CombinationCounter {
 					return new Combination(CombinationType.Straight,toStraight);				
 				return new Combination(CombinationType.ThreeOfKind,null);
 			case 4:
-				return new Combination(CombinationType.Quads,null);
+				ArrayList<Card> quad = new ArrayList<Card>();
+				for(int ii=0;ii<pairs.get(i).size();ii++){
+					allCards.remove(pairs.get(i).get(ii));							
+				}
+				quad.addAll(pairs.get(i));
+				quad.add(allCards.get(allCards.size()-1));
+				return new Combination( CombinationType.Quads,quad);
+				
 			}
 		}
 		return new Combination(CombinationType.HighCard,null);
