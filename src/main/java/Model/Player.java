@@ -1,4 +1,4 @@
-package Model;
+package main.java.Model;
 
 public class Player extends CombinationCounter {
 
@@ -73,7 +73,7 @@ public class Player extends CombinationCounter {
                 balance = 0;
             } else {
                 bet.raise(amount);
-                balance -= amount;
+                   balance -= amount;
             }
         }
     }

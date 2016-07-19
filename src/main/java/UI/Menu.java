@@ -1,7 +1,7 @@
-package UI;
-import Model.TableSettings;
-import Model.Enumerations.RaisingPolicy;
-import Utility.ConsoleHelper;
+package main.java.UI;
+import main.java.Model.TableSettings;
+import main.java.Model.Enumerations.RaisingPolicy;
+import main.java.Utility.ConsoleHelper;
 
 public class Menu {
 	public static TableSettings settingsDialog() {

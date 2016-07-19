@@ -1,4 +1,4 @@
-package Model;
+package main.java.Model;
 
 public class Croupier {
     //Fields
@@ -9,7 +9,6 @@ public class Croupier {
     //Constructor
     public Croupier(Table table) {
         this.table = table;
-        setInitialBlinds();
     }
 
     //setting up blinds as game starts
@@ -43,7 +42,6 @@ public class Croupier {
                 smallBlind = 1;
             }
         }
-
         assignBlinds();
     }
 
@@ -98,5 +96,4 @@ public class Croupier {
         }
         table.setPot(0);
     }
-
 }

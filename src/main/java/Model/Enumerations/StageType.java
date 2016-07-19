@@ -1,4 +1,4 @@
-package Model.Enumerations;
+package main.java.Model.Enumerations;
 
 public enum StageType {
 	PreFlop		(0),

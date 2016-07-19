@@ -1,8 +1,8 @@
-import Model.Table;
-import Model.TableSettings;
-import Model.Enumerations.RaisingPolicy;
-import UI.Menu;
-import Utility.ConsoleHelper;
+package main.java;
+
+import main.java.Model.Table;
+import main.java.UI.Menu;
+import main.java.Utility.ConsoleHelper;
 
 public class TexasHoldemGame {
 	public void run()

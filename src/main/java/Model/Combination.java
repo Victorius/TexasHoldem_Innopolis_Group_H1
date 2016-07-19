@@ -1,8 +1,8 @@
-package Model;
+package main.java.Model;
 
 import java.util.ArrayList;
 
-import Model.Enumerations.CombinationType;
+import main.java.Model.Enumerations.CombinationType;
 
 public class Combination {
 	private CombinationType combinationType;
