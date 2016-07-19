@@ -1,6 +1,8 @@
 package main.java.Model;
 
-public class Player extends CombinationCounter {
+import main.java.Interfaces.IPlayer;
+
+public class Player extends CombinationCounter implements IPlayer {
 
     //Fields
     private int balance;
@@ -93,19 +95,6 @@ public class Player extends CombinationCounter {
         balance += amount;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name);
-        sb.append(" " + balance);
-        if (isSmallBlind)
-            sb.append(" S ");
-        if (isBigBlind)
-            sb.append(" B ");
-
-        return sb.toString();
-    }
-    
 	public Card[] getHand() {
 		return (Card[]) cards.toArray();
 	}
