@@ -1,4 +1,4 @@
-package Tests.java;
+package tests.java;
 
 import main.java.Model.Croupier;
 import main.java.Model.Enumerations.RaisingPolicy;
