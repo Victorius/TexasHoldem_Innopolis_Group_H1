@@ -1,5 +1,7 @@
 package main.java.Model;
 
+import java.util.ArrayList;
+
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -99,9 +101,12 @@ public class Croupier {
         table.setPot(0);
     }
     
-    
-
-	public void StartGame() {
+    public void StartGame() {
+    	ArrayList<Card> deck = Deck.getNewRandomDeck();
+		//drawing table info
 		UiHelper.updateTableInfo(table);
+		//settings blinds
+		setInitialBlinds();
+		//
 	}
 }
