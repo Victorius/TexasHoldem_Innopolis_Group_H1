@@ -107,6 +107,29 @@ public class Croupier {
 		UiHelper.updateTableInfo(table);
 		//settings blinds
 		setInitialBlinds();
-		//
+		//draw 2 cards each player
+		for(Player p : table.getPlayers()){
+			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
+		}
+		//bet circle
+		RaisingIteration();
+		//preflop this table 
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
+		//one more iteration
+		RaisingIteration();
+		//flop
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+		//one more iteration
+		RaisingIteration();
+		//shit its too late now to remember last phase of the game
+		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+		//last one
+		RaisingIteration();
+		
+	}
+
+	private void RaisingIteration() {
+		// TODO Auto-generated method stub
+		
 	}
 }

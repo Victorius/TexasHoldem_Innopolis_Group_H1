@@ -38,8 +38,8 @@ public class Table {
     }
 
     //Setters
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
     }
     public List<Bet> getBets() {
         return bets;
