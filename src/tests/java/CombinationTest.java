@@ -1,5 +1,6 @@
 package tests.java;
 
+import main.java.Model.AiPlayer;
 import main.java.Model.Card;
 import main.java.Model.Enumerations.CardType;
 import main.java.Model.Enumerations.CardValue;
@@ -23,8 +24,8 @@ public class CombinationTest {
 
     @Before
     public void setUp(){
-        player = new Player("Rak", 100);
-        table = new Table(null);
+    	table = new Table(null);
+        player = new AiPlayer(table);
     }
 
     @Test

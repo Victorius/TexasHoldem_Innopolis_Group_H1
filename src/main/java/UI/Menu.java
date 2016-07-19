@@ -55,13 +55,13 @@ public class Menu {
 					System.out.println("Enter positive starting money amount...");
 				}
 			}
-			ConsoleHelper.getInstance().clearConsole();
+			System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
 			System.out.printf("You choosed\nPlayers:%d\nSmallBlind:%d\nStartingMoney:%d\nIs that correct?(y/n)", playersCount,smallBlind,startingMoney);
 			if(ConsoleHelper.getInstance().readYes())
 			{
 				return new TableSettings(playersCount,startingMoney,smallBlind,RaisingPolicy.NoLimits);
 			}
-			ConsoleHelper.getInstance().clearConsole();
+			System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
 		}
 	}
 	
