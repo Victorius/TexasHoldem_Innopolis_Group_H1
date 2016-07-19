@@ -10,6 +10,7 @@ public abstract class CombinationCounter {
 	protected List<Card> cards = new ArrayList<Card>();
 	protected Table aTable;
 	protected CombinationType combination;
+	private final static int SIZE_OF_COMBINATION = 5;
 	
 	public Combination getCombination(){
 		List<Card> allCards = new ArrayList<Card>();
@@ -24,7 +25,6 @@ public abstract class CombinationCounter {
 		int sp=0;
 		int pointerOfStraight = 0;
 		boolean isFlash =false;
-		int[] typesForFlash = new int[4];
 		//we calculate flash. 
 		//if one the three cards has a equal CardType 4 another card 
 		for(int i=0;i<3;i++){
@@ -42,22 +42,7 @@ public abstract class CombinationCounter {
 			}
 				
 		}
-//		for(int i=0;i<allCards.size();i++){
-//			if(allCards.get(i).getType().equals(CardType.Clubs)){
-//				typesForFlash[0]++;
-//			}else if(allCards.get(i).getType().equals(CardType.Diamonds)){
-//				typesForFlash[1]++;
-//			}
-//			if(allCards.get(i).getType().equals(CardType.Hearts)){
-//				typesForFlash[2]++;
-//			}
-//			if(allCards.get(i).getType().equals(CardType.Spades)){
-//				typesForFlash[3]++;
-//			}
-//		}
-//		for(int i=0;i<typesForFlash.length;i++)
-//			if(typesForFlash[i]==5)
-//				isFlash=true;
+
 		int count2straight=0;
 		for(int i=allCards.size()-1;i>allCards.size()-3;i--){
 			count2straight=i;
@@ -68,23 +53,21 @@ public abstract class CombinationCounter {
 			if(pointerOfStraight>=5)
 				break;
 		}		
+		//We define which of the cards take a part in the straight flash
 		if(pointerOfStraight>=5){
 			toStraight.add(0,allCards.get(count2straight));			
 			boolean straightFlash=true;
 			for(int j=1;j>=0;j--){
 				for(int i=j;i<j+5;i++)
-//					if(){
 					straightFlash&=toStraight.get(i).getType().equals(toStraight.get(i+1).getType());
-//					}
 				if(straightFlash){
-					toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5-j-1, toStraight.size()-j-1);
+					toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-SIZE_OF_COMBINATION-j-1, toStraight.size()-j-1);
 					return new Combination(CombinationType.StraightFlash,toStraight);
 				}
 			}
 				
 			
 			toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5, toStraight.size());
-//			return new Combination(CombinationType.Straight,toStraight);
 		}
 		
 		do{
@@ -94,55 +77,93 @@ public abstract class CombinationCounter {
 				count++;
 				cards.add(allCards.get(sp+count));
 			}
-//			while(pointerOfStraight<=5
-//					&& 
-//					(sp+pointerOfStraight+1)<allCards.size()
-//					&&
-//					allCards.get(sp+pointerOfStraight).getValue().getValue() == allCards.get(sp+pointerOfStraight+1).getValue().getValue()+1){
-//				pointerOfStraight++;
-//			}
-			
 			if(count>0){
 				cards.add(0,allCards.get(sp));
 				pairs.add(cards);
 			}
 			sp+=count+1;
 		}while(sp<allCards.size());
-//		if(pointerOfStraight==5 && isFlash)
-//			return CombinationType.StraightFlash;
 		for(int i=0;i<pairs.size();i++){
 			switch(pairs.get(i).size()){
 			case 2:
 				for(int j=0;j<pairs.size();j++){
-					if(i!=j && pairs.get(j).size()==2){						
+					if(i!=j && pairs.get(j).size()==2){
 						if(pointerOfStraight>=5)
 							return new Combination(CombinationType.Straight,toStraight);
 						else if(isFlash)
 							return new Combination(CombinationType.Flash,toFlash);
-						return new Combination(CombinationType.TwoPairs,null);
+						for(int ii=0;ii<2;ii++){
+							allCards.remove(pairs.get(j).get(ii));
+							allCards.remove(pairs.get(i).get(ii));
+						}
+						ArrayList<Card> twoPair = new ArrayList<Card>();
+						twoPair.addAll(pairs.get(i));
+						twoPair.addAll(pairs.get(j));
+						twoPair.add(allCards.get(allCards.size()-1));
+						return new Combination(CombinationType.TwoPairs,twoPair);
 					}else if(i!=j && pairs.get(j).size()==3){
-						return new Combination(CombinationType.FullHouse,null);
+						ArrayList<Card> fullHouse = new ArrayList<Card>();
+						fullHouse.addAll(pairs.get(i));
+						fullHouse.addAll(pairs.get(j));
+						return new Combination(CombinationType.FullHouse,fullHouse);
 					}else if(i!=j && pairs.get(j).size()==4){
-						return new Combination( CombinationType.Quads,null);
+						ArrayList<Card> quad = new ArrayList<Card>();
+						for(int ii=0;ii<pairs.get(j).size();ii++){
+							allCards.remove(pairs.get(j).get(ii));							
+						}
+						quad.addAll(pairs.get(j));
+						quad.add(allCards.get(allCards.size()-1));
+						return new Combination( CombinationType.Quads,quad);
 					}
 				}
-				return new Combination(CombinationType.Pair,null);
+				for(int countCard=0;countCard<pairs.get(i).size();countCard++)
+					allCards.remove(pairs.get(i).get(countCard));
+				ArrayList<Card> pair = new ArrayList<Card>();
+				pair.addAll(pairs.get(i));
+				for(int countCard = allCards.size()-1;pair.size()<5;countCard--)
+					pair.add(allCards.get(countCard));
+				return new Combination(CombinationType.Pair,pair);
 			case 3:
 				for(int j=0;j<pairs.size();j++){
 					if(i!=j && pairs.get(j).size()==2){						
-						return new Combination(CombinationType.FullHouse,null);
+						ArrayList<Card> fullHouse = new ArrayList<Card>();
+						fullHouse.addAll(pairs.get(i));
+						fullHouse.addAll(pairs.get(j));
+						return new Combination(CombinationType.FullHouse,fullHouse);
 					}else if(i!=j && pairs.get(j).size()==4){
-						return new Combination(CombinationType.Quads, null);
+						ArrayList<Card> quad = new ArrayList<Card>();
+						for(int ii=0;ii<pairs.get(j).size();ii++){
+							allCards.remove(pairs.get(j).get(ii));							
+						}
+						quad.addAll(pairs.get(j));
+						quad.add(allCards.get(allCards.size()-1));
+						return new Combination( CombinationType.Quads,quad);
 					}
 				}
-				if(pointerOfStraight>=5)
-					return new Combination(CombinationType.Straight,toStraight);				
-				return new Combination(CombinationType.ThreeOfKind,null);
+				if(pointerOfStraight>=SIZE_OF_COMBINATION)
+					return new Combination(CombinationType.Straight,toStraight);
+				for(int countCard=0;countCard<pairs.get(i).size();countCard++)
+					allCards.remove(pairs.get(i).get(countCard));
+				pair = new ArrayList<Card>();
+				pair.addAll(pairs.get(i));
+				for(int countCard = allCards.size()-1;pair.size()<SIZE_OF_COMBINATION;countCard--)
+					pair.add(allCards.get(countCard));
+				return new Combination(CombinationType.ThreeOfKind,pair);
 			case 4:
-				return new Combination(CombinationType.Quads,null);
+				ArrayList<Card> quad = new ArrayList<Card>();
+				for(int ii=0;ii<pairs.get(i).size();ii++){
+					allCards.remove(pairs.get(i).get(ii));							
+				}
+				quad.addAll(pairs.get(i));
+				quad.add(allCards.get(allCards.size()-1));
+				return new Combination( CombinationType.Quads,quad);
+				
 			}
 		}
-		return new Combination(CombinationType.HighCard,null);
+		ArrayList<Card> resultWithHighCard = new ArrayList<Card>();
+		for(int i=allCards.size()-1;resultWithHighCard.size()<SIZE_OF_COMBINATION;i--)
+				resultWithHighCard.add(allCards.get(i));
+		return new Combination(CombinationType.HighCard,resultWithHighCard);
 	}
 	private ArrayList<Card> findTheSameCard(Card card,List<Card> source){
 		ArrayList<Card> result = new ArrayList<Card>();
