@@ -34,7 +34,7 @@ public abstract class CombinationCounter {
 				if(i!=j && allCards.get(i).getType().equals(allCards.get(j).getType())){
 					isFlash&=true;
 					toFlash.add(allCards.get(j));
-				}else if(i!=j && !allCards.get(i).getType().equals(allCards.get(j).getType()))
+				}else if(i!=j && !allCards.get(i).getType().equals(allCards.get(j).getType()) && allCards.get(i).getValue()!=allCards.get(j).getValue())
 					isFlash=false;
 			}
 			if(isFlash){
@@ -43,7 +43,7 @@ public abstract class CombinationCounter {
 			}
 				
 		}
-
+		
 		int count2straight=0;
 		for(int i=allCards.size()-1;i>allCards.size()-3;i--){
 			count2straight=i;
@@ -66,8 +66,6 @@ public abstract class CombinationCounter {
 					return new Combination(CombinationType.StraightFlash,toStraight);
 				}
 			}
-				
-			
 			toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5, toStraight.size());
 		}
 		

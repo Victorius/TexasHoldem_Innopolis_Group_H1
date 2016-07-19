@@ -14,19 +14,20 @@ public class test4test {
 		ArrayList<Card> tableCard = new ArrayList<Card>();
 		ArrayList<Card> card = new ArrayList<Card>();
 		card.add(new Card(CardType.Clubs, CardValue.Seven));
-		card.add(new Card(CardType.Diamonds, CardValue.Five));
-		tableCard.add(new Card(CardType.Diamonds, CardValue.Two));
-		tableCard.add(new Card(CardType.Hearts, CardValue.Jack));
-		tableCard.add(new Card(CardType.Clubs, CardValue.Jack));
-		tableCard.add(new Card(CardType.Spades, CardValue.Two));
-		tableCard.add(new Card(CardType.Hearts, CardValue.Ace));
+		card.add(new Card(CardType.Hearts, CardValue.Five));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Four));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Seven));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Six));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Eight));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 		Table table = new Table(null);
 		table.setCards(tableCard);
 		pla.setTable(table);
 		pla.setCards(card);
 		Combination twopair = pla.getCombination();
+		System.out.println(twopair.getType());
 		for(Card i:twopair.getCards())
-		System.out.println(i.getType()+" "+i.getValue());
+			System.out.println(i.getType()+" "+i.getValue());
 
 	}
 
