@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import Model.Card;
+import Model.Combination;
 import Model.Player;
 import Model.Table;
 import Model.Enumerations.CardType;
@@ -18,12 +19,14 @@ public class test4test {
 		tableCard.add(new Card(CardType.Hearts, CardValue.Jack));
 		tableCard.add(new Card(CardType.Clubs, CardValue.Jack));
 		tableCard.add(new Card(CardType.Spades, CardValue.Two));
-		tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
+		tableCard.add(new Card(CardType.Hearts, CardValue.Ace));
 		Table table = new Table(null);
 		table.setCards(tableCard);
 		pla.setTable(table);
-		pla.setCards(card);		
-		System.out.println(pla.getCombination().getType());
+		pla.setCards(card);
+		Combination twopair = pla.getCombination();
+		for(Card i:twopair.getCards())
+		System.out.println(i.getType()+" "+i.getValue());
 
 	}
 

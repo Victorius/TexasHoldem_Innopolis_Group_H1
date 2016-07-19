@@ -25,7 +25,7 @@ public abstract class CombinationCounter {
 		int sp=0;
 		int pointerOfStraight = 0;
 		boolean isFlash =false;
-		int[] typesForFlash = new int[4];
+//		int[] typesForFlash = new int[4];
 		//we calculate flash. 
 		//if one the three cards has a equal CardType 4 another card 
 		for(int i=0;i<3;i++){
@@ -43,22 +43,7 @@ public abstract class CombinationCounter {
 			}
 				
 		}
-//		for(int i=0;i<allCards.size();i++){
-//			if(allCards.get(i).getType().equals(CardType.Clubs)){
-//				typesForFlash[0]++;
-//			}else if(allCards.get(i).getType().equals(CardType.Diamonds)){
-//				typesForFlash[1]++;
-//			}
-//			if(allCards.get(i).getType().equals(CardType.Hearts)){
-//				typesForFlash[2]++;
-//			}
-//			if(allCards.get(i).getType().equals(CardType.Spades)){
-//				typesForFlash[3]++;
-//			}
-//		}
-//		for(int i=0;i<typesForFlash.length;i++)
-//			if(typesForFlash[i]==5)
-//				isFlash=true;
+
 		int count2straight=0;
 		for(int i=allCards.size()-1;i>allCards.size()-3;i--){
 			count2straight=i;
@@ -74,9 +59,7 @@ public abstract class CombinationCounter {
 			boolean straightFlash=true;
 			for(int j=1;j>=0;j--){
 				for(int i=j;i<j+5;i++)
-//					if(){
 					straightFlash&=toStraight.get(i).getType().equals(toStraight.get(i+1).getType());
-//					}
 				if(straightFlash){
 					toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5-j-1, toStraight.size()-j-1);
 					return new Combination(CombinationType.StraightFlash,toStraight);
@@ -85,7 +68,6 @@ public abstract class CombinationCounter {
 				
 			
 			toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5, toStraight.size());
-//			return new Combination(CombinationType.Straight,toStraight);
 		}
 		
 		do{
@@ -95,22 +77,12 @@ public abstract class CombinationCounter {
 				count++;
 				cards.add(allCards.get(sp+count));
 			}
-//			while(pointerOfStraight<=5
-//					&& 
-//					(sp+pointerOfStraight+1)<allCards.size()
-//					&&
-//					allCards.get(sp+pointerOfStraight).getValue().getValue() == allCards.get(sp+pointerOfStraight+1).getValue().getValue()+1){
-//				pointerOfStraight++;
-//			}
-			
 			if(count>0){
 				cards.add(0,allCards.get(sp));
 				pairs.add(cards);
 			}
 			sp+=count+1;
 		}while(sp<allCards.size());
-//		if(pointerOfStraight==5 && isFlash)
-//			return CombinationType.StraightFlash;
 		for(int i=0;i<pairs.size();i++){
 			switch(pairs.get(i).size()){
 			case 2:
@@ -120,7 +92,15 @@ public abstract class CombinationCounter {
 							return new Combination(CombinationType.Straight,toStraight);
 						else if(isFlash)
 							return new Combination(CombinationType.Flash,toFlash);
-						return new Combination(CombinationType.TwoPairs,null);
+						for(int ii=0;ii<2;ii++){
+							allCards.remove(pairs.get(j).get(ii));
+							allCards.remove(pairs.get(i).get(ii));
+						}
+						ArrayList<Card> twoPair = new ArrayList<Card>();
+						twoPair.addAll(pairs.get(i));
+						twoPair.addAll(pairs.get(j));
+						twoPair.add(allCards.get(allCards.size()-1));
+						return new Combination(CombinationType.TwoPairs,twoPair);
 					}else if(i!=j && pairs.get(j).size()==3){
 						return new Combination(CombinationType.FullHouse,null);
 					}else if(i!=j && pairs.get(j).size()==4){
