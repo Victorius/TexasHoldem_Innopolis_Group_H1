@@ -2,7 +2,7 @@ package main.java.Model;
 
 import main.java.Interfaces.IPlayer;
 
-public class Player extends CombinationCounter implements IPlayer {
+public abstract class Player extends CombinationCounter implements IPlayer {
 
     //Fields
     private int balance;
