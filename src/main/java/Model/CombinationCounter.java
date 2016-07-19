@@ -35,7 +35,7 @@ public abstract class CombinationCounter {
 					isFlash=false;
 			}
 			if(isFlash){
-				toFlash.add(i, allCards.get(i));
+				toFlash.add(i, allCards.get(i)); //FIXME VV java.lang.IndexOutOfBoundsException:
 				break;
 			}
 				

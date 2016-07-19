@@ -9,8 +9,8 @@ public class Table {
     //Fields
     private LinkedList<Player> players = new LinkedList<Player>();
     private TableSettings settings;
-    private List<Card> cards;
-    private List<Bet> bets;
+    private List<Card> cards = new ArrayList<Card>();
+    private List<Bet> bets = new ArrayList<Bet>();
     private int pot;
 
     //Constructor
@@ -77,10 +77,10 @@ public class Table {
 	}
 	
 	public void init(){
-		players.add(new HumanPlayer("Player", settings.getStartingMoney()));
+		players.add(new HumanPlayer("Player",this));
 		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
 		{
-			players.add(new AiPlayer(settings.getStartingMoney()));
+			players.add(new AiPlayer(this));
 		}
 	}
 
