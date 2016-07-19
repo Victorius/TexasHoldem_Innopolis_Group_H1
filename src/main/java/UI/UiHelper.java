@@ -35,7 +35,7 @@ public class UiHelper {
 		System.out.printf(format,args);
 	}
 	
-	private static String cardsToString(Card[] cards){
+	private static String cardsToString(List<Card> cards){
 		StringBuilder sb = new StringBuilder();
 		
 		for(Card c : cards){
@@ -44,8 +44,5 @@ public class UiHelper {
 		
 		return sb.toString();
 	}
-	
-	private static String cardsToString(List<Card> cards){
-		return cardsToString((Card[]) cards.toArray());
-	}
+
 }

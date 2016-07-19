@@ -1,5 +1,7 @@
 package main.java.Model;
 
+import java.util.List;
+
 import main.java.Interfaces.IPlayer;
 
 public abstract class Player extends CombinationCounter implements IPlayer {
@@ -95,8 +97,8 @@ public abstract class Player extends CombinationCounter implements IPlayer {
         balance += amount;
     }
 
-	public Card[] getHand() {
-		return (Card[]) cards.toArray();
+	public List<Card> getHand() {
+		return cards;
 	}
 
 	public Object getLastAction() {
