@@ -45,7 +45,7 @@ public class Menu {
 			while(true)
 			{
 				int value = ConsoleHelper.getInstance().readInt();
-				if(value > 0)
+				if(value > smallBlind * 2)
 				{
 					startingMoney = value;
 					break;

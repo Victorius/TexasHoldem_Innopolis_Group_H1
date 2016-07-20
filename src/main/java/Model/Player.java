@@ -3,15 +3,18 @@ package main.java.Model;
 import java.util.List;
 
 import main.java.Interfaces.IPlayer;
+import main.java.Model.Enumerations.ActionType;
 
 public abstract class Player extends CombinationCounter implements IPlayer {
 
     //Fields
-    private int balance;
-    private String name;
-    private boolean isBigBlind;
-    private boolean isSmallBlind;
-    private Bet bet;
+
+    protected int balance;
+    protected String name;
+    protected boolean isBigBlind;
+    protected boolean isSmallBlind;
+    protected PlayerAction lastAction = new PlayerAction(ActionType.None);
+    protected Bet lastBet;
 
     //Constructor
     public Player(String name, Table table) {
@@ -29,9 +32,6 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     public void setName(String name) {
         this.name = name;
     }
-    public void setBet(Bet bet) {
-        this.bet = bet;
-    }
     public void setSmallBlind(boolean smallBlind) {
         this.isSmallBlind = smallBlind;
     }
@@ -39,11 +39,6 @@ public abstract class Player extends CombinationCounter implements IPlayer {
         this.isBigBlind = bigBlind;
     }
 
-
-    //Getters
-    public Bet getBet() {
-        return bet;
-    }
     public int getBalance() {
         return balance;
     }
@@ -58,36 +53,6 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     }
 
 
-    //to place bet
-    public void makeBet(int amount) {
-        if (amount > balance) {
-            bet = new Bet(0, this, balance); // all in
-            balance = 0;
-        } else {
-
-            balance -= amount;
-            bet = new Bet(0, this, amount);
-        }
-    }
-
-    //raise existing bet
-    public void raiseBet(int amount) {
-        if (bet != null) {
-            if (amount > balance) {
-                bet.raise(balance); // all in
-                balance = 0;
-            } else {
-                bet.raise(amount);
-                   balance -= amount;
-            }
-        }
-    }
-
-    //clear placed bet
-    public void clearBet() {
-        bet = null;
-    }
-
     public void clearBlinds() {
         isSmallBlind = false;
         isBigBlind = false;
@@ -101,9 +66,17 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public List<Card> getHand() {
 		return cards;
 	}
-
-	public Object getLastAction() {
-		return bet;
+	
+	public PlayerAction getLastAction() {
+		return lastAction;
+	}
+	
+	public void setLastBet(Bet b){
+		lastBet =b ;
+	}
+	
+	public Bet getLastBet(){
+		return lastBet;
 	}
 
 }

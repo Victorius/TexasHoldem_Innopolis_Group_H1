@@ -36,4 +36,15 @@ public class Card implements Comparable<Card>
 		}
 		return 0;
 	}
+	
+	public int equals(Card o) {
+		if(o instanceof Card){
+			return this.value.compareTo(o.value);			
+		}
+		return 0;
+	}
+	public String toString(){
+		String result = this.value+" of "+this.type;
+		return result;
+	}
 }

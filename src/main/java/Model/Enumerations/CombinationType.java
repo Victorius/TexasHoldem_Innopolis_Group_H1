@@ -1,6 +1,7 @@
 package main.java.Model.Enumerations;
 
 public enum CombinationType {
+	NoCombination (0),
 	HighCard (100),
 	Pair (500),
 	TwoPairs (1000),
