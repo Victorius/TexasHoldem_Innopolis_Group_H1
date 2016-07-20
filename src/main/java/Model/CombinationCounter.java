@@ -91,7 +91,7 @@ public abstract class CombinationCounter {
 					allCards.remove(pairs.get(i).get(countCard));
 				ArrayList<Card> pair = new ArrayList<Card>();
 				pair.addAll(pairs.get(i));
-				for(int countCard = allCards.size()-1;pair.size()<5;countCard--)
+				for(int countCard = allCards.size()-1;pair.size()<this.SIZE_OF_COMBINATION&&countCard>=0;countCard--)
 					pair.add(allCards.get(countCard));
 				return new Combination(CombinationType.Pair,pair);
 			case 3:
@@ -120,7 +120,7 @@ public abstract class CombinationCounter {
 					allCards.remove(pairs.get(i).get(countCard));
 				pair = new ArrayList<Card>();
 				pair.addAll(pairs.get(i));
-				for(int countCard = allCards.size()-1;pair.size()<SIZE_OF_COMBINATION;countCard--)
+				for(int countCard = allCards.size()-1;pair.size()<SIZE_OF_COMBINATION&&countCard>=0;countCard--)
 					pair.add(allCards.get(countCard));
 				return new Combination(CombinationType.ThreeOfKind,pair);
 			case 4:
