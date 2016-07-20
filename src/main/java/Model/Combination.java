@@ -66,4 +66,9 @@ public class Combination implements Comparable<Combination>{
 		this.combinationType=e;
 		return this;
 	}
+	
+	@Override
+	public String toString(){
+		return this.combinationType.toString();
+	}
 }
