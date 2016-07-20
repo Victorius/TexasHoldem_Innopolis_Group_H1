@@ -21,7 +21,6 @@ public class Croupier {
             smallBlind = 0;
             bigBlind = 1;
         }
-        assignBlinds();
     }
 
     //move blinds clockwise
@@ -44,36 +43,6 @@ public class Croupier {
             } else {
                 bigBlind = 0;
                 smallBlind = 1;
-            }
-        }
-        assignBlinds();
-    }
-
-    //assigning blinds to players
-    private void assignBlinds() {
-        for (int i = 0; i < table.getPlayers().size(); i++) {
-        	table.getPlayers().get(i).clearBlinds();
-        }
-        
-        Player bigBlindPlayer = table.getPlayers().get(bigBlind);
-        Player smallBlindPlayer = table.getPlayers().get(smallBlind);
-
-        smallBlindPlayer.setSmallBlind(true);
-        smallBlindPlayer.makeBet(table.getSettings().getBlindAmount());
-
-        bigBlindPlayer.setBigBlind(true);
-        bigBlindPlayer.makeBet(table.getSettings().getBlindAmount() * 2);
-    }
-
-    //collecting all bets from players - to the table
-    public void collectBetsFromPlayers() {
-        int pot = 0;
-        for (Player player : table.getPlayers()) {
-            if (player.getBet() != null) {
-                pot += player.getBet().getAmount();
-                table.addBetToList(player.getBet());
-                player.clearBet();
-                table.setPot(pot);
             }
         }
     }
