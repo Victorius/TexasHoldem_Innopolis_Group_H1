@@ -1,6 +1,7 @@
 package main.java.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import main.java.UI.UiHelper;
 
@@ -17,10 +18,10 @@ public class Croupier {
 
     //setting up blinds as game starts
     public void setInitialBlinds() {
-        if (table.getPlayers().size() >= 3) {
-            smallBlind = 0;
-            bigBlind = 1;
-        }
+    	table.getPlayers().get(smallBlind).setSmallBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(smallBlind), table.getSettings().getBlindAmount()));
+    	table.getPlayers().get(bigBlind).setBigBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(bigBlind), table.getSettings().getBlindAmount() * 2));
     }
 
     //move blinds clockwise
@@ -51,23 +52,18 @@ public class Croupier {
     public void payPotToPlayer(Player player) {
         for (Player pickedPlayer : table.getPlayers()) {
             if (pickedPlayer == player) {
-                pickedPlayer.addToBalance(table.getPot());
+                pickedPlayer.addToBalance(table.getBetsAmount());
             }
         }
-        table.setPot(0);
+        table.clearBets();
     }
 
     //pay pot 50/50 to 2 players
-    public void separateAndPayPot(Player player1, Player player2) {
-        for (Player pickedPlayer : table.getPlayers()) {
-            if (pickedPlayer == player1) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
-            if (pickedPlayer == player2) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
+    public void separateAndPayPot(List<Player> players) {
+        for (Player pickedPlayer : players) {
+        	pickedPlayer.addToBalance(table.getBetsAmount() / players.size());
         }
-        table.setPot(0);
+        table.clearBets();
     }
     
     public void StartGame() {
