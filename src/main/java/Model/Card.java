@@ -43,4 +43,8 @@ public class Card implements Comparable<Card>
 		}
 		return 0;
 	}
+	public String toString(){
+		String result = this.value+" of "+this.type;
+		return result;
+	}
 }
