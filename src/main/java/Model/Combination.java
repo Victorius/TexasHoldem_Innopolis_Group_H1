@@ -27,19 +27,20 @@ public class Combination implements Comparable<Combination>{
 			switch(combinationType){
 				case NoCombination:
 					return 0;
-				case TwoPairs:
-					sp=null;
-					for(int i=0;i<this.cardInCombination.size()-1;i++){
-						if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
-							sp=this.cardInCombination.get(i);
-									break;
+				case TwoPairs:					
+					for(int k =0;k<2;k++){
+						sp=null;
+						for(int i=0;i<this.cardInCombination.size()-1;i++){
+							if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
+								sp=this.cardInCombination.get(i);
+										break;
+							}
 						}
-					}
-					this.cardInCombination.remove(sp);
-					o.cardInCombination.remove(sp);
+						this.cardInCombination.remove(sp);
+						o.cardInCombination.remove(sp);
+					}						
 				case Quads:
 				case ThreeOfKind:
-				case Pair:
 					sp=null;
 					for(int i=0;i<this.cardInCombination.size()-1;i++){
 						if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
@@ -49,6 +50,18 @@ public class Combination implements Comparable<Combination>{
 					}
 					this.cardInCombination.remove(sp);
 					o.cardInCombination.remove(sp);
+				case Pair:
+					for(int k=0;k<2;k++){
+						sp=null;
+						for(int i=0;i<this.cardInCombination.size()-1;i++){
+							if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
+								sp=this.cardInCombination.get(i);
+										break;
+							}
+						}
+						this.cardInCombination.remove(sp);
+						o.cardInCombination.remove(sp);
+					}
 					Collections.sort(this.cardInCombination);
 					Collections.sort(o.cardInCombination);
 				int min= Math.min(this.cardInCombination.size(), o.cardInCombination.size());
@@ -65,5 +78,14 @@ public class Combination implements Comparable<Combination>{
 	public Combination setCombinationType(CombinationType e){
 		this.combinationType=e;
 		return this;
+	}
+	/**
+	 * Remove cards with same CardValue.
+	 * @param cards - source
+	 * @param a 
+	 */
+	private ArrayList<Card> removeCardsByValue(ArrayList<Card> cards, Card a){
+//		for()
+		return null;
 	}
 }
