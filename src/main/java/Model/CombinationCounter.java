@@ -139,7 +139,7 @@ public abstract class CombinationCounter {
 		if(isStraight)
 			return straight;
 		ArrayList<Card> resultWithHighCard = new ArrayList<Card>();
-		for(int i=allCards.size()-1;resultWithHighCard.size()<SIZE_OF_COMBINATION && i>0;i--)
+		for(int i=allCards.size()-1;resultWithHighCard.size()<SIZE_OF_COMBINATION && i>=0;i--)
 				resultWithHighCard.add(allCards.get(i));
 		return new Combination(CombinationType.HighCard,resultWithHighCard);
 	}
