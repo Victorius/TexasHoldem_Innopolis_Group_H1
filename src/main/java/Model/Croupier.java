@@ -1,5 +1,8 @@
 package main.java.Model;
 
+import java.util.ListIterator;
+
+import main.java.Model.Enumerations.ActionType;
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -7,7 +10,7 @@ public class Croupier {
     private final Table table;
     private int smallBlind = 0;
     private int bigBlind = 1;
-
+    private int currentPlayer = 0;
     //Constructor
     public Croupier(Table table) {
         this.table = table;
@@ -85,7 +88,11 @@ public class Croupier {
         }
         table.setPot(0);
     }
-
+    
+    public void getPlayerAction(Player player){
+    	player.getPlayerAction();	
+    }
+    
     //pay pot 50/50 to 2 players
     public void separateAndPayPot(Player player1, Player player2) {
         for (Player pickedPlayer : table.getPlayers()) {
@@ -99,7 +106,54 @@ public class Croupier {
         table.setPot(0);
     }
     
+    public void getActionsStartingFrom(Player player){
+    	int startingPosition = table.getPlayers().indexOf(player);
+    	int circle = 0;
+    	for(int i = startingPosition; i <= table.getPlayers().size(); i++){
+    		if(i == table.getPlayers().size()){
+    			i = 0;
+    		}
+    		else if(table.getPlayers().indexOf(player) == i){
+    			System.out.println("CIRCLE #" + circle);
+    			circle++;
+    			//some method to call after circle is complete(checking if the next move is raise?)	
+    		}
+    		boolean loopBreak = false;
+    		switch(table.getPlayers().get(i).getPlayerAction().getType()){
+				case Call:
+					System.out.println("CALL!");
+					break;
+				case Check:
+					System.out.println("CHECK!");
+					break;
+				case Fold:
+					System.out.println("FOLD!");
+					removePlayer(table.getPlayers().get(i));
+					if(table.getPlayers().size() == 1){
+						payPotToPlayer(table.getPlayers().get(i));
+						System.out.println("Player " + table.getPlayers().get(i).getName() + " won!");
+						loopBreak = true;
+					}
+					i--;
+					break;
+				case Raise:
+					System.out.println("RAISE!");
+					table.getPlayers().get(i).raiseBet(100); //100 for testing
+					break;
+				default:
+					break;
+    		}
+    		
+    		if(loopBreak){
+    			System.out.println("Game is finished");
+    			break;
+    		}
+    	}
+    }
     
+    public void removePlayer(Player player){
+    	table.getPlayers().remove(player);
+    }
 
 	public void StartGame() {
 		UiHelper.updateTableInfo(table);

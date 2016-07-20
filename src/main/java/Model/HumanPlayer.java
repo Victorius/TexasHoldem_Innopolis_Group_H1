@@ -8,7 +8,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public PlayerAction getPlayerAction() {
-		return null;
+		return action;
 	}
 
 }

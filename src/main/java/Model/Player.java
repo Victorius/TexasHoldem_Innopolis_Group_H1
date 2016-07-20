@@ -12,6 +12,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     private boolean isBigBlind;
     private boolean isSmallBlind;
     private Bet bet;
+    public PlayerAction action;
 
     //Constructor
     public Player(String name, Table table) {
@@ -82,6 +83,10 @@ public abstract class Player extends CombinationCounter implements IPlayer {
             }
         }
     }
+    
+    public void setPlayerAction(PlayerAction action){
+    	this.action = action;
+    }
 
     //clear placed bet
     public void clearBet() {
@@ -102,8 +107,13 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 		return cards;
 	}
 
-	public Object getLastAction() {
-		return bet;
+	public PlayerAction getLastAction() {
+		return action;
+	}
+	
+	@Override
+	public PlayerAction getPlayerAction() {
+		return action;
 	}
 
 }
