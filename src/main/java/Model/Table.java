@@ -11,13 +11,11 @@ public class Table {
     private TableSettings settings;
     private List<Card> cards = new ArrayList<Card>();
     private List<Bet> bets = new ArrayList<Bet>();
-    private int pot;
 
     //Constructor
     public Table(TableSettings settings) {
         this.settings = settings;
         bets = new ArrayList<>();
-        pot = 0;
     }
 
     //Getters
@@ -33,9 +31,6 @@ public class Table {
     public List<Card> getCards() {
         return cards;
     }
-    public int getPot() {
-        return pot;
-    }
 
     //Setters
     public void addCards(List<Card> cards) {
@@ -47,10 +42,6 @@ public class Table {
     public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
-    public void setPot(int pot) {
-        this.pot = pot;
-    }
-
     public void addBetToList(Bet bet) {
         bets.add(bet);
     }
@@ -68,7 +59,7 @@ public class Table {
 		return result;
 	}
 
-	public Object getBetsAmount() {
+	public Integer getBetsAmount() {
 		int sum = 0;
 		for(Bet b : bets){
 			sum += b.getAmount();
@@ -82,6 +73,10 @@ public class Table {
 		{
 			players.add(new AiPlayer(this));
 		}
+	}
+
+	public void clearBets() {
+		bets.clear();
 	}
 
 }

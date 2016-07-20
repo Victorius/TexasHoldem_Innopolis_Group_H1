@@ -88,4 +88,9 @@ public class Combination implements Comparable<Combination>{
 //		for()
 		return null;
 	}
+	
+	@Override
+	public String toString(){
+		return this.combinationType.toString();
+	}
 }

@@ -1,6 +1,7 @@
 package main.java.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import main.java.UI.UiHelper;
 
@@ -17,10 +18,10 @@ public class Croupier {
 
     //setting up blinds as game starts
     public void setInitialBlinds() {
-        if (table.getPlayers().size() >= 3) {
-            smallBlind = 0;
-            bigBlind = 1;
-        }
+    	table.getPlayers().get(smallBlind).setSmallBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(smallBlind), table.getSettings().getBlindAmount()));
+    	table.getPlayers().get(bigBlind).setBigBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(bigBlind), table.getSettings().getBlindAmount() * 2));
     }
 
     //move blinds clockwise
@@ -51,54 +52,67 @@ public class Croupier {
     public void payPotToPlayer(Player player) {
         for (Player pickedPlayer : table.getPlayers()) {
             if (pickedPlayer == player) {
-                pickedPlayer.addToBalance(table.getPot());
+                pickedPlayer.addToBalance(table.getBetsAmount());
             }
         }
-        table.setPot(0);
+        table.clearBets();
     }
 
     //pay pot 50/50 to 2 players
-    public void separateAndPayPot(Player player1, Player player2) {
-        for (Player pickedPlayer : table.getPlayers()) {
-            if (pickedPlayer == player1) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
-            if (pickedPlayer == player2) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
+    public void separateAndPayPot(List<Player> players) {
+        for (Player pickedPlayer : players) {
+        	pickedPlayer.addToBalance(table.getBetsAmount() / players.size());
         }
-        table.setPot(0);
+        table.clearBets();
     }
     
     public void StartGame() {
-    	ArrayList<Card> deck = Deck.getNewRandomDeck();
-		//drawing table info
-		UiHelper.updateTableInfo(table);
-		//settings blinds
-		setInitialBlinds();
-		//draw 2 cards each player
-		for(Player p : table.getPlayers()){
-			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
-		}
-		//bet circle
-		RaisingIteration();
-		//preflop this table 
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
-		//one more iteration
-		RaisingIteration();
-		//flop
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
-		//one more iteration
-		RaisingIteration();
-		//shit its too late now to remember last phase of the game
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
-		//last one
-		RaisingIteration();
-		
+    	boolean gameEnds = false;
+    	while(!gameEnds)
+    	{
+    		ArrayList<Card> deck = Deck.getNewRandomDeck();
+    		//drawing table info
+    		UiHelper.updateTableInfo(table);
+    		//settings blinds
+    		setInitialBlinds();
+    		UiHelper.updateTableInfo(table);
+    		//draw 2 cards each player
+    		for(Player p : table.getPlayers()){
+    			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
+    		}
+    		UiHelper.updateTableInfo(table);
+    		//bet circle
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//preflop this table 
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//flop
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//shit its too late now to remember last phase of the game
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//last one
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//raise method to shouw cards
+    	}
 	}
 
-	private void RaisingIteration() {
-		// TODO Auto-generated method stub
-		
+	private boolean RaisingIteration() {
+		return false;
 	}
 }

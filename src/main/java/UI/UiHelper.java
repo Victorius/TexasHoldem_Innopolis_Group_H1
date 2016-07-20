@@ -34,7 +34,7 @@ public class UiHelper {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Card c : cards){
-			sb.append(String.format("%s %s",c.getValue(),c.getType()));
+			sb.append(c);
 		}
 		
 		return sb.toString();
