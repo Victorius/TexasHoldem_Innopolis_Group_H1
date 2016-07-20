@@ -21,57 +21,13 @@ public abstract class CombinationCounter {
 			return new Combination(CombinationType.NoCombination,new ArrayList<Card>());
 		Collections.sort(allCards);
 		ArrayList<ArrayList<Card>> pairs = new ArrayList<ArrayList<Card>>();
-		ArrayList<Card> toStraight = new ArrayList<Card>();		
-		ArrayList<Card> toFlash = new ArrayList<Card>();
 		int sp=0;
-		int pointerOfStraight = 0;
 		boolean isFlash =false;
 		//we calculate flash. 
 		//if one the three cards has a equal CardType 4 another card 
 		Combination flash = isFlash(allCards);
 		if(flash!=null)
 			isFlash =true;
-//		for(int i=0;i<3;i++){
-//			isFlash = true;
-//			for(int j=0;j<allCards.size();j++){
-//				if(i!=j && allCards.get(i).getType().equals(allCards.get(j).getType())){
-//					isFlash&=true;
-//					toFlash.add(allCards.get(j));
-//				}else if(i!=j && !allCards.get(i).getType().equals(allCards.get(j).getType()) && allCards.get(i).getValue()!=allCards.get(j).getValue())
-//					isFlash=false;
-//			}
-//			if(isFlash){
-//				toFlash.add(i, allCards.get(i)); //FIXME VV java.lang.IndexOutOfBoundsException:
-//				break;
-//			}
-//				
-//		}
-		
-		int count2straight=0;
-		for(int i=allCards.size()-1;i>allCards.size()-3;i--){
-			count2straight=i;
-			while(count2straight>0 && allCards.get(count2straight).getValue().getValue()==allCards.get(count2straight-1).getValue().getValue()-1){
-				pointerOfStraight++;
-				toStraight.add(allCards.get(count2straight--));			
-			}
-			if(pointerOfStraight>=5)
-				break;
-		}		
-		//We define which of the cards take a part in the straight flash
-		if(pointerOfStraight>=5){
-			toStraight.add(0,allCards.get(count2straight));			
-			boolean straightFlash=true;
-			for(int j=1;j>=0;j--){
-				for(int i=j;i<j+5;i++)
-					straightFlash&=toStraight.get(i).getType().equals(toStraight.get(i+1).getType());
-				if(straightFlash){
-					toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-SIZE_OF_COMBINATION-j-1, toStraight.size()-j-1);
-					return new Combination(CombinationType.StraightFlash,toStraight);
-				}
-			}
-			toStraight = (ArrayList<Card>) toStraight.subList(pointerOfStraight-5, toStraight.size());
-		}
-		
 		do{
 			int count=0;
 			ArrayList<Card> cards = new ArrayList<Card>();			
@@ -85,15 +41,24 @@ public abstract class CombinationCounter {
 			}
 			sp+=count+1;
 		}while(sp<allCards.size());
+		Combination straight = isStraight(allCards,pairs);
+		boolean isStraight = false;
+		if(straight!=null){
+			if(straight.getType().equals(CombinationType.StraightFlash))
+				return straight;
+			else 
+				isStraight = true;
+		}
 		for(int i=0;i<pairs.size();i++){
 			switch(pairs.get(i).size()){
 			case 2:
 				for(int j=0;j<pairs.size();j++){
 					if(i!=j && pairs.get(j).size()==2){
-						if(pointerOfStraight>=5)
-							return new Combination(CombinationType.Straight,toStraight);
-						else if(isFlash)
+						if(isFlash)
 							return flash;
+						if(isStraight)
+							return straight;
+							
 						for(int ii=0;ii<2;ii++){
 							allCards.remove(pairs.get(j).get(ii));
 							allCards.remove(pairs.get(i).get(ii));
@@ -118,6 +83,10 @@ public abstract class CombinationCounter {
 						return new Combination( CombinationType.Quads,quad);
 					}
 				}
+				if(isFlash)
+					return flash;
+				if(isStraight)
+					return straight;
 				for(int countCard=0;countCard<pairs.get(i).size();countCard++)
 					allCards.remove(pairs.get(i).get(countCard));
 				ArrayList<Card> pair = new ArrayList<Card>();
@@ -142,8 +111,11 @@ public abstract class CombinationCounter {
 						return new Combination( CombinationType.Quads,quad);
 					}
 				}
-				if(pointerOfStraight>=SIZE_OF_COMBINATION)
-					return new Combination(CombinationType.Straight,toStraight);
+				if(isFlash)
+					return flash;
+				if(isStraight)
+					return straight;
+			
 				for(int countCard=0;countCard<pairs.get(i).size();countCard++)
 					allCards.remove(pairs.get(i).get(countCard));
 				pair = new ArrayList<Card>();
@@ -164,20 +136,14 @@ public abstract class CombinationCounter {
 		}
 		if(isFlash)
 			return flash;
+		if(isStraight)
+			return straight;
 		ArrayList<Card> resultWithHighCard = new ArrayList<Card>();
 		for(int i=allCards.size()-1;resultWithHighCard.size()<SIZE_OF_COMBINATION;i--)
 				resultWithHighCard.add(allCards.get(i));
 		return new Combination(CombinationType.HighCard,resultWithHighCard);
 	}
-	private ArrayList<Card> findTheSameCard(Card card,List<Card> source){
-		ArrayList<Card> result = new ArrayList<Card>();
-		for(Card i: source){
-			if(i.getValue().getValue()==card.getValue().getValue()){
-				result.add(i);
-			}
-		}
-		return result;
-	}
+	
 	public void setCards(ArrayList<Card> hand){
 		this.cards=hand;
 	}
@@ -222,6 +188,62 @@ public abstract class CombinationCounter {
 			Combination result = new Combination(CombinationType.Flash,array2result);
 			return result;
 		}		
+		return null;
+	}
+	
+	private Combination isStraight(List<Card> cards,ArrayList<ArrayList<Card>> pairs){
+		int counter = 0;
+		boolean isFirst = true;
+		boolean flag = false;
+		int pointer2next = 1;
+		ArrayList<Card> straight = new ArrayList<Card>();		
+		for(int i=cards.size()-1;i>0;i--){
+			pointer2next = 1;
+			do{
+				if(cards.get(i).getValue().getValue()==(cards.get(i-pointer2next).getValue().getValue()+1)){
+					if(isFirst){
+						straight.add(cards.get(i));					
+						isFirst = false;
+						counter++;
+					}
+					straight.add(cards.get(i-pointer2next));
+					counter++;
+					pointer2next = 1;
+					flag = false;
+				}else if(i-pointer2next-1<0){
+					flag = false;
+				}else{
+					pointer2next++;
+					flag = true;
+				}
+			}while(flag);
+		}
+		if(counter>=5){
+			if(pairs.size()==0){
+				Combination straightFlash = isFlash(straight);
+				if(straightFlash!=null)
+						return straightFlash.setCombinationType(CombinationType.StraightFlash);
+				return new Combination(CombinationType.Straight,straight);
+			}				
+			else{
+				for(ArrayList<Card> i: pairs){//check pairs
+					for(Card j:i){//
+						for(Card k:straight){//find and check flashstraight with another card in pair
+							if(j.compareTo(k)==0){
+								ArrayList<Card> anotherStraight = (ArrayList<Card>)straight.clone();
+								anotherStraight.remove(k);
+								anotherStraight.add(j);
+								Combination straightFlash = isFlash(anotherStraight);
+								if(straightFlash!=null)
+										return straightFlash.setCombinationType(CombinationType.StraightFlash);
+							}
+						}
+					}
+				}
+				return new Combination(CombinationType.Straight,straight);
+			}
+			
+		}
 		return null;
 	}
 }
