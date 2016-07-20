@@ -1,4 +1,4 @@
-package Tests.java;
+package tests.java;
 
 import main.java.Model.AiPlayer;
 import main.java.Model.Croupier;
