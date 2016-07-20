@@ -79,4 +79,8 @@ public class Table {
 		bets.clear();
 	}
 
+	public void clearCards() {
+		cards.clear();
+	}
+
 }
