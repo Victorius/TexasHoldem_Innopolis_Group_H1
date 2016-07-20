@@ -59,25 +59,4 @@ public class CroupierTest {
         assertEquals(table.getPlayers().get(3).isSmallBlind(), true);
     }
 
-    @Test
-    public void testCollectBetsFromPlayers(){
-        table.getPlayers().get(0).makeBet(700);
-        table.getPlayers().get(1).makeBet(7000);
-        table.getPlayers().get(2).makeBet(70);
-        table.getPlayers().get(3).makeBet(900);
-
-        croupier.collectBetsFromPlayers();
-        assertEquals(table.getPot(), 8670);
-    }
-
-    @Test
-    public void testPayPotToPlayer(){
-        table.getPlayers().get(0).makeBet(1000);
-        table.getPlayers().get(1).makeBet(2000);
-
-        croupier.collectBetsFromPlayers();
-        croupier.payPotToPlayer(table.getPlayers().get(3));
-        assertEquals(table.getPlayers().get(3).getBalance(),13000);
-    }
-
 }
