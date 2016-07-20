@@ -67,34 +67,52 @@ public class Croupier {
     }
     
     public void StartGame() {
-    	ArrayList<Card> deck = Deck.getNewRandomDeck();
-		//drawing table info
-		UiHelper.updateTableInfo(table);
-		//settings blinds
-		setInitialBlinds();
-		//draw 2 cards each player
-		for(Player p : table.getPlayers()){
-			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
-		}
-		//bet circle
-		RaisingIteration();
-		//preflop this table 
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
-		//one more iteration
-		RaisingIteration();
-		//flop
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
-		//one more iteration
-		RaisingIteration();
-		//shit its too late now to remember last phase of the game
-		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
-		//last one
-		RaisingIteration();
-		
+    	boolean gameEnds = false;
+    	while(!gameEnds)
+    	{
+    		ArrayList<Card> deck = Deck.getNewRandomDeck();
+    		//drawing table info
+    		UiHelper.updateTableInfo(table);
+    		//settings blinds
+    		setInitialBlinds();
+    		UiHelper.updateTableInfo(table);
+    		//draw 2 cards each player
+    		for(Player p : table.getPlayers()){
+    			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
+    		}
+    		UiHelper.updateTableInfo(table);
+    		//bet circle
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//preflop this table 
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//flop
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//shit its too late now to remember last phase of the game
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//last one
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//raise method to shouw cards
+    	}
 	}
 
-	private void RaisingIteration() {
-		// TODO Auto-generated method stub
-		
+	private boolean RaisingIteration() {
+		return false;
 	}
 }
