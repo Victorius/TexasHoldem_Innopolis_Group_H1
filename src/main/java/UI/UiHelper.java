@@ -1,6 +1,5 @@
 package main.java.UI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import main.java.Model.Card;
@@ -13,33 +12,29 @@ public class UiHelper {
 		Player player = table.getPlayer();
 		List<Player> computers = table.getAiPlayers();
 		System.out.println("- - - - - - - - - - - - - - - - - - - - - - -");
-		String format = "Player(you): $%d\n"
+		System.out.printf("Player(you): $%d\n"
 				+ "Hand:%s (%s)\n"
 				+ "-\n"
-				+ "Table:%d\n"
-				+ "Small blind:%d ,Blind: %d\n";
-		ArrayList<Object> args = new ArrayList<Object>();
-						args.add(player.getBalance());
-						args.add(cardsToString(player.getHand()));
-						args.add(player.getCombination());
-						args.add(cardsToString(table.getCards()));
-						args.add(table.getBetsAmount());
-						args.add(table.getSettings().getBlindAmount());
-						args.add(table.getSettings().getBlindAmount() * 2);
+				+ "Table:%s ,pot: %d\n"
+				+ "Small blind:%d ,Blind: %d\n",
+				player.getBalance(),
+				cardsToString(player.getHand()),player.getCombination().toString(),
+				cardsToString(table.getCards()),table.getBetsAmount(),
+				table.getSettings().getBlindAmount(),table.getSettings().getBlindAmount() * 2);
 		for(Player ai : computers)
 		{
-			format += "Ai opponent: %d, lastAction: %s\n";
-			args.add(ai.getBalance());
-			args.add(ai.getLastAction());
-		}
-		System.out.printf(format,args);
+			System.out.printf("%s: %d, lastAction: %s\n",ai.getName(), ai.getBalance(),ai.getLastAction().toString());
+		}			
 	}
 	
 	private static String cardsToString(List<Card> cards){
+		if(cards.size() == 0){
+			return "";
+		}
 		StringBuilder sb = new StringBuilder();
 		
 		for(Card c : cards){
-			sb.append(String.format("%s %s",c.getValue(),c.getType()));
+			sb.append(c+" ");
 		}
 		
 		return sb.toString();

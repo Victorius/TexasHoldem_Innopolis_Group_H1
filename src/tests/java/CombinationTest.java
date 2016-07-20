@@ -5,10 +5,16 @@ import main.java.Model.Card;
 import main.java.Model.Enumerations.CardType;
 import main.java.Model.Enumerations.CardValue;
 import main.java.Model.Enumerations.CombinationType;
+import main.java.Model.Enumerations.RaisingPolicy;
 import main.java.Model.Player;
 import main.java.Model.Table;
+import main.java.Model.TableSettings;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import AiStrategies.BasicStrategy;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -24,8 +30,9 @@ public class CombinationTest {
 
     @Before
     public void setUp(){
-    	table = new Table(null);
-        player = new AiPlayer(table);
+    	table = new Table(new TableSettings(2,1000,20,RaisingPolicy.NoLimits));
+        player = new AiPlayer(table,new BasicStrategy());
+        
     }
 
     @Test
@@ -37,7 +44,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Clubs, CardValue.Jack));
         tableCard.add(new Card(CardType.Spades, CardValue.Two));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 
@@ -54,7 +61,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
         assertEquals(player.getCombination().getType(), CombinationType.Pair);
@@ -76,7 +83,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
         assertEquals(player.getCombination().getType(), CombinationType.ThreeOfKind);
@@ -92,7 +99,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 
@@ -109,7 +116,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Clubs, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 
@@ -126,7 +133,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 
@@ -143,7 +150,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 
@@ -160,7 +167,7 @@ public class CombinationTest {
         tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
         tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
 
-        table.setCards(tableCard);
+        table.addCards(tableCard);
         player.setTable(table);
         player.setCards(cards);
 

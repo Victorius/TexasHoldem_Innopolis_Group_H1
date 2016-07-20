@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import AiStrategies.BasicStrategy;
+
 public class Table {
 
     //Fields
@@ -11,13 +13,11 @@ public class Table {
     private TableSettings settings;
     private List<Card> cards = new ArrayList<Card>();
     private List<Bet> bets = new ArrayList<Bet>();
-    private int pot;
 
     //Constructor
     public Table(TableSettings settings) {
         this.settings = settings;
         bets = new ArrayList<>();
-        pot = 0;
     }
 
     //Getters
@@ -33,13 +33,10 @@ public class Table {
     public List<Card> getCards() {
         return cards;
     }
-    public int getPot() {
-        return pot;
-    }
 
     //Setters
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
     }
     public List<Bet> getBets() {
         return bets;
@@ -47,10 +44,6 @@ public class Table {
     public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
-    public void setPot(int pot) {
-        this.pot = pot;
-    }
-
     public void addBetToList(Bet bet) {
         bets.add(bet);
     }
@@ -68,7 +61,7 @@ public class Table {
 		return result;
 	}
 
-	public Object getBetsAmount() {
+	public Integer getBetsAmount() {
 		int sum = 0;
 		for(Bet b : bets){
 			sum += b.getAmount();
@@ -80,8 +73,16 @@ public class Table {
 		players.add(new HumanPlayer("Player",this));
 		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
 		{
-			players.add(new AiPlayer(this));
+			players.add(new AiPlayer(this,new BasicStrategy()));
 		}
+	}
+
+	public void clearBets() {
+		bets.clear();
+	}
+
+	public void clearCards() {
+		cards.clear();
 	}
 
 }

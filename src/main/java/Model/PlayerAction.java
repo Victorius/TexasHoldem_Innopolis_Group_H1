@@ -25,4 +25,9 @@ public class PlayerAction {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
+	@Override
+	public String toString(){
+		return this.type.toString() + (amount == 0 ? "" : amount);
+	}
 }

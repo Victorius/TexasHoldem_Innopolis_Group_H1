@@ -1,8 +1,10 @@
 package main.java.Model;
 
 import java.util.ListIterator;
-
 import main.java.Model.Enumerations.ActionType;
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -18,11 +20,10 @@ public class Croupier {
 
     //setting up blinds as game starts
     public void setInitialBlinds() {
-        if (table.getPlayers().size() >= 3) {
-            smallBlind = 0;
-            bigBlind = 1;
-        }
-        assignBlinds();
+    	table.getPlayers().get(smallBlind).setSmallBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(smallBlind), table.getSettings().getBlindAmount()));
+    	table.getPlayers().get(bigBlind).setBigBlind(true);
+    	table.addBetToList(new Bet(0, table.getPlayers().get(bigBlind), table.getSettings().getBlindAmount() * 2));
     }
 
     //move blinds clockwise
@@ -47,46 +48,16 @@ public class Croupier {
                 smallBlind = 1;
             }
         }
-        assignBlinds();
-    }
-
-    //assigning blinds to players
-    private void assignBlinds() {
-        for (int i = 0; i < table.getPlayers().size(); i++) {
-        	table.getPlayers().get(i).clearBlinds();
-        }
-        
-        Player bigBlindPlayer = table.getPlayers().get(bigBlind);
-        Player smallBlindPlayer = table.getPlayers().get(smallBlind);
-
-        smallBlindPlayer.setSmallBlind(true);
-        smallBlindPlayer.makeBet(table.getSettings().getBlindAmount());
-
-        bigBlindPlayer.setBigBlind(true);
-        bigBlindPlayer.makeBet(table.getSettings().getBlindAmount() * 2);
-    }
-
-    //collecting all bets from players - to the table
-    public void collectBetsFromPlayers() {
-        int pot = 0;
-        for (Player player : table.getPlayers()) {
-            if (player.getBet() != null) {
-                pot += player.getBet().getAmount();
-                table.addBetToList(player.getBet());
-                player.clearBet();
-                table.setPot(pot);
-            }
-        }
     }
 
     //pay pot to one player
     public void payPotToPlayer(Player player) {
         for (Player pickedPlayer : table.getPlayers()) {
             if (pickedPlayer == player) {
-                pickedPlayer.addToBalance(table.getPot());
+                pickedPlayer.addToBalance(table.getBetsAmount());
             }
         }
-        table.setPot(0);
+        table.clearBets();
     }
     
     public void getPlayerAction(Player player){
@@ -94,16 +65,11 @@ public class Croupier {
     }
     
     //pay pot 50/50 to 2 players
-    public void separateAndPayPot(Player player1, Player player2) {
-        for (Player pickedPlayer : table.getPlayers()) {
-            if (pickedPlayer == player1) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
-            if (pickedPlayer == player2) {
-                pickedPlayer.addToBalance(table.getPot() / 2);
-            }
+    public void separateAndPayPot(List<Player> players) {
+        for (Player pickedPlayer : players) {
+        	pickedPlayer.addToBalance(table.getBetsAmount() / players.size());
         }
-        table.setPot(0);
+        table.clearBets();
     }
     
     public void getActionsStartingFrom(Player player){
@@ -120,10 +86,8 @@ public class Croupier {
     		}
     		boolean loopBreak = false;
     		switch(table.getPlayers().get(i).getPlayerAction().getType()){
-				case Call:
-					System.out.println("CALL!");
-					break;
-				case Check:
+
+				case CallCheck:
 					System.out.println("CHECK!");
 					break;
 				case Fold:
@@ -138,7 +102,6 @@ public class Croupier {
 					break;
 				case Raise:
 					System.out.println("RAISE!");
-					table.getPlayers().get(i).raiseBet(100); //100 for testing
 					break;
 				default:
 					break;
@@ -155,7 +118,54 @@ public class Croupier {
     	table.getPlayers().remove(player);
     }
 
-	public void StartGame() {
-		UiHelper.updateTableInfo(table);
+    public void StartGame() {
+    	boolean gameEnds = false;
+    	while(!gameEnds)
+    	{
+    		table.clearCards();
+    		final ArrayList<Card> deck = Deck.getNewRandomDeck();
+    		//drawing table info
+    		UiHelper.updateTableInfo(table);
+    		//settings blinds
+    		setInitialBlinds();
+    		UiHelper.updateTableInfo(table);
+    		//draw 2 cards each player
+    		for(Player p : table.getPlayers()){
+    			p.setCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));}});
+    		}
+    		UiHelper.updateTableInfo(table);
+    		//bet circle
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//preflop this table 
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));add(deck.remove(0));add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//flop
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//one more iteration
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}//shit its too late now to remember last phase of the game
+    		table.addCards(new ArrayList<Card>() {{add(deck.remove(0));}});
+    		UiHelper.updateTableInfo(table);
+    		//last one
+    		if(RaisingIteration()){
+    			//raise methond without showing
+    			continue;
+    		}
+    		//raise method to shouw cards
+    	}
+	}
+
+	private boolean RaisingIteration() {
+		return false;
 	}
 }
