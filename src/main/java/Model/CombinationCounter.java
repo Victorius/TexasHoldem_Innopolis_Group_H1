@@ -162,6 +162,8 @@ public abstract class CombinationCounter {
 				
 			}
 		}
+		if(isFlash)
+			return flash;
 		ArrayList<Card> resultWithHighCard = new ArrayList<Card>();
 		for(int i=allCards.size()-1;resultWithHighCard.size()<SIZE_OF_COMBINATION;i--)
 				resultWithHighCard.add(allCards.get(i));
