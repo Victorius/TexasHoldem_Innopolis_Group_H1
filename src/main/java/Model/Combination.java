@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import main.java.Model.Enumerations.CombinationType;
 
-public class Combination {
+public class Combination implements Comparable<Combination>{
 	private CombinationType combinationType;
 	private ArrayList<Card> cardInCombination;
 	
@@ -18,5 +18,9 @@ public class Combination {
 	
 	public ArrayList<Card> getCards(){
 		return this.cardInCombination;
+	}
+	@Override
+	public int compareTo(Combination o) {
+		return this.combinationType.compareTo(o.combinationType);
 	}
 }
