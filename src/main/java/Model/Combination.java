@@ -23,4 +23,8 @@ public class Combination implements Comparable<Combination>{
 	public int compareTo(Combination o) {
 		return this.combinationType.compareTo(o.combinationType);
 	}
+	public Combination setCombinationType(CombinationType e){
+		this.combinationType=e;
+		return this;
+	}
 }
