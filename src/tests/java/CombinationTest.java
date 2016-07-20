@@ -12,6 +12,9 @@ import main.java.Model.TableSettings;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import AiStrategies.BasicStrategy;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ public class CombinationTest {
     @Before
     public void setUp(){
     	table = new Table(new TableSettings(2,1000,20,RaisingPolicy.NoLimits));
-        player = new AiPlayer(table);
+        player = new AiPlayer(table,new BasicStrategy());
         
     }
 

@@ -8,6 +8,9 @@ import main.java.Model.Table;
 import main.java.Model.TableSettings;
 import org.junit.Before;
 import org.junit.Test;
+
+import AiStrategies.BasicStrategy;
+
 import static org.junit.Assert.*;
 import java.util.LinkedList;
 
@@ -26,10 +29,10 @@ public class CroupierTest {
 
         LinkedList<Player> players = new LinkedList<>();
 
-        players.add(new AiPlayer(table));
-        players.add(new AiPlayer( table));
-        players.add(new AiPlayer( table));
-        players.add(new AiPlayer(table));
+        players.add(new AiPlayer(table,new BasicStrategy()));
+        players.add(new AiPlayer(table,new BasicStrategy()));
+        players.add(new AiPlayer(table,new BasicStrategy()));
+        players.add(new AiPlayer(table,new BasicStrategy()));
 
 
         table.setPlayers(players);

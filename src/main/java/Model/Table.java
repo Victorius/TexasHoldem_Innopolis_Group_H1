@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import AiStrategies.BasicStrategy;
+
 public class Table {
 
     //Fields
@@ -71,7 +73,7 @@ public class Table {
 		players.add(new HumanPlayer("Player",this));
 		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
 		{
-			players.add(new AiPlayer(this));
+			players.add(new AiPlayer(this,new BasicStrategy()));
 		}
 	}
 
