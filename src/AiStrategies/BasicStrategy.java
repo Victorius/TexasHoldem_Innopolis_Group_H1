@@ -61,26 +61,4 @@ public class BasicStrategy extends AiStrategy{
 			return false;
 		}
 	}
-
-	private int getMaxCircle(List<Bet> bets) {
-		int res = 0;
-		for(Bet b : bets){
-			if(b.getCircle() > res)
-			{
-				res = b.getCircle();
-			}
-		}
-		return res;
-	}
-	
-	private Bet getMaxBet(List<Bet> bets,int circle){
-		Bet max = bets.get(0);
-		for(Bet b : bets){
-			if(b.getCircle() == circle && b.getAmount() > max.getAmount()){
-				max = b;
-			}
-		}
-		return max;
-	}
-
 }
