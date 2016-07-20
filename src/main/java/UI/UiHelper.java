@@ -23,7 +23,7 @@ public class UiHelper {
 				table.getSettings().getBlindAmount(),table.getSettings().getBlindAmount() * 2);
 		for(Player ai : computers)
 		{
-			System.out.printf("Ai opponent: %d, lastAction: %s\n", ai.getBalance(),ai.getLastAction().toString());
+			System.out.printf("%s: %d, lastAction: %s\n",ai.getName(), ai.getBalance(),ai.getLastAction().toString());
 		}			
 	}
 	
