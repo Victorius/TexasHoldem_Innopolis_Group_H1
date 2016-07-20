@@ -70,6 +70,7 @@ public class Croupier {
     	boolean gameEnds = false;
     	while(!gameEnds)
     	{
+    		table.clearCards();
     		ArrayList<Card> deck = Deck.getNewRandomDeck();
     		//drawing table info
     		UiHelper.updateTableInfo(table);
