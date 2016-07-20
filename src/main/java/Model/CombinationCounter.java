@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import main.java.Model.Enumerations.CardType;
 import main.java.Model.Enumerations.CombinationType;
 
 public abstract class CombinationCounter {
@@ -16,6 +17,8 @@ public abstract class CombinationCounter {
 		List<Card> allCards = new ArrayList<Card>();
 		allCards.addAll(this.aTable.getCards());
 		allCards.addAll(this.cards);
+		if(allCards.size()==0)
+			return new Combination(CombinationType.NoCombination,new ArrayList<Card>());
 		Collections.sort(allCards);
 		ArrayList<ArrayList<Card>> pairs = new ArrayList<ArrayList<Card>>();
 		ArrayList<Card> toStraight = new ArrayList<Card>();		
@@ -25,21 +28,24 @@ public abstract class CombinationCounter {
 		boolean isFlash =false;
 		//we calculate flash. 
 		//if one the three cards has a equal CardType 4 another card 
-		for(int i=0;i<3;i++){
-			isFlash = true;
-			for(int j=0;j<allCards.size();j++){
-				if(i!=j && allCards.get(i).getType().equals(allCards.get(j).getType())){
-					isFlash&=true;
-					toFlash.add(allCards.get(j));
-				}else if(i!=j && !allCards.get(i).getType().equals(allCards.get(j).getType()) && allCards.get(i).getValue()!=allCards.get(j).getValue())
-					isFlash=false;
-			}
-			if(isFlash){
-				toFlash.add(i, allCards.get(i)); //FIXME VV java.lang.IndexOutOfBoundsException:
-				break;
-			}
-				
-		}
+		Combination flash = isFlash(allCards);
+		if(flash!=null)
+			isFlash =true;
+//		for(int i=0;i<3;i++){
+//			isFlash = true;
+//			for(int j=0;j<allCards.size();j++){
+//				if(i!=j && allCards.get(i).getType().equals(allCards.get(j).getType())){
+//					isFlash&=true;
+//					toFlash.add(allCards.get(j));
+//				}else if(i!=j && !allCards.get(i).getType().equals(allCards.get(j).getType()) && allCards.get(i).getValue()!=allCards.get(j).getValue())
+//					isFlash=false;
+//			}
+//			if(isFlash){
+//				toFlash.add(i, allCards.get(i)); //FIXME VV java.lang.IndexOutOfBoundsException:
+//				break;
+//			}
+//				
+//		}
 		
 		int count2straight=0;
 		for(int i=allCards.size()-1;i>allCards.size()-3;i--){
@@ -87,7 +93,7 @@ public abstract class CombinationCounter {
 						if(pointerOfStraight>=5)
 							return new Combination(CombinationType.Straight,toStraight);
 						else if(isFlash)
-							return new Combination(CombinationType.Flash,toFlash);
+							return flash;
 						for(int ii=0;ii<2;ii++){
 							allCards.remove(pairs.get(j).get(ii));
 							allCards.remove(pairs.get(i).get(ii));
@@ -174,7 +180,46 @@ public abstract class CombinationCounter {
 		this.cards=hand;
 	}
 	public void setTable(Table aTable){
-		this.aTable = aTable;
-		
+		this.aTable = aTable;		
+	}
+	private Combination isFlash(List<Card> allCards){
+		Card[][] typesCard = new Card[4][allCards.size()];
+		for(int i=0;i<allCards.size();i++){
+			if(allCards.get(i).getType().equals(CardType.Clubs)){
+				typesCard[0][i]=allCards.get(i);
+			}else if(allCards.get(i).getType().equals(CardType.Diamonds)){
+				typesCard[1][i]=allCards.get(i);
+			}else if(allCards.get(i).getType().equals(CardType.Hearts)){
+				typesCard[2][i]=allCards.get(i);
+			}else if(allCards.get(i).getType().equals(CardType.Spades)){
+				typesCard[3][i]=allCards.get(i);
+			}
+		}
+		boolean flash = false;
+		int counter =0;
+		for(int i=0;i<typesCard.length;i++){
+			counter =0;
+			for(int j=0;j<typesCard[i].length;j++){
+				if(typesCard[i][j]!=null){
+					counter++;
+				}					
+			}
+			if(counter>=5){
+				flash = true;
+				counter = i;
+				break;
+			}
+		}
+		if(flash){
+			ArrayList<Card> array2result = new ArrayList<Card>();
+			for(int i=0;i<typesCard[counter].length;i++){
+				if(typesCard[counter][i]!=null){
+					array2result.add(typesCard[counter][i]);
+				}
+			}
+			Combination result = new Combination(CombinationType.Flash,array2result);
+			return result;
+		}		
+		return null;
 	}
 }
