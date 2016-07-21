@@ -99,13 +99,12 @@ public class Croupier {
 					player.setIngame(false);
 					currentStill = true;
 					if (isWon()) 
-						return table.getPlayers().get(0);
+						return getWinner();
 					break;
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
 					takeMoney(player, circle, player.getLastAction().getAmount());
-					listIterator = table.getPlayers().listIterator();
 					currentStill = false;
 					circle++;
 					break;
@@ -140,6 +139,15 @@ public class Croupier {
 			player.setLastBet(bet);
 			player.setCircleAllin(circle);
 		}
+	}
+	
+	private Player getWinner(){
+		for(Player player : table.getPlayers()){
+			if(player.isIngame()){
+				return player;
+			}
+		}
+		return null;
 	}
 	
 	private boolean isWon(){
