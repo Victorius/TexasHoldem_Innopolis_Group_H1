@@ -113,7 +113,6 @@ public class Croupier {
 					listIterator = table.getPlayers().listIterator();
 					currentStill = false;
 					circle++;
-					System.out.println(circle);
 					break;
 				default:
 					break;
