@@ -204,7 +204,14 @@ public class Croupier {
 	private void spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
 		int lastCircle = bets.get(bets.size() -1).getCircle();
-		
+		while(lastCircle > -1){
+			List<Bet> thisCircleBets = new ArrayList<Bet>();
+			for(Bet b : bets){
+				if(b.getCircle() == lastCircle){
+					thisCircleBets.add(b);
+				}
+			}
+		}
 	}
 	
 	public List<Player> getTopPlayers(){
