@@ -3,6 +3,8 @@ package main.java.Model;
 import java.util.ListIterator;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -120,6 +122,8 @@ public class Croupier {
 		boolean gameEnds = false;
 		while (!gameEnds) {
 			table.clearCards();
+			table.clearBets();
+			moveBlinds();
 			final ArrayList<Card> deck = Deck.getNewRandomDeck();
 			// drawing table info
 			UiHelper.updateTableInfo(table);
@@ -138,7 +142,7 @@ public class Croupier {
 			UiHelper.updateTableInfo(table);
 			// bet circle
 			if (RaisingIteration()) {
-				// raise methond without showing
+				spreadPotNotShow();
 				continue;
 			}
 			// preflop this table
@@ -151,10 +155,8 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// one more iteration
-			if (
-
-			RaisingIteration()) {
-				// raise methond without showing
+			if (RaisingIteration()) {
+				spreadPotNotShow();
 				continue;
 			} // flop
 			table.addCards(new ArrayList<Card>() {
@@ -176,12 +178,19 @@ public class Croupier {
 			UiHelper.updateTableInfo(table);
 			// last one
 			if (RaisingIteration()) {
-				// raise methond without showing
+				spreadPotNotShow();
 				continue;
 			}
-			// raise method to shouw cards
+			spreadPotNotShow();
 		}
 
+	}
+
+	private void spreadPotNotShow() {
+		int pot = table.getBetsAmount();
+		Player p;
+		p.addToBalance(pot);
+		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
 
 	private boolean RaisingIteration() {
