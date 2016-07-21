@@ -2,6 +2,11 @@ package main.java.Model;
 
 import java.util.ListIterator;
 
+import main.java.Model.Enumerations.ActionType;
+import java.util.ArrayList;
+import java.util.List;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +71,10 @@ public class Croupier {
 			if (!player.isCurrent()) {
 				while (!player.isCurrent()) {
 					if (table.getPlayers().getLast().equals(player)) {
-						
+						listIterator = table.getPlayers().listIterator();
 					}
+					player = listIterator.next();
+					
 				}
 			}
 			if (player.isIngame()) {
@@ -80,6 +87,7 @@ public class Croupier {
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
 					// match highest bet ?
+					
 					break;
 				case Fold:
 					removePlayer(player);
@@ -204,7 +212,14 @@ public class Croupier {
 	private void spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
 		int lastCircle = bets.get(bets.size() -1).getCircle();
-		
+		while(lastCircle > -1){
+			List<Bet> thisCircleBets = new ArrayList<Bet>();
+			for(Bet b : bets){
+				if(b.getCircle() == lastCircle){
+					thisCircleBets.add(b);
+				}
+			}
+		}
 	}
 	
 	public List<Player> getTopPlayers(){

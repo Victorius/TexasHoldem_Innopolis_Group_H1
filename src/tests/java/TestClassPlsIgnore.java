@@ -26,6 +26,7 @@ public class TestClassPlsIgnore {
         
         players.get(3).setCurrent(true);
         table.setPlayers(players);
+        croupier.setInitialBlinds();
         croupier.getActions();
                
         
