@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import main.java.Model.Enumerations.CardType;
+import main.java.Model.Enumerations.CardValue;
 import main.java.Model.Enumerations.CombinationType;
 
 public abstract class CombinationCounter {
@@ -218,12 +219,20 @@ public abstract class CombinationCounter {
 				}
 			}while(flag);
 		}
+		Combination lowStraight=this.checkLowStraight(cards, pairs);
 		if(counter>=5){
 			if(pairs.size()==0){
 				Combination straightFlash = isFlash(straight);
 				if(straightFlash!=null)
 						return straightFlash.setCombinationType(CombinationType.StraightFlash);
-				return new Combination(CombinationType.Straight,straight);
+				
+				if(lowStraight==null)
+					return new Combination(CombinationType.Straight,straight);
+				else
+					if(lowStraight.getType().compareTo(CombinationType.StraightFlash)==0){
+						return lowStraight;
+					}else
+						return new Combination(CombinationType.Straight,straight);
 			}				
 			else{
 				for(ArrayList<Card> i: pairs){//check pairs
@@ -240,10 +249,73 @@ public abstract class CombinationCounter {
 						}
 					}
 				}
-				return new Combination(CombinationType.Straight,straight);
+				if(lowStraight==null)
+					return new Combination(CombinationType.Straight,straight);
+				else
+					if(lowStraight.getType().compareTo(CombinationType.StraightFlash)==0){
+						return lowStraight;
+					}else
+						return new Combination(CombinationType.Straight,straight);
 			}
-			
 		}
+		
+		return lowStraight;
+	}
+	private Combination checkLowStraight(List<Card> cards,ArrayList<ArrayList<Card>> pairs){
+		boolean[] b = new boolean[cards.size()];
+		ArrayList<Card> a = new ArrayList<Card>();
+		for(int i=0;i<cards.size();i++){			
+			if(cards.get(i).compareTo(new Card(CardType.Clubs,CardValue.Ace))==0){
+				b[i]=true;
+			}
+			if(cards.get(i).compareTo(new Card(CardType.Clubs,CardValue.Two))==0){
+				b[i]=true;
+			}
+			if(cards.get(i).compareTo(new Card(CardType.Clubs,CardValue.Three))==0){
+				b[i]=true;
+			}
+			if(cards.get(i).compareTo(new Card(CardType.Clubs,CardValue.Four))==0){
+				b[i]=true;
+			}
+			if(cards.get(i).compareTo(new Card(CardType.Clubs,CardValue.Five))==0){
+				b[i]=true;
+			}
+			if(b[i])
+				a.add(cards.get(i));
+		}		
+		if(a.size()==5){
+			Combination comb = isFlash(a);
+			if(comb==null)
+				return new Combination(CombinationType.Straight,a);
+			else
+				return comb.setCombinationType(CombinationType.StraightFlash);
+		}else if(a.size()>5){
+			Combination comb = isFlash(a);
+			Collections.sort(a);			
+			ArrayList<Integer> indexes2remove = new ArrayList<Integer>();
+			for(int i =0;i<a.size()-1;i++){
+				if(a.get(i).getValue().getValue()==a.get(i+1).getValue().getValue()){						
+					indexes2remove.add(i);
+				}
+			}
+			if(comb==null){
+				for(Integer i:indexes2remove){
+					a.remove(i);
+				}
+				return new Combination(CombinationType.Straight,a);
+			}else{
+				for(Integer i:indexes2remove){
+					Card temp =a.remove(i.intValue());
+					comb = isFlash(a);
+					if(comb==null){
+						a.remove(i);
+						a.add(i,temp);
+					}
+				}
+				return comb.setCombinationType(CombinationType.StraightFlash);
+			}	
+		}		
 		return null;
+		
 	}
 }

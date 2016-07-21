@@ -1,9 +1,5 @@
 package AiStrategies;
-
-import java.util.List;
 import java.util.Random;
-
-import main.java.Model.Bet;
 import main.java.Model.Player;
 import main.java.Model.PlayerAction;
 import main.java.Model.Table;
