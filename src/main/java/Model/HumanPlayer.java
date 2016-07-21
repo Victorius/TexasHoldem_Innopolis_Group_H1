@@ -27,6 +27,7 @@ public class HumanPlayer extends Player {
 					if(amount > 0){
 						PlayerAction result =  new PlayerAction(ActionType.Raise);
 						result.setAmount(amount);
+						lastAction = result;
 						return result;
 					}
 				}
