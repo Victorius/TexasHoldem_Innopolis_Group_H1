@@ -1,8 +1,5 @@
 package AiStrategies;
 
-import java.util.List;
-
-import main.java.Model.Bet;
 import main.java.Model.Combination;
 import main.java.Model.Player;
 import main.java.Model.PlayerAction;

@@ -99,7 +99,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public void setIngame(boolean ingame) {
 		this.ingame = ingame;
 	}
-	
+
 	public void setCircleAllin(int circleAllin) {
 		this.circleAllin = circleAllin;
 	}
