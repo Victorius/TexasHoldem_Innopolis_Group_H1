@@ -15,7 +15,7 @@ public class UiHelper {
 		System.out.printf("Player(you): $%d\n"
 				+ "Hand:%s (%s)\n"
 				+ "-\n"
-				+ "Table:%s ,pot: %d\n"
+				+ "Table:%s pot: %d\n"
 				+ "Small blind:%d ,Blind: %d\n",
 				player.getBalance(),
 				cardsToString(player.getHand()),player.getCombination().toString(),
@@ -34,7 +34,7 @@ public class UiHelper {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Card c : cards){
-			sb.append(c+" ");
+			sb.append(c+",");
 		}
 		
 		return sb.toString();

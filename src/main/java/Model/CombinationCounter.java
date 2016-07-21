@@ -199,6 +199,7 @@ public abstract class CombinationCounter {
 		ArrayList<Card> straight = new ArrayList<Card>();		
 		for(int i=cards.size()-1;i>0;i--){
 			pointer2next = 1;
+			boolean flag2endFor=false;
 			do{
 				if(cards.get(i).getValue().getValue()==(cards.get(i-pointer2next).getValue().getValue()+1)){
 					if(isFirst){
@@ -208,10 +209,12 @@ public abstract class CombinationCounter {
 					}
 					straight.add(cards.get(i-pointer2next));
 					counter++;
-					pointer2next = 1;
+					i=i-pointer2next+1;
+					pointer2next = 1;					
 					flag = false;
 				}else if(i-pointer2next-1<0){
 					flag = false;
+					flag2endFor=true;
 				}else{
 					pointer2next++;
 					flag = true;

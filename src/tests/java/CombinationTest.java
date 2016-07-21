@@ -91,13 +91,13 @@ public class CombinationTest {
 
     @Test
     public void testStraight(){
-        cards.add(new Card(CardType.Clubs, CardValue.Two));
-        cards.add(new Card(CardType.Clubs, CardValue.Three));
-        tableCard.add(new Card(CardType.Diamonds, CardValue.Four));
-        tableCard.add(new Card(CardType.Hearts, CardValue.Five));
-        tableCard.add(new Card(CardType.Clubs, CardValue.Six));
-        tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
-        tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
+        cards.add(new Card(CardType.Spades, CardValue.King));
+        cards.add(new Card(CardType.Spades, CardValue.Queen));
+        tableCard.add(new Card(CardType.Diamonds, CardValue.King));
+        tableCard.add(new Card(CardType.Diamonds, CardValue.Ten));
+        tableCard.add(new Card(CardType.Spades, CardValue.Nine));
+        tableCard.add(new Card(CardType.Hearts, CardValue.Seven));
+        tableCard.add(new Card(CardType.Clubs, CardValue.Jack));
 
         table.addCards(tableCard);
         player.setTable(table);
