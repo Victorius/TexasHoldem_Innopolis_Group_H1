@@ -3,6 +3,7 @@ package tests.java;
 import java.util.LinkedList;
 
 import AiStrategies.BasicStrategy;
+import AiStrategies.BluffStrategy;
 import main.java.Model.AiPlayer;
 import main.java.Model.Croupier;
 import main.java.Model.HumanPlayer;
@@ -17,9 +18,10 @@ public class TestClassPlsIgnore {
         Table table = new Table(settings);
         Croupier croupier = new Croupier(table);
         LinkedList<Player> players = new LinkedList<>();
+        players.add(new HumanPlayer("Player", table));
         players.add(new AiPlayer(table,new BasicStrategy()));
-        players.add(new AiPlayer(table,new BasicStrategy()));
-        players.add(new AiPlayer(table,new BasicStrategy()));
+        players.add(new AiPlayer(table,new BluffStrategy()));
+        players.add(new AiPlayer(table,new BluffStrategy()));
         players.add(new AiPlayer(table,new BasicStrategy()));
         
         players.get(3).setCurrent(true);

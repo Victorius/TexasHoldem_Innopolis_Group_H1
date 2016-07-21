@@ -22,7 +22,7 @@ public class BluffStrategy extends AiStrategy{
 			}
 		}
 		
-		int bid = player.getBalance() < 50 ? player.getBalance() : 50;
+		final int bid = player.getBalance() < 50 ? player.getBalance() : 50;
 		Random r = new Random();
 		if(canCheck(player, table)){
 			if(r.nextBoolean()){
@@ -38,22 +38,4 @@ public class BluffStrategy extends AiStrategy{
 			}
 		}
 	}
-
-	private boolean canCheck(Player player, Table table) {
-		List<Bet> bets = table.getBets();
-		int lastCircle = getMaxCircle(bets);
-		Bet max = getMaxBet(bets, lastCircle);
-		if(lastCircle == player.getLastBet().getCircle()){
-			if(player.getLastBet() == max || player.getLastBet().getAmount() == max.getAmount()){
-				return true;
-			}else {
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
-
-
-
 }

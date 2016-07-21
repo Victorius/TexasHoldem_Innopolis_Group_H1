@@ -10,7 +10,8 @@ public class Croupier {
 	private final Table table;
 	private int smallBlind = 0;
 	private int bigBlind = 1;
-	
+	private int circle = 0;
+
 	// Constructor
 	public Croupier(Table table) {
 		this.table = table;
@@ -52,33 +53,41 @@ public class Croupier {
 	// true/false
 	// beacon
 	// while
-	public boolean getActions() {
+	public Player getActions() {
 		addPlayersInGame();
-		int circle = 0;
+		setInitialBlinds();
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
 		while (running) {
 			Player player = listIterator.next();
+			if (!player.isCurrent()) {
+				while (!player.isCurrent()) {
+					if (table.getPlayers().getLast().equals(player)) {
+						
+					}
+				}
+			}
 			if (player.isIngame()) {
-				
 				if (player.isCurrent() && table.getPlayers().indexOf(player) != 0) {
 					circle++;
 				}
 				if (player == table.getPlayers().getLast()) {
 					listIterator = table.getPlayers().listIterator();
 				}
-
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
-					//match highest bet ?
+					// match highest bet ?
 					break;
 				case Fold:
 					removePlayer(player);
+					if (table.getPlayers().size() == 1) {
+						return table.getPlayers().get(0);
+					}
 					break;
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
-					takeMoney(player, circle, 500); // 500??
+					takeMoney(player, circle, player.getLastAction().getAmount());
 					listIterator = table.getPlayers().listIterator();
 					break;
 				default:
@@ -86,7 +95,7 @@ public class Croupier {
 				}
 			}
 		}
-		return false; //?
+		return null;
 	}
 
 	public void takeMoney(Player player, int circle, int amount) {
@@ -94,6 +103,7 @@ public class Croupier {
 			player.setBalance(player.getBalance() - amount);
 			Bet bet = new Bet(circle, player, amount);
 			table.addBetToList(bet);
+			player.setLastBet(bet);
 		}
 
 	}
@@ -120,6 +130,8 @@ public class Croupier {
 		boolean gameEnds = false;
 		while (!gameEnds) {
 			table.clearCards();
+			table.clearBets();
+			moveBlinds();
 			final ArrayList<Card> deck = Deck.getNewRandomDeck();
 			// drawing table info
 			UiHelper.updateTableInfo(table);
@@ -137,8 +149,10 @@ public class Croupier {
 			}
 			UiHelper.updateTableInfo(table);
 			// bet circle
-			if (RaisingIteration()) {
-				// raise methond without showing
+			Player pl = null;
+			pl = getActions();
+			if (pl!=null) {
+				spreadPotNotShow(pl);
 				continue;
 			}
 			// preflop this table
@@ -151,10 +165,9 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// one more iteration
-			if (
-
-			RaisingIteration()) {
-				// raise methond without showing
+			pl = getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
 			} // flop
 			table.addCards(new ArrayList<Card>() {
@@ -164,8 +177,9 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// one more iteration
-			if (RaisingIteration()) {
-				// raise methond without showing
+			pl = getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
 			} // shit its too late now to remember last phase of the game
 			table.addCards(new ArrayList<Card>() {
@@ -175,16 +189,24 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// last one
-			if (RaisingIteration()) {
-				// raise methond without showing
+			pl =  getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
-			}
-			// raise method to shouw cards
+			} 
+			spreadPotAndShow();
 		}
 
 	}
 
-	private boolean RaisingIteration() {
-		return false;
+	private void spreadPotAndShow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void spreadPotNotShow(Player p) {
+		int pot = table.getBetsAmount();
+		p.addToBalance(pot);
+		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
 }
