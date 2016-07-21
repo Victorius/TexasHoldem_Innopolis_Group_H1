@@ -61,4 +61,16 @@ public class CroupierTest {
         assertEquals(table.getPlayers().get(0).isBigBlind(), true);
         assertEquals(table.getPlayers().get(3).isSmallBlind(), true);
     }
+    
+    @Test
+    public void testRemovePlayer(){
+    	Player a=null;
+		table.getPlayers().get(2).addToBalance(-table.getPlayers().get(2).getBalance());
+        for(int i=0;i<table.getPlayers().size();i++){
+        	if(table.getPlayers().get(i).getBalance()==0)
+        		a=table.getPlayers().get(i);
+        }
+        this.croupier.removePlayer(a);
+        assertEquals(table.getPlayers().size(), 3);
+    }
 }
