@@ -2,7 +2,6 @@ package main.java.Model;
 
 import java.util.ListIterator;
 
-
 import main.java.Model.Enumerations.ActionType;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +138,8 @@ public class Croupier {
 		boolean gameEnds = false;
 		while (!gameEnds) {
 			table.clearCards();
+			table.clearBets();
+			moveBlinds();
 			final ArrayList<Card> deck = Deck.getNewRandomDeck();
 			// drawing table info
 			UiHelper.updateTableInfo(table);
@@ -156,8 +157,10 @@ public class Croupier {
 			}
 			UiHelper.updateTableInfo(table);
 			// bet circle
-			if (RaisingIteration()) {
-				// raise methond without showing
+			Player pl = null;
+			pl = getActions();
+			if (pl!=null) {
+				spreadPotNotShow(pl);
 				continue;
 			}
 			// preflop this table
@@ -170,10 +173,9 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// one more iteration
-			if (
-
-			RaisingIteration()) {
-				// raise methond without showing
+			pl = getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
 			} // flop
 			table.addCards(new ArrayList<Card>() {
@@ -183,8 +185,9 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// one more iteration
-			if (RaisingIteration()) {
-				// raise methond without showing
+			pl = getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
 			} // shit its too late now to remember last phase of the game
 			table.addCards(new ArrayList<Card>() {
@@ -194,16 +197,24 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// last one
-			if (RaisingIteration()) {
-				// raise methond without showing
+			pl =  getActions();
+			if (pl != null) {
+				spreadPotNotShow(pl);
 				continue;
-			}
-			// raise method to shouw cards
+			} 
+			spreadPotAndShow();
 		}
 
 	}
 
-	private boolean RaisingIteration() {
-		return false;
+	private void spreadPotAndShow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void spreadPotNotShow(Player p) {
+		int pot = table.getBetsAmount();
+		p.addToBalance(pot);
+		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
 }

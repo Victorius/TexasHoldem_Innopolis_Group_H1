@@ -46,19 +46,4 @@ public class BasicStrategy extends AiStrategy{
 			}
 		}
 	}
-
-	private boolean canCheck(Player player, Table table) {
-		List<Bet> bets = table.getBets();
-		int lastCircle = getMaxCircle(bets);
-		Bet max = getMaxBet(bets, lastCircle);
-		if(lastCircle == player.getLastBet().getCircle()){
-			if(player.getLastBet() == max || player.getLastBet().getAmount() == max.getAmount()){
-				return true;
-			}else {
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
 }
