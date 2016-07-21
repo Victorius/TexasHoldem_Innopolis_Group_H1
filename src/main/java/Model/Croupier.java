@@ -21,18 +21,19 @@ public class Croupier {
     //setting up blinds as game starts
     public void setInitialBlinds() {
     	table.getPlayers().get(smallBlind).setSmallBlind(true);
-    	Bet bet =new Bet(0, table.getPlayers().get(smallBlind), table.getSettings().getBlindAmount());
-    	table.addBetToList(bet);
-    	table.getPlayers().get(smallBlind).setLastBet(bet);
-    	table.getPlayers().get(smallBlind).addToBalance(- bet.getAmount());
+    	makeBet(table,table.getPlayers().get(smallBlind),0,table.getSettings().getBlindAmount());
     	table.getPlayers().get(bigBlind).setBigBlind(true);
-    	bet = new Bet(0, table.getPlayers().get(bigBlind), table.getSettings().getBlindAmount() * 2);
-    	table.addBetToList(bet);
-    	table.getPlayers().get(bigBlind).setLastBet(bet);
-    	table.getPlayers().get(bigBlind).addToBalance(- bet.getAmount());
+    	makeBet(table,table.getPlayers().get(bigBlind),0,table.getSettings().getBlindAmount() * 2);
     }
 
-    //move blinds clockwise
+    private void makeBet(Table t, Player p, int circle, int amount) {
+    	Bet bet = new Bet(circle, p, amount);
+    	t.addBetToList(bet);
+    	p.setLastBet(bet);
+    	p.addToBalance(- bet.getAmount());
+	}
+
+	//move blinds clockwise
     public void moveBlinds() {
         if (table.getPlayers().size() >= 3) { //more than 3 players
             if (bigBlind == table.getPlayers().size() - 1) {
