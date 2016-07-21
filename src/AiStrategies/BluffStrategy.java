@@ -22,7 +22,7 @@ public class BluffStrategy extends AiStrategy{
 			}
 		}
 		
-		int bid = player.getBalance() < 50 ? player.getBalance() : 50;
+		final int bid = player.getBalance() < 50 ? player.getBalance() : 50;
 		Random r = new Random();
 		if(canCheck(player, table)){
 			if(r.nextBoolean()){

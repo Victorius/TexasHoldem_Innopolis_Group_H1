@@ -1,6 +1,9 @@
 package main.java.Model;
 
 import java.util.ListIterator;
+
+import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
+
 import main.java.Model.Enumerations.ActionType;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ public class Croupier {
 	private final Table table;
 	private int smallBlind = 0;
 	private int bigBlind = 1;
-	private int currentPlayer = 0;
+	private int circle = 0;
 
 	// Constructor
 	public Croupier(Table table) {
@@ -77,33 +80,41 @@ public class Croupier {
 	// true/false
 	// beacon
 	// while
-	public boolean getActions() {
+	public Player getActions() {
 		addPlayersInGame();
-		int circle = 0;
+		setInitialBlinds();
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
 		while (running) {
 			Player player = listIterator.next();
+			if (!player.isCurrent()) {
+				while (!player.isCurrent()) {
+					if (table.getPlayers().getLast().equals(player)) {
+						
+					}
+				}
+			}
 			if (player.isIngame()) {
-				
 				if (player.isCurrent() && table.getPlayers().indexOf(player) != 0) {
 					circle++;
 				}
 				if (player == table.getPlayers().getLast()) {
 					listIterator = table.getPlayers().listIterator();
 				}
-
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
-					//match highest bet ?
+					// match highest bet ?
 					break;
 				case Fold:
 					removePlayer(player);
+					if (table.getPlayers().size() == 1) {
+						return table.getPlayers().get(0);
+					}
 					break;
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
-					takeMoney(player, circle, 500); // 500??
+					takeMoney(player, circle, player.getLastAction().getAmount());
 					listIterator = table.getPlayers().listIterator();
 					break;
 				default:
@@ -111,7 +122,7 @@ public class Croupier {
 				}
 			}
 		}
-		return false; //?
+		return null;
 	}
 
 	public void takeMoney(Player player, int circle, int amount) {
@@ -119,6 +130,7 @@ public class Croupier {
 			player.setBalance(player.getBalance() - amount);
 			Bet bet = new Bet(circle, player, amount);
 			table.addBetToList(bet);
+			player.setLastBet(bet);
 		}
 
 	}
