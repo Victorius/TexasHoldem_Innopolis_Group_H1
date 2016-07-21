@@ -23,7 +23,7 @@ public class BasicStrategy extends AiStrategy{
 			}
 		}
 		
-		int bid = player.getBalance() < 50 ? player.getBalance() : 50;
+		final int bid = player.getBalance() < 50 ? player.getBalance() : 50;
 		
 		Combination comb = player.getCombination();
 		PlayerAction lastAction = player.getLastAction();
