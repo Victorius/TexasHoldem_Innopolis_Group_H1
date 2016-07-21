@@ -16,6 +16,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     protected Bet lastBet;
     protected boolean current;
     protected boolean ingame;
+    protected int circleAllin = -1;
     
     //Constructor
     public Player(String name, Table table) {
@@ -97,5 +98,13 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	
 	public void setIngame(boolean ingame) {
 		this.ingame = ingame;
+	}
+	
+	public void setCircleAllin(int circleAllin) {
+		this.circleAllin = circleAllin;
+	}
+	
+	public int getCircleAllin() {
+		return circleAllin;
 	}
 }

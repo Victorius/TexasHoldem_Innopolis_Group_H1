@@ -140,8 +140,10 @@ public class Croupier {
 			player.setLastBet(bet);
 		}
 		else{
-			
-			
+			Bet bet = new Bet(circle,player,player.getBalance());
+			table.addBetToList(bet);
+			player.setLastBet(bet);
+			player.setCircleAllin(circle);
 		}
 
 	}
