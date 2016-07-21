@@ -17,6 +17,10 @@ public enum CombinationType {
 	CombinationType(int priority){
 		this.priority=priority;
 	}
+	public int getValue(){
+		return priority;
+	}
+	
 	
 	
 }

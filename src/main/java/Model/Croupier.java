@@ -2,12 +2,13 @@ package main.java.Model;
 
 import java.util.ListIterator;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 
 import main.java.Model.Enumerations.ActionType;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.util.ArrayList;
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -25,9 +26,9 @@ public class Croupier {
 	// setting up blinds as game starts
 	public void setInitialBlinds() {
 		table.getPlayers().get(smallBlind).setSmallBlind(true);
-		table.addBetToList(new Bet(0, table.getPlayers().get(smallBlind), table.getSettings().getBlindAmount()));
+		takeMoney(table.getPlayers().get(smallBlind), 0, table.getSettings().getBlindAmount());
 		table.getPlayers().get(bigBlind).setBigBlind(true);
-		table.addBetToList(new Bet(0, table.getPlayers().get(bigBlind), table.getSettings().getBlindAmount() * 2));
+		takeMoney(table.getPlayers().get(bigBlind), 0, table.getSettings().getBlindAmount() * 2);
 	}
 
 	// move blinds clockwise
@@ -52,28 +53,6 @@ public class Croupier {
 				smallBlind = 1;
 			}
 		}
-	}
-
-	// pay pot to one player
-	public void payPotToPlayer(Player player) {
-		for (Player pickedPlayer : table.getPlayers()) {
-			if (pickedPlayer == player) {
-				pickedPlayer.addToBalance(table.getBetsAmount());
-			}
-		}
-		table.clearBets();
-	}
-
-	public void getPlayerAction(Player player) {
-		player.getPlayerAction();
-	}
-
-	// pay pot 50/50 to 2 players
-	public void separateAndPayPot(List<Player> players) {
-		for (Player pickedPlayer : players) {
-			pickedPlayer.addToBalance(table.getBetsAmount() / players.size());
-		}
-		table.clearBets();
 	}
 
 	// return bet to player
