@@ -68,8 +68,7 @@ public class HistoryBets {
 		return amount;
 		
 	}
-	
-	
+		
 }
 
 
