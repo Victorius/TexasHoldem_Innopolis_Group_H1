@@ -3,6 +3,9 @@ package main.java.Model;
 import java.util.ListIterator;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.Enumerations.CombinationType;
 import main.java.UI.UiHelper;
 
 public class Croupier {
@@ -196,12 +199,28 @@ public class Croupier {
 			} 
 			spreadPotAndShow();
 		}
-
 	}
 
 	private void spreadPotAndShow() {
-		// TODO Auto-generated method stub
+		List<Bet> bets = table.getBets();
+		int lastCircle = bets.get(bets.size() -1).getCircle();
 		
+	}
+	
+	public List<Player> getTopPlayers(){
+		List<Player>result = new ArrayList<Player>();
+		Combination top = new Combination(CombinationType.NoCombination, new ArrayList<Card>());
+		for(Player p : table.getPlayers()){
+			if(p.isIngame() && p.getCombination().compareTo(top) == 1){
+				top = p.getCombination();
+			}
+		}
+		for(Player p : table.getPlayers()){
+			if(p.isIngame() && p.getCombination().compareTo(top) == 0){
+				result.add(p);
+			}
+		}
+		return result;
 	}
 
 	private void spreadPotNotShow(Player p) {
