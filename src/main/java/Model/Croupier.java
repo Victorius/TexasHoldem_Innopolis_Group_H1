@@ -90,8 +90,10 @@ public class Croupier {
 			if (!player.isCurrent()) {
 				while (!player.isCurrent()) {
 					if (table.getPlayers().getLast().equals(player)) {
-						
+						listIterator = table.getPlayers().listIterator();
 					}
+					player = listIterator.next();
+					
 				}
 			}
 			if (player.isIngame()) {
