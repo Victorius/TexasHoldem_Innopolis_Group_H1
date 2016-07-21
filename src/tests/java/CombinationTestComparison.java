@@ -19,7 +19,7 @@ import main.java.Model.Enumerations.CardValue;
 import main.java.Model.Enumerations.CombinationType;
 import main.java.Model.Enumerations.RaisingPolicy;
 
-public class CombinationTest2 {
+public class CombinationTestComparison {
 	private Player player;
     private ArrayList<Card> tableCard = new ArrayList<>();
     private ArrayList<Card> cards = new ArrayList<>();
