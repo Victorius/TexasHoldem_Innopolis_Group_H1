@@ -123,6 +123,7 @@ public class Croupier {
     	while(!gameEnds)
     	{
     		table.clearCards();
+    		table.clearBets();
     		final ArrayList<Card> deck = Deck.getNewRandomDeck();
     		//drawing table info
     		UiHelper.updateTableInfo(table);
