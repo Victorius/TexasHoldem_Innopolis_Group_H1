@@ -8,21 +8,24 @@ import main.java.Model.Enumerations.ActionType;
 public abstract class Player extends CombinationCounter implements IPlayer {
 
     //Fields
-
     protected int balance;
     protected String name;
     protected boolean isBigBlind;
     protected boolean isSmallBlind;
     protected PlayerAction lastAction = new PlayerAction(ActionType.None);
     protected Bet lastBet;
-
+    protected boolean current;
+    protected boolean ingame;
+    
     //Constructor
     public Player(String name, Table table) {
         this.name = name;
         this.balance = table.getSettings().getStartingMoney();
         this.aTable = table;
         isBigBlind = false;
-        isSmallBlind = false;
+        isSmallBlind = false; 
+        current = false;
+        ingame = false;
     }
 
     //Setters
@@ -38,6 +41,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     public void setBigBlind(boolean bigBlind) {
         this.isBigBlind = bigBlind;
     }
+    
 
     public int getBalance() {
         return balance;
@@ -78,5 +82,20 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public Bet getLastBet(){
 		return lastBet;
 	}
+	
+	public boolean isCurrent() {
+		return current;
+	}
+	
+	public void setCurrent(boolean current) {
+		this.current = current;
+	}
 
+	public boolean isIngame() {
+		return ingame;
+	}
+	
+	public void setIngame(boolean ingame) {
+		this.ingame = ingame;
+	}
 }
