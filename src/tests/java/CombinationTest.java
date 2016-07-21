@@ -2,6 +2,7 @@ package tests.java;
 
 import main.java.Model.AiPlayer;
 import main.java.Model.Card;
+import main.java.Model.Combination;
 import main.java.Model.Enumerations.CardType;
 import main.java.Model.Enumerations.CardValue;
 import main.java.Model.Enumerations.CombinationType;
@@ -173,7 +174,22 @@ public class CombinationTest {
 
         assertEquals(player.getCombination().getType(), CombinationType.StraightFlash);
     }
+    @Test
+	public void testLowStraight() {				
+		 cards.add(new Card(CardType.Diamonds, CardValue.Two));
+	     cards.add(new Card(CardType.Diamonds, CardValue.Three));
+	     tableCard.add(new Card(CardType.Diamonds, CardValue.Four));
+	     tableCard.add(new Card(CardType.Diamonds, CardValue.Five));
+	     tableCard.add(new Card(CardType.Hearts, CardValue.Six));
+	     tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
+	     tableCard.add(new Card(CardType.Clubs, CardValue.Nine));
 
+	     table.addCards(tableCard);
+	     player.setTable(table);
+	     player.setCards(cards);
+		
+		assertEquals(player.getCombination().getType(), CombinationType.StraightFlash);
+	}
 
 
 

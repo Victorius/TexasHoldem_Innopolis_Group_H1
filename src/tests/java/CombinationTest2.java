@@ -107,5 +107,43 @@ public class CombinationTest2 {
 		
 		assertEquals(a.compareTo(b), 1);
 	}
+	@Test
+	public void testStraightFlash() {
+		ArrayList<Card> array = new ArrayList<Card>();
+		array.add(new Card(CardType.Diamonds,CardValue.Ace));
+		array.add(new Card(CardType.Diamonds,CardValue.King));
+		array.add(new Card(CardType.Diamonds,CardValue.Queen));
+		array.add(new Card(CardType.Diamonds,CardValue.Jack));
+		array.add(new Card(CardType.Diamonds,CardValue.Ten));		
+		Combination a = new Combination(CombinationType.StraightFlash,array);
+		array = new ArrayList<Card>();
+		array.add(new Card(CardType.Diamonds,CardValue.King));
+		array.add(new Card(CardType.Diamonds,CardValue.Queen));
+		array.add(new Card(CardType.Diamonds,CardValue.Jack));
+		array.add(new Card(CardType.Diamonds,CardValue.Ten));
+		array.add(new Card(CardType.Diamonds,CardValue.Nine));	
+		Combination b = new Combination(CombinationType.StraightFlash,array);
+		
+		assertEquals(a.compareTo(b), 1);
+	}
+	@Test
+	public void testLowStraight() {
+		ArrayList<Card> array = new ArrayList<Card>();
+		array.add(new Card(CardType.Diamonds,CardValue.Ace));
+		array.add(new Card(CardType.Diamonds,CardValue.Five));
+		array.add(new Card(CardType.Diamonds,CardValue.Four));
+		array.add(new Card(CardType.Diamonds,CardValue.Three));
+		array.add(new Card(CardType.Diamonds,CardValue.Two));		
+		Combination a = new Combination(CombinationType.StraightFlash,array);
+		array = new ArrayList<Card>();
+		array.add(new Card(CardType.Diamonds,CardValue.King));
+		array.add(new Card(CardType.Diamonds,CardValue.Queen));
+		array.add(new Card(CardType.Clubs,CardValue.Jack));
+		array.add(new Card(CardType.Diamonds,CardValue.Ten));
+		array.add(new Card(CardType.Diamonds,CardValue.Nine));	
+		Combination b = new Combination(CombinationType.Straight,array);
+		
+		assertEquals(a.compareTo(b), 1);
+	}
 
 }
