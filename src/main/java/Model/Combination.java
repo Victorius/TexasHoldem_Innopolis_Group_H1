@@ -24,56 +24,29 @@ public class Combination implements Comparable<Combination>{
 	public int compareTo(Combination o) {
 		if(this.combinationType.compareTo(o.combinationType)==0){
 			Card sp=null;
-			switch(combinationType){
-				case NoCombination:
-					return 0;
-				case TwoPairs:					
-					for(int k =0;k<2;k++){
-						sp=null;
-						for(int i=0;i<this.cardInCombination.size()-1;i++){
-							if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
-								sp=this.cardInCombination.get(i);
-										break;
-							}
-						}
-						this.cardInCombination.remove(sp);
-						o.cardInCombination.remove(sp);
-					}						
-				case Quads:
-				case ThreeOfKind:
-					sp=null;
-					for(int i=0;i<this.cardInCombination.size()-1;i++){
-						if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
-							sp=this.cardInCombination.get(i);
-									break;
-						}
-					}
-					this.cardInCombination.remove(sp);
-					o.cardInCombination.remove(sp);
-				case Pair:
-					for(int k=0;k<2;k++){
-						sp=null;
-						for(int i=0;i<this.cardInCombination.size()-1;i++){
-							if(this.cardInCombination.get(i).compareTo(this.cardInCombination.get(i+1))==0){
-								sp=this.cardInCombination.get(i);
-										break;
-							}
-						}
-						this.cardInCombination.remove(sp);
-						o.cardInCombination.remove(sp);
-					}
-					Collections.sort(this.cardInCombination);
-					Collections.sort(o.cardInCombination);
-				int min= Math.min(this.cardInCombination.size(), o.cardInCombination.size());
-				for(int i=min-1;i>0;i--){
-					if(this.cardInCombination.get(i).compareTo(o.cardInCombination.get(i))!=0)
-						return this.cardInCombination.get(i).compareTo(o.cardInCombination.get(i));
-				}
+			Integer sum1 = 0;
+			for(Card card: this.cardInCombination){
+				sum1+=card.getValue().getValue();
 			}
-			return 0;
-		}else
-			return this.combinationType.compareTo(o.combinationType);
-//		return this.combinationType.compareTo(o.combinationType);
+			Integer sum2 = 0;
+			for(Card card: o.cardInCombination){
+				sum2+=card.getValue().getValue();
+			}
+			return sum1.compareTo(sum2);
+		}else{
+			Integer sum1 = 0;
+			for(Card card: this.cardInCombination){
+				sum1+=card.getValue().getValue();
+			}
+			Integer sum2 = 0;
+			for(Card card: o.cardInCombination){
+				sum2+=card.getValue().getValue();
+			}
+			sum1+=this.combinationType.getValue();
+			sum2+=o.combinationType.getValue();
+			return sum1.compareTo(sum2);
+		}
+			
 	}
 	public Combination setCombinationType(CombinationType e){
 		this.combinationType=e;
