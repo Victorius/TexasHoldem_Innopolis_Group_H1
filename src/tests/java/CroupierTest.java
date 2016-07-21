@@ -61,5 +61,4 @@ public class CroupierTest {
         assertEquals(table.getPlayers().get(0).isBigBlind(), true);
         assertEquals(table.getPlayers().get(3).isSmallBlind(), true);
     }
-
 }

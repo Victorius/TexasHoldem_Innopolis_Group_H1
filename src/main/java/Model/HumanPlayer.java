@@ -12,6 +12,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public PlayerAction getPlayerAction() {
+
 		UiHelper.updateTableInfo(aTable);
 		System.out.printf("Its your turn!\n R - Raise\nC - Call\\Check\nF - Fold\n");
 		String answer;

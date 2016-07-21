@@ -8,6 +8,7 @@ import main.java.Model.Enumerations.ActionType;
 public abstract class Player extends CombinationCounter implements IPlayer {
 
     //Fields
+
     protected int balance;
     protected String name;
     protected boolean isBigBlind;
@@ -51,6 +52,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
         return isSmallBlind;
     }
 
+
     public void clearBlinds() {
         isSmallBlind = false;
         isBigBlind = false;
@@ -64,7 +66,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public List<Card> getHand() {
 		return cards;
 	}
-
+	
 	public PlayerAction getLastAction() {
 		return lastAction;
 	}
