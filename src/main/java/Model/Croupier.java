@@ -1,6 +1,11 @@
 package main.java.Model;
 
 import java.util.ListIterator;
+
+import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
+import main.java.Model.Enumerations.ActionType;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.Model.Enumerations.CombinationType;
@@ -12,10 +17,12 @@ public class Croupier {
 	private int smallBlind = 0;
 	private int bigBlind = 1;
 	private int circle = 0;
-
+	
 	// Constructor
 	public Croupier(Table table) {
 		this.table = table;
+		addPlayersInGame();
+		setInitialBlinds();
 	}
 
 	// setting up blinds as game starts
@@ -24,6 +31,7 @@ public class Croupier {
 		takeMoney(table.getPlayers().get(smallBlind), 0, table.getSettings().getBlindAmount());
 		table.getPlayers().get(bigBlind).setBigBlind(true);
 		takeMoney(table.getPlayers().get(bigBlind), 0, table.getSettings().getBlindAmount() * 2);
+		table.getPlayers().get(2).setCurrent(true);
 	}
 
 	// move blinds clockwise
@@ -55,44 +63,51 @@ public class Croupier {
 	// beacon
 	// while
 	public Player getActions() {
-		addPlayersInGame();
-		setInitialBlinds();
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
+		boolean currentStill = false;
 		while (running) {
-			Player player = listIterator.next();
-			if (!player.isCurrent()) {
+			Player player;
+			if(listIterator.hasNext()){
+				player = listIterator.next();
+			}
+			else{
+				listIterator = table.getPlayers().listIterator();
+				player = listIterator.next();
+			}
+			if (!player.isCurrent() && !currentStill) {
 				while (!player.isCurrent()) {
 					if (table.getPlayers().getLast().equals(player)) {
 						listIterator = table.getPlayers().listIterator();
 					}
-					player = listIterator.next();
-					
+					player = listIterator.next();					
 				}
 			}
+			if(player.isCurrent()){
+				circle++;
+			}
 			if (player.isIngame()) {
-				if (player.isCurrent() && table.getPlayers().indexOf(player) != 0) {
-					circle++;
-				}
-				if (player == table.getPlayers().getLast()) {
+				if (table.getPlayers().getLast().equals(player)) {
 					listIterator = table.getPlayers().listIterator();
 				}
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
-					// match highest bet ?
-					
+					takeMoney(player, circle, getHighestBet().getAmount());
+					currentStill = true;
 					break;
 				case Fold:
-					removePlayer(player);
-					if (table.getPlayers().size() == 1) {
+					player.setIngame(false);
+					currentStill = true;
+					if (isWon()) 
 						return table.getPlayers().get(0);
-					}
 					break;
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
 					takeMoney(player, circle, player.getLastAction().getAmount());
 					listIterator = table.getPlayers().listIterator();
+					currentStill = false;
+					circle++;
 					break;
 				default:
 					break;
@@ -100,6 +115,16 @@ public class Croupier {
 			}
 		}
 		return null;
+	}
+	
+	private Bet getHighestBet(){
+		Bet max = table.getBets().get(0);
+		for(Bet b : table.getBets()){
+			if(b.getCircle() == circle && b.getAmount() > max.getAmount()){
+				max = b;
+			}
+		}
+		return max;
 	}
 
 	public void takeMoney(Player player, int circle, int amount) {
@@ -109,6 +134,25 @@ public class Croupier {
 			table.addBetToList(bet);
 			player.setLastBet(bet);
 		}
+		else{
+			Bet bet = new Bet(circle,player,player.getBalance());
+			table.addBetToList(bet);
+			player.setLastBet(bet);
+			player.setCircleAllin(circle);
+		}
+	}
+	
+	private boolean isWon(){
+		int counter = 0;
+		for(Player player : table.getPlayers()){
+			if(player.isIngame()){
+				counter++;
+			}
+		}
+		if(counter == 1)
+			return true;
+		else
+			return false;		
 	}
 
 	private void addPlayersInGame() {
@@ -125,9 +169,6 @@ public class Croupier {
 		}
 	}
 
-	public void removePlayer(Player player) {
-		table.getPlayers().remove(player);
-	}
 
 	public void StartGame() {
 		boolean gameEnds = false;
