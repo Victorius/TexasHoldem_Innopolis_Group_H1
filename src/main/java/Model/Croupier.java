@@ -1,15 +1,8 @@
 package main.java.Model;
 
 import java.util.ListIterator;
-
-import main.java.Model.Enumerations.ActionType;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
 import main.java.Model.Enumerations.CombinationType;
 import main.java.UI.UiHelper;
 
@@ -116,7 +109,6 @@ public class Croupier {
 			table.addBetToList(bet);
 			player.setLastBet(bet);
 		}
-
 	}
 
 	private void addPlayersInGame() {
@@ -214,19 +206,30 @@ public class Croupier {
 		int lastCircle = bets.get(bets.size() -1).getCircle();
 		while(lastCircle > -1){
 			List<Bet> thisCircleBets = new ArrayList<Bet>();
+			int thisPot = 0;
 			for(Bet b : bets){
 				if(b.getCircle() == lastCircle){
 					thisCircleBets.add(b);
+					thisPot+= b.getAmount();
 				}
 			}
+			List<Player> thisCirclePlayers = getTopPlayers(lastCircle);
+			for(Player p : thisCirclePlayers){
+				p.addToBalance(thisPot/thisCirclePlayers.size());
+				if(p.getCircleAllin() == lastCircle){
+					p.setIngame(false);
+				}
+				System.out.printf("Player %s win %d with combination %s",p.getName(),thisPot/thisCirclePlayers.size(),p.getCombination());
+			}
+			lastCircle--;
 		}
 	}
 	
-	public List<Player> getTopPlayers(){
+	public List<Player> getTopPlayers(int circle){
 		List<Player>result = new ArrayList<Player>();
 		Combination top = new Combination(CombinationType.NoCombination, new ArrayList<Card>());
 		for(Player p : table.getPlayers()){
-			if(p.isIngame() && p.getCombination().compareTo(top) == 1){
+			if(p.isIngame() && p.getCombination().compareTo(top) == 1 && (p.getCircleAllin() == -1 || p.getCircleAllin() == circle)){
 				top = p.getCombination();
 			}
 		}
