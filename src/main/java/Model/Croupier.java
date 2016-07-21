@@ -96,7 +96,8 @@ public class Croupier {
 				}
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
-					takeMoney(player, circle, 50);
+					table.getBets();
+					takeMoney(player, circle, getHighestBet().getAmount());
 					currentStill = true;
 					break;
 				case Fold:
@@ -120,6 +121,16 @@ public class Croupier {
 			}
 		}
 		return null;
+	}
+	
+	private Bet getHighestBet(){
+		Bet max = table.getBets().get(0);
+		for(Bet b : table.getBets()){
+			if(b.getCircle() == circle && b.getAmount() > max.getAmount()){
+				max = b;
+			}
+		}
+		return max;
 	}
 
 	public void takeMoney(Player player, int circle, int amount) {
