@@ -15,7 +15,8 @@ public class AiPlayer extends Player{
 
 	@Override
 	public PlayerAction getPlayerAction() {
-		return strat.getAction(this, aTable);
+		lastAction =  strat.getAction(this, aTable);
+		return lastAction;
 	}
 	
 	private static String getRandomAiName(){

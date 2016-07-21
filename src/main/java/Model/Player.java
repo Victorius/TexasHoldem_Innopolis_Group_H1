@@ -13,6 +13,7 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     protected boolean isBigBlind;
     protected boolean isSmallBlind;
     protected PlayerAction lastAction = new PlayerAction(ActionType.None);
+    protected Bet lastBet;
 
     //Constructor
     public Player(String name, Table table) {
@@ -36,7 +37,6 @@ public abstract class Player extends CombinationCounter implements IPlayer {
     public void setBigBlind(boolean bigBlind) {
         this.isBigBlind = bigBlind;
     }
-
 
     public int getBalance() {
         return balance;
@@ -67,6 +67,14 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 
 	public PlayerAction getLastAction() {
 		return lastAction;
+	}
+	
+	public void setLastBet(Bet b){
+		lastBet =b ;
+	}
+	
+	public Bet getLastBet(){
+		return lastBet;
 	}
 
 }
