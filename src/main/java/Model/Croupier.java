@@ -2,10 +2,7 @@ package main.java.Model;
 
 import java.util.ListIterator;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 import main.java.Model.Enumerations.ActionType;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.Model.Enumerations.CombinationType;
@@ -86,6 +83,7 @@ public class Croupier {
 				}
 			}
 			if (player.isCurrent() && (player.getLastAction().getType() == ActionType.Raise || player.getLastAction().getType() == ActionType.CallCheck) ) {
+				table.clearLastAction();
 				return null;
 			}
 			if (player.isIngame()) {
@@ -115,6 +113,7 @@ public class Croupier {
 				}
 			}
 		}
+		table.clearLastAction();
 		return null;
 	}
 
@@ -281,8 +280,8 @@ public class Croupier {
 				if (p.getCircleAllin() == lastCircle) {
 					p.setIngame(false);
 				}
-				System.out.printf("Player %s win %d with combination %s", p.getName(),
-						thisPot / thisCirclePlayers.size(), p.getCombination());
+				System.out.printf("Player %s win %d with combination %s(%s)\n", p.getName(),
+						thisPot / thisCirclePlayers.size(), p.getCombination(),p.getHand());
 			}
 			lastCircle--;
 		}

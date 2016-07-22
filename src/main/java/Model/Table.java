@@ -3,8 +3,10 @@ package main.java.Model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import AiStrategies.BasicStrategy;
+import AiStrategies.BluffStrategy;
 
 public class Table {
 
@@ -73,7 +75,8 @@ public class Table {
 		players.add(new HumanPlayer("Player",this));
 		for(int i = 0; i < settings.getNumberOfPlayers() - 1;i++)
 		{
-			players.add(new AiPlayer(this,new BasicStrategy()));
+			Random r = new Random();
+			players.add(new AiPlayer(this,r.nextBoolean() ? new BasicStrategy() : new BluffStrategy()));
 		}
 	}
 
@@ -83,6 +86,13 @@ public class Table {
 			p.setLastBet(null);
 			p.clearLastAction();
 			p.setCircleAllin(-1);
+		}
+	}
+	
+	public void clearLastAction(){
+		for(Player p : players){
+			p.setLastBet(null);
+			p.clearLastAction();
 		}
 	}
 
