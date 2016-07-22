@@ -105,7 +105,7 @@ public class Croupier {
 					deselectCurrentPlayers();
 					player.setCurrent(true);
 					takeMoney(player, circle, player.getLastAction().getAmount());
-					currentStill = false;
+					currentStill = true;
 					circle++;
 					break;
 				default:
