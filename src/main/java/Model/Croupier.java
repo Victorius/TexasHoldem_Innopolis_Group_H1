@@ -245,12 +245,23 @@ public class Croupier {
 			if (pl != null) {
 				spreadPotNotShow(pl);
 				continue;
+			} 
+			if(spreadPotAndShow()){
+				System.out.println("The game is over");
 			}
-			spreadPotAndShow();
+			moveBlinds();
+		}
+	}
+	
+	private void removeLoosers(){
+		for(Player p : table.getPlayers()){
+			if(p.getBalance() <= 0){
+				table.removePlayer(p);
+			}
 		}
 	}
 
-	private void spreadPotAndShow() {
+	private boolean spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
 		int lastCircle = bets.get(bets.size() - 1).getCircle();
 		while (lastCircle > -1) {
@@ -272,6 +283,24 @@ public class Croupier {
 						thisPot / thisCirclePlayers.size(), p.getCombination());
 			}
 			lastCircle--;
+		}
+		
+		int c =0;
+		Player winner = null;
+		for(Player p :table.getPlayers()){
+			if(p.getBalance() > 0){
+				c++;
+				winner = p;
+			}
+		}
+		
+		if(c==1){
+			System.out.printf(String.format("Player %s has won the table!!!!",winner.getName()));
+			return true;
+		}else{
+			removeLoosers();
+			return false;
+			
 		}
 	}
 
@@ -295,6 +324,8 @@ public class Croupier {
 	private void spreadPotNotShow(Player p) {
 		int pot = table.getBetsAmount();
 		p.addToBalance(pot);
-		System.out.println(String.format("Player %s has won pot %d in blind!", p.getName(), pot));
+		removeLoosers();
+		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
+
 }
