@@ -88,4 +88,8 @@ public class Table {
 		}
 	}
 
+	public void removePlayer(Player a) {
+		players.remove(a);
+	}
+
 }

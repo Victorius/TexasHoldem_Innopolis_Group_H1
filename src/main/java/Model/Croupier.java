@@ -63,6 +63,7 @@ public class Croupier {
 	// beacon
 	// while
 	public Player getActions() {
+		circle = 0;
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
 		boolean currentStill = false;
@@ -144,6 +145,7 @@ public class Croupier {
 	private Player getWinner(){
 		for(Player player : table.getPlayers()){
 			if(player.isIngame()){
+				addPlayersInGame();
 				return player;
 			}
 		}
@@ -176,6 +178,7 @@ public class Croupier {
 			}
 		}
 	}
+
 
 
 	public void StartGame() {
@@ -314,4 +317,5 @@ public class Croupier {
 		p.addToBalance(pot);
 		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
+
 }
