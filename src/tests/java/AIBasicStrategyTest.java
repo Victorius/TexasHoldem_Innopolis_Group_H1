@@ -120,6 +120,30 @@ public class AIBasicStrategyTest {
 		assertEquals(ActionType.Raise,ai2.getPlayerAction().getType());
 		assertEquals(ActionType.Raise,player.getPlayerAction().getType());
 	}
+	@Test
+	public void testAI(){
+		int circle = 1;
+		Bet a = new Bet(circle,ai,100);
+		Bet b = new Bet(circle,player,100);
+		Bet c = new Bet(circle, ai2, 100);
+//		ai.setBalance(100);		
+		player.setLastBet(b);
+		ai.setLastBet(a);
+		ai2.setLastBet(c);
+		ArrayList<Card> card2ai = new ArrayList<Card>();
+		card2ai.add(new Card(CardType.Clubs, CardValue.Two));
+		card2ai.add(new Card(CardType.Hearts, CardValue.Ace));
+		ai.setCards(card2ai);
+		table.addBetToList(player.getLastBet());
+		table.addBetToList(ai.getLastBet());
+		table.addBetToList(ai2.getLastBet());
+		a = new Bet(circle+1,ai,200);
+		ai.setLastBet(a);
+		table.addBetToList(a);
+//		assertEquals(ActionType.Fold,ai.getPlayerAction().getType());
+		assertEquals(ActionType.Raise,ai2.getPlayerAction().getType());
+		assertEquals(ActionType.Raise,player.getPlayerAction().getType());
+	}
 	
 
 }

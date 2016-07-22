@@ -1,5 +1,7 @@
 package AiStrategies;
 
+import java.util.Random;
+
 import main.java.Model.Combination;
 import main.java.Model.Player;
 import main.java.Model.PlayerAction;
@@ -33,7 +35,11 @@ public class BasicStrategy extends AiStrategy{
 			}else if (!canCheck(player, table) && lastAction.getType() == ActionType.CallCheck){
 				return new PlayerAction(ActionType.Fold);
 			}else{
-				return new PlayerAction(ActionType.Raise){{setAmount(bid);}};
+				Random r = new Random();
+				if(r.nextBoolean())
+					return new PlayerAction(ActionType.Raise){{setAmount(bid);}};
+				else
+					return new PlayerAction(ActionType.Fold);			 
 			}
 		}else{
 			if(canCheck(player, table)){
