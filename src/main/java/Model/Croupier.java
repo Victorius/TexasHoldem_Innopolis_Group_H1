@@ -129,7 +129,7 @@ public class Croupier {
 	}
 
 	public void takeMoney(Player player, int circle, int amount) {
-		if (amount < player.getBalance()) {
+		if (amount <= player.getBalance()) {
 			player.setBalance(player.getBalance() - amount);
 			Bet bet = new Bet(circle, player, amount);
 			table.addBetToList(bet);
