@@ -92,7 +92,6 @@ public class Croupier {
 				}
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
-					System.out.println("HIGHEST BET: " + getHighestBet().getAmount());
 					takeMoney(player, circle, getHighestBet().getAmount());
 					currentStill = true;
 					break;
