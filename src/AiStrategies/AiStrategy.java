@@ -40,7 +40,7 @@ public abstract class AiStrategy {
 			return true;
 		}
 		if(lastCircle == last.getCircle()){
-			if(player.getLastBet() == max || player.getLastBet().getAmount() == max.getAmount()){
+			if(player.getLastBet().equals(max) || player.getLastBet().getAmount() == max.getAmount()){
 				return true;
 			}else {
 				return false;

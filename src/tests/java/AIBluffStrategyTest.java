@@ -63,5 +63,24 @@ public class AIBluffStrategyTest {
 		assertEquals(true, a.get(2).getPlayerAction().getType()==ActionType.CallCheck ||  a.get(2).getPlayerAction().getType()==ActionType.Raise);
 	}
 	
+	@Test
+	public void testRandomAnswerFold() {
+		int circle = 0;
+		int smallBlind=40;
+		Bet c1a1 = new Bet(circle,a.get(0),smallBlind);
+		Bet c1a2 = new Bet(circle,a.get(1),smallBlind*2);
+		Bet c1a3 = new Bet(circle,a.get(2),smallBlind*2);
+		a.get(0).setLastBet(c1a1);
+		a.get(1).setLastBet(c1a2);
+		a.get(2).setLastBet(c1a3);
+		table.addBetToList(c1a1);
+		table.addBetToList(c1a2);
+		table.addBetToList(c1a3);
+		c1a1 = new Bet(circle+1,a.get(0),smallBlind);
+		a.get(0).setLastBet(c1a1);
+		table.addBetToList(c1a1);
+		
+		assertEquals(true, a.get(1).getPlayerAction().getType()==ActionType.CallCheck);
+	}
 
 }
