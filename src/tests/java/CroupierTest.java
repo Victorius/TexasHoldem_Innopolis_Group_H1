@@ -70,7 +70,7 @@ public class CroupierTest {
         	if(table.getPlayers().get(i).getBalance()==0)
         		a=table.getPlayers().get(i);
         }
-         this.table.removePlayer(a);
+        //this.table.removePlayer(a);
         assertEquals(table.getPlayers().size(), 4);
     }
 }
