@@ -33,7 +33,7 @@ public abstract class AiStrategy {
 	
 	protected boolean canCheck(Player player, Table table) {
 		List<Bet> bets = table.getBets();
-		int lastCircle = getMaxCircle(bets);
+		int lastCircle = getMaxCircle(bets) - 1;
 		Bet max = getMaxBet(bets, lastCircle);
 		Bet last = player.getLastBet();
 		if(last == null){
