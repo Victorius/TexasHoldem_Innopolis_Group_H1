@@ -79,6 +79,11 @@ public class Table {
 
 	public void clearBets() {
 		bets.clear();
+		for(Player p : players){
+			p.setLastBet(null);
+			p.clearLastAction();
+			p.setCircleAllin(-1);
+		}
 	}
 
 	public void clearCards() {

@@ -255,6 +255,14 @@ public class Croupier {
 			moveBlinds();
 		}
 	}
+	
+	private void removeLoosers(){
+		for(Player p : table.getPlayers()){
+			if(p.getBalance() <= 0){
+				table.removePlayer(p);
+			}
+		}
+	}
 
 	private boolean spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
@@ -292,7 +300,9 @@ public class Croupier {
 			System.out.printf(String.format("Player %s has won the table!!!!",winner.getName()));
 			return true;
 		}else{
+			removeLoosers();
 			return false;
+			
 		}
 	}
 	
@@ -315,6 +325,7 @@ public class Croupier {
 	private void spreadPotNotShow(Player p) {
 		int pot = table.getBetsAmount();
 		p.addToBalance(pot);
+		removeLoosers();
 		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
 
