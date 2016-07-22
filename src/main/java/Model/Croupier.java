@@ -246,11 +246,14 @@ public class Croupier {
 				spreadPotNotShow(pl);
 				continue;
 			} 
-			spreadPotAndShow();
+			if(spreadPotAndShow()){
+				System.out.println("The game is over");
+			}
+			moveBlinds();
 		}
 	}
 
-	private void spreadPotAndShow() {
+	private boolean spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
 		int lastCircle = bets.get(bets.size() -1).getCircle();
 		while(lastCircle > -1){
@@ -271,6 +274,22 @@ public class Croupier {
 				System.out.printf("Player %s win %d with combination %s",p.getName(),thisPot/thisCirclePlayers.size(),p.getCombination());
 			}
 			lastCircle--;
+		}
+		
+		int c =0;
+		Player winner = null;
+		for(Player p :table.getPlayers()){
+			if(p.getBalance() > 0){
+				c++;
+				winner = p;
+			}
+		}
+		
+		if(c==1){
+			System.out.printf(String.format("Player %s has won the table!!!!",winner.getName()));
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
