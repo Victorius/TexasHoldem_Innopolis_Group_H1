@@ -17,7 +17,7 @@ public class Croupier {
 	private int smallBlind = 0;
 	private int bigBlind = 1;
 	private int circle = 0;
-	
+
 	// Constructor
 	public Croupier(Table table) {
 		this.table = table;
@@ -69,10 +69,9 @@ public class Croupier {
 		boolean currentStill = false;
 		while (running) {
 			Player player;
-			if(listIterator.hasNext()){
+			if (listIterator.hasNext()) {
 				player = listIterator.next();
-			}
-			else{
+			} else {
 				listIterator = table.getPlayers().listIterator();
 				player = listIterator.next();
 			}
@@ -81,10 +80,10 @@ public class Croupier {
 					if (table.getPlayers().getLast().equals(player)) {
 						listIterator = table.getPlayers().listIterator();
 					}
-					player = listIterator.next();					
+					player = listIterator.next();
 				}
 			}
-			if(player.isCurrent() && player.getLastAction().getType() == ActionType.Raise){
+			if (player.isCurrent() && player.getLastAction().getType() == ActionType.Raise) {
 				return null;
 			}
 			if (player.isIngame()) {
@@ -100,7 +99,7 @@ public class Croupier {
 				case Fold:
 					player.setIngame(false);
 					currentStill = true;
-					if (isWon()) 
+					if (isWon())
 						return getWinner();
 					break;
 				case Raise:
@@ -118,10 +117,10 @@ public class Croupier {
 		return null;
 	}
 
-	private Bet getHighestBet(){
+	private Bet getHighestBet() {
 		Bet max = table.getBets().get(0);
-		for(Bet b : table.getBets()){
-			if(b.getCircle() == circle && b.getAmount() > max.getAmount()){
+		for (Bet b : table.getBets()) {
+			if (b.getCircle() == circle && b.getAmount() > max.getAmount()) {
 				max = b;
 			}
 		}
@@ -134,36 +133,35 @@ public class Croupier {
 			Bet bet = new Bet(circle, player, amount);
 			table.addBetToList(bet);
 			player.setLastBet(bet);
-		}
-		else{
-			Bet bet = new Bet(circle,player,player.getBalance());
+		} else {
+			Bet bet = new Bet(circle, player, player.getBalance());
 			table.addBetToList(bet);
 			player.setLastBet(bet);
 			player.setCircleAllin(circle);
 		}
 	}
-	
-	private Player getWinner(){
-		for(Player player : table.getPlayers()){
-			if(player.isIngame()){
+
+	private Player getWinner() {
+		for (Player player : table.getPlayers()) {
+			if (player.isIngame()) {
 				addPlayersInGame();
 				return player;
 			}
 		}
 		return null;
 	}
-	
-	private boolean isWon(){
+
+	private boolean isWon() {
 		int counter = 0;
-		for(Player player : table.getPlayers()){
-			if(player.isIngame()){
+		for (Player player : table.getPlayers()) {
+			if (player.isIngame()) {
 				counter++;
 			}
 		}
-		if(counter == 1)
+		if (counter == 1)
 			return true;
 		else
-			return false;		
+			return false;
 	}
 
 	private void addPlayersInGame() {
@@ -205,7 +203,7 @@ public class Croupier {
 			// bet circle
 			Player pl = null;
 			pl = getActions();
-			if (pl!=null) {
+			if (pl != null) {
 				spreadPotNotShow(pl);
 				continue;
 			}
@@ -243,7 +241,7 @@ public class Croupier {
 			});
 			UiHelper.updateTableInfo(table);
 			// last one
-			pl =  getActions();
+			pl = getActions();
 			if (pl != null) {
 				spreadPotNotShow(pl);
 				continue;
@@ -265,23 +263,24 @@ public class Croupier {
 
 	private boolean spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
-		int lastCircle = bets.get(bets.size() -1).getCircle();
-		while(lastCircle > -1){
+		int lastCircle = bets.get(bets.size() - 1).getCircle();
+		while (lastCircle > -1) {
 			List<Bet> thisCircleBets = new ArrayList<Bet>();
 			int thisPot = 0;
-			for(Bet b : bets){
-				if(b.getCircle() == lastCircle){
+			for (Bet b : bets) {
+				if (b.getCircle() == lastCircle) {
 					thisCircleBets.add(b);
-					thisPot+= b.getAmount();
+					thisPot += b.getAmount();
 				}
 			}
 			List<Player> thisCirclePlayers = getTopPlayers(lastCircle);
-			for(Player p : thisCirclePlayers){
-				p.addToBalance(thisPot/thisCirclePlayers.size());
-				if(p.getCircleAllin() == lastCircle){
+			for (Player p : thisCirclePlayers) {
+				p.addToBalance(thisPot / thisCirclePlayers.size());
+				if (p.getCircleAllin() == lastCircle) {
 					p.setIngame(false);
 				}
-				System.out.printf("Player %s win %d with combination %s",p.getName(),thisPot/thisCirclePlayers.size(),p.getCombination());
+				System.out.printf("Player %s win %d with combination %s", p.getName(),
+						thisPot / thisCirclePlayers.size(), p.getCombination());
 			}
 			lastCircle--;
 		}
@@ -304,17 +303,18 @@ public class Croupier {
 			
 		}
 	}
-	
-	public List<Player> getTopPlayers(int circle){
-		List<Player>result = new ArrayList<Player>();
+
+	public List<Player> getTopPlayers(int circle) {
+		List<Player> result = new ArrayList<Player>();
 		Combination top = new Combination(CombinationType.NoCombination, new ArrayList<Card>());
-		for(Player p : table.getPlayers()){
-			if(p.isIngame() && p.getCombination().compareTo(top) == 1 && (p.getCircleAllin() == -1 || p.getCircleAllin() == circle)){
+		for (Player p : table.getPlayers()) {
+			if (p.isIngame() && p.getCombination().compareTo(top) == 1
+					&& (p.getCircleAllin() == -1 || p.getCircleAllin() == circle)) {
 				top = p.getCombination();
 			}
 		}
-		for(Player p : table.getPlayers()){
-			if(p.isIngame() && p.getCombination().compareTo(top) == 0){
+		for (Player p : table.getPlayers()) {
+			if (p.isIngame() && p.getCombination().compareTo(top) == 0) {
 				result.add(p);
 			}
 		}
