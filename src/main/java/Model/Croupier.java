@@ -29,9 +29,11 @@ public class Croupier {
 	public void setInitialBlinds() {
 		table.getPlayers().get(smallBlind).setSmallBlind(true);
 		takeMoney(table.getPlayers().get(smallBlind), 0, table.getSettings().getBlindAmount());
+		table.getPlayers().get(smallBlind).setLastAction(new PlayerAction(ActionType.Raise));
 		table.getPlayers().get(bigBlind).setBigBlind(true);
 		takeMoney(table.getPlayers().get(bigBlind), 0, table.getSettings().getBlindAmount() * 2);
 		table.getPlayers().get(2).setCurrent(true);
+		table.getPlayers().get(bigBlind).setLastAction(new PlayerAction(ActionType.Raise));
 	}
 
 	// move blinds clockwise
@@ -83,7 +85,7 @@ public class Croupier {
 					player = listIterator.next();
 				}
 			}
-			if (player.isCurrent() && player.getLastAction().getType() == ActionType.Raise) {
+			if (player.isCurrent() && (player.getLastAction().getType() == ActionType.Raise || player.getLastAction().getType() == ActionType.CallCheck) ) {
 				return null;
 			}
 			if (player.isIngame()) {
@@ -244,6 +246,7 @@ public class Croupier {
 			if (pl != null) {
 				spreadPotNotShow(pl);
 				continue;
+				
 			} 
 			if(spreadPotAndShow()){
 				System.out.println("The game is over");

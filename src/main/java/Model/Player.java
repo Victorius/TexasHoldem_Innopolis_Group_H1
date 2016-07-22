@@ -115,4 +115,8 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public void clearLastAction() {
 		lastAction = new PlayerAction(ActionType.None);
 	}
+
+	public void setLastAction(PlayerAction action) {
+		this.lastAction = action;
+	}
 }
