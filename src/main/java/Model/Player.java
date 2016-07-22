@@ -100,11 +100,15 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 		this.ingame = ingame;
 	}
 
+	public void setCircleAllin(int circleAllin) {
+		this.circleAllin = circleAllin;
+	}
+	
 	public int getCircleAllin() {
 		return circleAllin;
 	}
 
-	public void setCircleAllin(int circleAllin) {
-		this.circleAllin = circleAllin;
+	public void clearHand() {
+		cards.clear();
 	}
 }
