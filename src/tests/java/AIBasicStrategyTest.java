@@ -36,20 +36,25 @@ public class AIBasicStrategyTest {
         int circle = 0;
 		ai = new AiPlayer(table,new BasicStrategy());
 		ai2 = new AiPlayer(table,new BasicStrategy());
+		
 		ai.setLastBet(new Bet(circle,ai,smallblind*2));
 		table.addBetToList(ai.getLastBet());
 		ai2.setLastBet(new Bet(circle,ai,smallblind*2));
 		table.addBetToList(ai2.getLastBet());
 		player.setLastBet(new Bet(circle,ai,smallblind*2));
 		table.addBetToList(player.getLastBet());
+		
 		ArrayList<Card> card2ai = new ArrayList<Card>();
 		card2ai.add(new Card(CardType.Clubs, CardValue.Ace));
-		card2ai.add(new Card(CardType.Hearts, CardValue.Ace));
+		card2ai.add(new Card(CardType.Hearts, CardValue.Ace));		
 		ai.setCards(card2ai);
+		
 		card2ai = new ArrayList<Card>();
 		card2ai.add(new Card(CardType.Hearts, CardValue.King));
 		card2ai.add(new Card(CardType.Hearts, CardValue.Three));
+		
 		ai2.setCards(card2ai);
+		
 		cards.add(new Card(CardType.Clubs, CardValue.Six));
 	    cards.add(new Card(CardType.Clubs, CardValue.Three));
 	    tableCard.add(new Card(CardType.Diamonds, CardValue.Three));
@@ -78,7 +83,9 @@ public class AIBasicStrategyTest {
 	@Test
 	public void testFold(){
 		ai.setBalance(0);
-		table.addBetToList(new Bet(1,player,100));
+		ai2.setLastBet(new Bet(1,ai2,100));
+		table.addBetToList(ai2.getLastBet());
+		
 		assertEquals(ActionType.Fold,ai.getPlayerAction().getType());
 		assertEquals(ActionType.Raise,ai2.getPlayerAction().getType());
 		assertEquals(ActionType.Raise,player.getPlayerAction().getType());
@@ -90,6 +97,8 @@ public class AIBasicStrategyTest {
 		card2ai.add(new Card(CardType.Clubs, CardValue.Two));
 		card2ai.add(new Card(CardType.Hearts, CardValue.Ace));
 		ai.setCards(card2ai);
+		ai2.setLastBet(new Bet(1,ai2,smallblind*2));
+		table.addBetToList(ai2.getLastBet());
 		assertEquals(ActionType.CallCheck,ai.getPlayerAction().getType());
 		assertEquals(ActionType.Raise,ai2.getPlayerAction().getType());
 		assertEquals(ActionType.Raise,player.getPlayerAction().getType());
