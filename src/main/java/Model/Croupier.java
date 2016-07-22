@@ -63,6 +63,7 @@ public class Croupier {
 	// beacon
 	// while
 	public Player getActions() {
+		circle = 0;
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
 		boolean currentStill = false;
@@ -99,14 +100,13 @@ public class Croupier {
 					player.setIngame(false);
 					currentStill = true;
 					if (isWon()) 
-						return table.getPlayers().get(0);
+						return getWinner();
 					break;
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
 					takeMoney(player, circle, player.getLastAction().getAmount());
-					listIterator = table.getPlayers().listIterator();
-					currentStill = false;
+					currentStill = true;
 					circle++;
 					break;
 				default:
@@ -142,6 +142,16 @@ public class Croupier {
 		}
 	}
 	
+	private Player getWinner(){
+		for(Player player : table.getPlayers()){
+			if(player.isIngame()){
+				addPlayersInGame();
+				return player;
+			}
+		}
+		return null;
+	}
+	
 	private boolean isWon(){
 		int counter = 0;
 		for(Player player : table.getPlayers()){
@@ -168,6 +178,7 @@ public class Croupier {
 			}
 		}
 	}
+
 
 
 	public void StartGame() {
@@ -238,11 +249,22 @@ public class Croupier {
 				spreadPotNotShow(pl);
 				continue;
 			} 
-			spreadPotAndShow();
+			if(spreadPotAndShow()){
+				System.out.println("The game is over");
+			}
+			moveBlinds();
+		}
+	}
+	
+	private void removeLoosers(){
+		for(Player p : table.getPlayers()){
+			if(p.getBalance() <= 0){
+				table.removePlayer(p);
+			}
 		}
 	}
 
-	private void spreadPotAndShow() {
+	private boolean spreadPotAndShow() {
 		List<Bet> bets = table.getBets();
 		int lastCircle = bets.get(bets.size() -1).getCircle();
 		while(lastCircle > -1){
@@ -263,6 +285,24 @@ public class Croupier {
 				System.out.printf("Player %s win %d with combination %s",p.getName(),thisPot/thisCirclePlayers.size(),p.getCombination());
 			}
 			lastCircle--;
+		}
+		
+		int c =0;
+		Player winner = null;
+		for(Player p :table.getPlayers()){
+			if(p.getBalance() > 0){
+				c++;
+				winner = p;
+			}
+		}
+		
+		if(c==1){
+			System.out.printf(String.format("Player %s has won the table!!!!",winner.getName()));
+			return true;
+		}else{
+			removeLoosers();
+			return false;
+			
 		}
 	}
 	
@@ -285,6 +325,8 @@ public class Croupier {
 	private void spreadPotNotShow(Player p) {
 		int pot = table.getBetsAmount();
 		p.addToBalance(pot);
+		removeLoosers();
 		System.out.println(String.format("Player %s has won pot %d in blind!",p.getName(),pot));
 	}
+
 }

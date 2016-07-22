@@ -111,4 +111,8 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public void clearHand() {
 		cards.clear();
 	}
+
+	public void clearLastAction() {
+		lastAction = new PlayerAction(ActionType.None);
+	}
 }

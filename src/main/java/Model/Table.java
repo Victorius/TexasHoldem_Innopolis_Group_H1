@@ -79,6 +79,11 @@ public class Table {
 
 	public void clearBets() {
 		bets.clear();
+		for(Player p : players){
+			p.setLastBet(null);
+			p.clearLastAction();
+			p.setCircleAllin(-1);
+		}
 	}
 
 	public void clearCards() {
@@ -86,6 +91,10 @@ public class Table {
 		for(Player p : players){
 			p.clearHand();
 		}
+	}
+
+	public void removePlayer(Player a) {
+		players.remove(a);
 	}
 
 }
