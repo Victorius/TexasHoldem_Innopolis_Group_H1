@@ -2,10 +2,7 @@ package main.java.Model;
 
 import java.util.ListIterator;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 import main.java.Model.Enumerations.ActionType;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.Model.Enumerations.CombinationType;
@@ -29,9 +26,11 @@ public class Croupier {
 	public void setInitialBlinds() {
 		table.getPlayers().get(smallBlind).setSmallBlind(true);
 		takeMoney(table.getPlayers().get(smallBlind), 0, table.getSettings().getBlindAmount());
+		table.getPlayers().get(smallBlind).setLastAction(new PlayerAction(ActionType.Raise));
 		table.getPlayers().get(bigBlind).setBigBlind(true);
 		takeMoney(table.getPlayers().get(bigBlind), 0, table.getSettings().getBlindAmount() * 2);
 		table.getPlayers().get(2).setCurrent(true);
+		table.getPlayers().get(bigBlind).setLastAction(new PlayerAction(ActionType.Raise));
 	}
 
 	// move blinds clockwise
@@ -83,7 +82,8 @@ public class Croupier {
 					player = listIterator.next();
 				}
 			}
-			if (player.isCurrent() && player.getLastAction().getType() == ActionType.Raise) {
+			if (player.isCurrent() && (player.getLastAction().getType() == ActionType.Raise || player.getLastAction().getType() == ActionType.CallCheck) ) {
+				table.clearLastAction();
 				return null;
 			}
 			if (player.isIngame()) {
@@ -113,6 +113,7 @@ public class Croupier {
 				}
 			}
 		}
+		table.clearLastAction();
 		return null;
 	}
 
@@ -244,6 +245,7 @@ public class Croupier {
 			if (pl != null) {
 				spreadPotNotShow(pl);
 				continue;
+				
 			} 
 			if(spreadPotAndShow()){
 				System.out.println("The game is over");
@@ -278,8 +280,8 @@ public class Croupier {
 				if (p.getCircleAllin() == lastCircle) {
 					p.setIngame(false);
 				}
-				System.out.printf("Player %s win %d with combination %s", p.getName(),
-						thisPot / thisCirclePlayers.size(), p.getCombination());
+				System.out.printf("Player %s win %d with combination %s(%s)\n", p.getName(),
+						thisPot / thisCirclePlayers.size(), p.getCombination(),p.getHand());
 			}
 			lastCircle--;
 		}
