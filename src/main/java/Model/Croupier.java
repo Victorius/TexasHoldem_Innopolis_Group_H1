@@ -84,8 +84,8 @@ public class Croupier {
 					player = listIterator.next();					
 				}
 			}
-			if(player.isCurrent()){
-				circle++;
+			if(player.isCurrent() && player.getLastAction().getType() == ActionType.Raise){
+				return null;
 			}
 			if (player.isIngame()) {
 				if (table.getPlayers().getLast().equals(player)) {
@@ -93,6 +93,7 @@ public class Croupier {
 				}
 				switch (player.getPlayerAction().getType()) {
 				case CallCheck:
+					System.out.println("HIGHEST BET: " + getHighestBet().getAmount());
 					takeMoney(player, circle, getHighestBet().getAmount());
 					currentStill = true;
 					break;
@@ -105,7 +106,7 @@ public class Croupier {
 				case Raise:
 					deselectCurrentPlayers();
 					player.setCurrent(true);
-					takeMoney(player, circle, player.getLastAction().getAmount());
+					takeMoney(player, circle, player.getLastAction().getAmount() + getHighestBet().getAmount());
 					currentStill = true;
 					circle++;
 					break;
@@ -116,7 +117,7 @@ public class Croupier {
 		}
 		return null;
 	}
-	
+
 	private Bet getHighestBet(){
 		Bet max = table.getBets().get(0);
 		for(Bet b : table.getBets()){
@@ -178,8 +179,6 @@ public class Croupier {
 			}
 		}
 	}
-
-
 
 	public void StartGame() {
 		boolean gameEnds = false;
