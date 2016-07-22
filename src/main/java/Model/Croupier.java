@@ -63,6 +63,7 @@ public class Croupier {
 	// beacon
 	// while
 	public Player getActions() {
+		circle = 0;
 		ListIterator<Player> listIterator = table.getPlayers().listIterator();
 		boolean running = true;
 		boolean currentStill = false;
@@ -116,6 +117,14 @@ public class Croupier {
 		return null;
 	}
 	
+	private void movePlayersToGame(){
+		for (Player player : table.getPlayers()) {
+			if (player.isIngame()) {
+				player.setIngame(true);
+			}
+		}
+	}
+	
 	private Bet getHighestBet(){
 		Bet max = table.getBets().get(0);
 		for(Bet b : table.getBets()){
@@ -144,6 +153,7 @@ public class Croupier {
 	private Player getWinner(){
 		for(Player player : table.getPlayers()){
 			if(player.isIngame()){
+				movePlayersToGame();
 				return player;
 			}
 		}
@@ -176,6 +186,7 @@ public class Croupier {
 			}
 		}
 	}
+
 
 
 	public void StartGame() {
