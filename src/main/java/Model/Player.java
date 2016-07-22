@@ -107,4 +107,8 @@ public abstract class Player extends CombinationCounter implements IPlayer {
 	public int getCircleAllin() {
 		return circleAllin;
 	}
+
+	public void clearHand() {
+		cards.clear();
+	}
 }

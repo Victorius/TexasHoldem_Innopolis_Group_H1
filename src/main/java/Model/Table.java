@@ -83,6 +83,9 @@ public class Table {
 
 	public void clearCards() {
 		cards.clear();
+		for(Player p : players){
+			p.clearHand();
+		}
 	}
 
 }
