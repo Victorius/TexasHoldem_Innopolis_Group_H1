@@ -64,7 +64,7 @@ public class AIBluffStrategyTest {
 	}
 	
 	@Test
-	public void testRandomAnswerFold() {
+	public void testAllInOrDie() {
 		int circle = 0;
 		int smallBlind=40;
 		Bet c1a1 = new Bet(circle,a.get(0),smallBlind);
@@ -80,7 +80,7 @@ public class AIBluffStrategyTest {
 		a.get(0).setLastBet(c1a1);
 		table.addBetToList(c1a1);
 		
-		assertEquals(true, a.get(1).getPlayerAction().getType()==ActionType.CallCheck);
+		assertEquals(true, a.get(1).getPlayerAction().getType()==ActionType.Fold || a.get(1).getPlayerAction().getType()==ActionType.Raise);
 	}
 
 }
