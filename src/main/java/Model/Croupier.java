@@ -280,8 +280,11 @@ public class Croupier {
 				if (p.getCircleAllin() == lastCircle) {
 					p.setIngame(false);
 				}
-				System.out.printf("Player %s win %d with combination %s(%s)\n", p.getName(),
-						thisPot / thisCirclePlayers.size(), p.getCombination(),p.getHand());
+				System.out.printf("Player %s win %d with combination %s\n", p.getName(),
+						thisPot / thisCirclePlayers.size(), p.getCombination());
+			}
+			for(Player p: table.getPlayers()){
+				System.out.printf("Player %s with combination %s(%s)\n", p.getName(), p.getCombination(),p.getHand());
 			}
 			lastCircle--;
 		}
