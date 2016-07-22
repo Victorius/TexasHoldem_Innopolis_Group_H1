@@ -4,7 +4,7 @@ public class Bet {
 	//fields
 	private int circle;
 	private Player player;
-	private int amount;
+	private Integer amount;
 	//C-tor
 	public Bet(int circle,Player player,int amount)
 	{
@@ -21,5 +21,9 @@ public class Bet {
 	}
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public int compareByValue(Bet o){
+		return this.amount.compareTo(o.amount);
 	}
 }
