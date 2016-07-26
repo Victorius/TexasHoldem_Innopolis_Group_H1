@@ -2,12 +2,12 @@ package AiStrategies;
 
 import java.util.Random;
 
-import main.java.Model.Combination;
-import main.java.Model.Player;
-import main.java.Model.PlayerAction;
-import main.java.Model.Table;
-import main.java.Model.Enumerations.ActionType;
-import main.java.Model.Enumerations.CombinationType;
+import org.mftech.Model.Combination;
+import org.mftech.Model.Player;
+import org.mftech.Model.PlayerAction;
+import org.mftech.Model.Table;
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.Model.Enumerations.CombinationType;
 
 public class BasicStrategy extends AiStrategy{
 

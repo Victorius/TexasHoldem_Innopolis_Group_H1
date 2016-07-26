@@ -2,15 +2,16 @@ package tests.java;
 
 import java.util.LinkedList;
 
+import org.mftech.Model.AiPlayer;
+import org.mftech.Model.Croupier;
+import org.mftech.Model.HumanPlayer;
+import org.mftech.Model.Player;
+import org.mftech.Model.Table;
+import org.mftech.Model.TableSettings;
+import org.mftech.Model.Enumerations.RaisingPolicy;
+
 import AiStrategies.BasicStrategy;
 import AiStrategies.BluffStrategy;
-import main.java.Model.AiPlayer;
-import main.java.Model.Croupier;
-import main.java.Model.HumanPlayer;
-import main.java.Model.Player;
-import main.java.Model.Table;
-import main.java.Model.TableSettings;
-import main.java.Model.Enumerations.RaisingPolicy;
 
 public class TestClassPlsIgnore {
 	public static void main(String[] args) {

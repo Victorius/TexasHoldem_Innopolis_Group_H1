@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mftech.Model.AiPlayer;
+import org.mftech.Model.Bet;
+import org.mftech.Model.Card;
+import org.mftech.Model.Table;
+import org.mftech.Model.TableSettings;
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
+import org.mftech.Model.Enumerations.RaisingPolicy;
 
 import AiStrategies.BluffStrategy;
-import main.java.Model.AiPlayer;
-import main.java.Model.Bet;
-import main.java.Model.Card;
-import main.java.Model.Table;
-import main.java.Model.TableSettings;
-import main.java.Model.Enumerations.ActionType;
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CardValue;
-import main.java.Model.Enumerations.RaisingPolicy;
 
 public class AIBluffStrategyTest {
 	ArrayList<AiPlayer> a;

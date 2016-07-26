@@ -4,10 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import main.java.Model.Card;
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CardValue;
+import org.mftech.Model.Card;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
 
 public class CardTest {
 	

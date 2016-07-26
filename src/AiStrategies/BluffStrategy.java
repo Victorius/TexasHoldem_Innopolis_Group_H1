@@ -1,9 +1,10 @@
 package AiStrategies;
 import java.util.Random;
-import main.java.Model.Player;
-import main.java.Model.PlayerAction;
-import main.java.Model.Table;
-import main.java.Model.Enumerations.ActionType;
+
+import org.mftech.Model.Player;
+import org.mftech.Model.PlayerAction;
+import org.mftech.Model.Table;
+import org.mftech.Model.Enumerations.ActionType;
 
 public class BluffStrategy extends AiStrategy{
 

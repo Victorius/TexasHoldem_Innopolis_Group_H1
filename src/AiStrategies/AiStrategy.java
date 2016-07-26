@@ -2,10 +2,10 @@ package AiStrategies;
 
 import java.util.List;
 
-import main.java.Model.Bet;
-import main.java.Model.Player;
-import main.java.Model.PlayerAction;
-import main.java.Model.Table;
+import org.mftech.Model.Bet;
+import org.mftech.Model.Player;
+import org.mftech.Model.PlayerAction;
+import org.mftech.Model.Table;
 
 public abstract class AiStrategy {
 	public abstract PlayerAction getAction(Player player,Table table);
