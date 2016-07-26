@@ -1,9 +1,9 @@
-package main.java;
+package org.mftech;
 
-import main.java.Model.Croupier;
-import main.java.Model.Table;
-import main.java.UI.Menu;
-import main.java.Utility.ConsoleHelper;
+import org.mftech.Model.Croupier;
+import org.mftech.Model.Table;
+import org.mftech.UI.Menu;
+import org.mftech.Utility.ConsoleHelper;
 
 public class TexasHoldemGame {
 	public void run()

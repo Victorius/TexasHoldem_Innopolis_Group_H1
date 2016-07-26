@@ -1,15 +1,14 @@
 package tests.java;
 
-import main.java.Model.AiPlayer;
-import main.java.Model.Croupier;
-import main.java.Model.Enumerations.RaisingPolicy;
-import main.java.Model.Player;
-import main.java.Model.Table;
-import main.java.Model.TableSettings;
 import org.junit.Before;
 import org.junit.Test;
-
-import AiStrategies.BasicStrategy;
+import org.mftech.AiStrategies.BasicStrategy;
+import org.mftech.Model.AiPlayer;
+import org.mftech.Model.Croupier;
+import org.mftech.Model.Player;
+import org.mftech.Model.Table;
+import org.mftech.Model.TableSettings;
+import org.mftech.Model.Enumerations.RaisingPolicy;
 
 import static org.junit.Assert.*;
 import java.util.LinkedList;

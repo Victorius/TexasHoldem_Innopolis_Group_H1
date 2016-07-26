@@ -1,13 +1,13 @@
-package AiStrategies;
+package org.mftech.AiStrategies;
 
 import java.util.List;
 import java.util.Random;
 
-import main.java.Model.Bet;
-import main.java.Model.Player;
-import main.java.Model.PlayerAction;
-import main.java.Model.Table;
-import main.java.Model.Enumerations.ActionType;
+import org.mftech.Model.Bet;
+import org.mftech.Model.Player;
+import org.mftech.Model.PlayerAction;
+import org.mftech.Model.Table;
+import org.mftech.Model.Enumerations.ActionType;
 
 public class BluffStrategy extends AiStrategy{
 
@@ -22,7 +22,7 @@ public class BluffStrategy extends AiStrategy{
 			}
 		}
 		
-		int bid = player.getBalance() < 50 ? player.getBalance() : 50;
+		final int bid = player.getBalance() < 50 ? player.getBalance() : 50;
 		Random r = new Random();
 		if(canCheck(player, table)){
 			if(r.nextBoolean()){

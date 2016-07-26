@@ -1,4 +1,4 @@
-package main.java.Model.Enumerations;
+package org.mftech.Model.Enumerations;
 
 public enum CardValue {
 	Two		(2),

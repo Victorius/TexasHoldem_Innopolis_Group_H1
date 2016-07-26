@@ -1,10 +1,10 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.Model.Enumerations.ActionType;
-import main.java.Model.Enumerations.StageType;
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.Model.Enumerations.StageType;
 
 //List<HistoryBets> history = new ArrayList<HistoryBets>();
 public class HistoryBets {

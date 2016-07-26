@@ -1,10 +1,10 @@
 /*
  * Card class is a basic representation of a gaming card. One of core classes 
 */
-package main.java.Model;
+package org.mftech.Model;
 
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CardValue;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
 
 public class Card implements Comparable<Card>
 {

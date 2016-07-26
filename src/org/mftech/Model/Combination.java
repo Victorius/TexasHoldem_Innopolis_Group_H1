@@ -1,9 +1,9 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import main.java.Model.Enumerations.CombinationType;
+import org.mftech.Model.Enumerations.CombinationType;
 
 public class Combination implements Comparable<Combination>{
 	private CombinationType combinationType;

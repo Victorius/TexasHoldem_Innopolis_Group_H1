@@ -1,8 +1,8 @@
-package main.java.Model;
+package org.mftech.Model;
 
-import main.java.Model.Enumerations.ActionType;
-import main.java.UI.UiHelper;
-import main.java.Utility.ConsoleHelper;
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.UI.UiHelper;
+import org.mftech.Utility.ConsoleHelper;
 
 public class HumanPlayer extends Player {
 

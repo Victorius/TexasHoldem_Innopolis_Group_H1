@@ -1,9 +1,9 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.List;
 
-import main.java.Interfaces.IPlayer;
-import main.java.Model.Enumerations.ActionType;
+import org.mftech.Interfaces.IPlayer;
+import org.mftech.Model.Enumerations.ActionType;
 
 public abstract class Player extends CombinationCounter implements IPlayer {
 

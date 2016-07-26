@@ -1,11 +1,11 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CardValue;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
 
 public class Deck {
 	public static ArrayList<Card> getNewRandomDeck(){

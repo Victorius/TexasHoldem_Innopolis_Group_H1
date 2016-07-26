@@ -1,12 +1,12 @@
-package main.java;
+package org.mftech;
 
 import java.util.ArrayList;
 
-import main.java.Model.Card;
-import main.java.Model.Combination;
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CardValue;
-import main.java.Model.Enumerations.CombinationType;
+import org.mftech.Model.Card;
+import org.mftech.Model.Combination;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
+import org.mftech.Model.Enumerations.CombinationType;
 
 public class lte {
 

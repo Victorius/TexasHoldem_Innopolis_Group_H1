@@ -1,10 +1,10 @@
-package main.java.UI;
+package org.mftech.UI;
 
 import java.util.List;
 
-import main.java.Model.Card;
-import main.java.Model.Player;
-import main.java.Model.Table;
+import org.mftech.Model.Card;
+import org.mftech.Model.Player;
+import org.mftech.Model.Table;
 
 public class UiHelper {
 	public static void updateTableInfo(Table table){

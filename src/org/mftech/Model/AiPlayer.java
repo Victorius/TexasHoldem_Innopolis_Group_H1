@@ -1,8 +1,8 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.Random;
 
-import AiStrategies.AiStrategy;
+import org.mftech.AiStrategies.AiStrategy;
 
 public class AiPlayer extends Player{
 	private static String[] computerNames = {"Orbb","Klesk","Visor","Xaero","Sarge","Grunt","Doom","Ranger","Sorlag","Cormack","Crash","Anarki"};

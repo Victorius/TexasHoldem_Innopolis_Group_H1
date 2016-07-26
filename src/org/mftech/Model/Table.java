@@ -1,10 +1,10 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import AiStrategies.BasicStrategy;
+import org.mftech.AiStrategies.BasicStrategy;
 
 public class Table {
 

@@ -1,11 +1,11 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import main.java.Model.Enumerations.CardType;
-import main.java.Model.Enumerations.CombinationType;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CombinationType;
 
 public abstract class CombinationCounter {
 	protected List<Card> cards = new ArrayList<Card>();

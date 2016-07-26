@@ -1,4 +1,4 @@
-package main.java.Model;
+package org.mftech.Model;
 
 public class Bet {
 	//fields

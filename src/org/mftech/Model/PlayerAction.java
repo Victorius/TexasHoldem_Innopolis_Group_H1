@@ -1,6 +1,6 @@
-package main.java.Model;
+package org.mftech.Model;
 
-import main.java.Model.Enumerations.ActionType;
+import org.mftech.Model.Enumerations.ActionType;
 
 public class PlayerAction {
 	private ActionType type;

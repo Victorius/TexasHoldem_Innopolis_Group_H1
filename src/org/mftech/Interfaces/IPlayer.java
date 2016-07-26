@@ -1,7 +1,7 @@
-package main.java.Interfaces;
+package org.mftech.Interfaces;
 
-import main.java.Model.Combination;
-import main.java.Model.PlayerAction;
+import org.mftech.Model.Combination;
+import org.mftech.Model.PlayerAction;
 
 public interface IPlayer {
 	Combination getCombination();

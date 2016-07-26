@@ -1,7 +1,7 @@
-package main.java.UI;
-import main.java.Model.TableSettings;
-import main.java.Model.Enumerations.RaisingPolicy;
-import main.java.Utility.ConsoleHelper;
+package org.mftech.UI;
+import org.mftech.Model.TableSettings;
+import org.mftech.Model.Enumerations.RaisingPolicy;
+import org.mftech.Utility.ConsoleHelper;
 
 public class Menu {
 	public static TableSettings settingsDialog() {

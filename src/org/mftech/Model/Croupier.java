@@ -1,11 +1,12 @@
-package main.java.Model;
+package org.mftech.Model;
 
 import java.util.ListIterator;
-import main.java.Model.Enumerations.ActionType;
+
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.UI.UiHelper;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import main.java.UI.UiHelper;
 
 public class Croupier {
     //Fields

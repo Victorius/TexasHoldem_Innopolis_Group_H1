@@ -1,14 +1,14 @@
-package AiStrategies;
+package org.mftech.AiStrategies;
 
 import java.util.List;
 
-import main.java.Model.Bet;
-import main.java.Model.Combination;
-import main.java.Model.Player;
-import main.java.Model.PlayerAction;
-import main.java.Model.Table;
-import main.java.Model.Enumerations.ActionType;
-import main.java.Model.Enumerations.CombinationType;
+import org.mftech.Model.Bet;
+import org.mftech.Model.Combination;
+import org.mftech.Model.Player;
+import org.mftech.Model.PlayerAction;
+import org.mftech.Model.Table;
+import org.mftech.Model.Enumerations.ActionType;
+import org.mftech.Model.Enumerations.CombinationType;
 
 public class BasicStrategy extends AiStrategy{
 
@@ -23,7 +23,7 @@ public class BasicStrategy extends AiStrategy{
 			}
 		}
 		
-		int bid = player.getBalance() < 50 ? player.getBalance() : 50;
+		final int bid = player.getBalance() < 50 ? player.getBalance() : 50;
 		
 		Combination comb = player.getCombination();
 		PlayerAction lastAction = player.getLastAction();
