@@ -1,5 +1,6 @@
 package tests.java;
 
+<<<<<<< HEAD
 import main.java.Model.AiPlayer;
 import main.java.Model.Card;
 import main.java.Model.Combination;
@@ -11,10 +12,20 @@ import main.java.Model.Player;
 import main.java.Model.Table;
 import main.java.Model.TableSettings;
 
+=======
+>>>>>>> refs/remotes/origin/master
 import org.junit.Before;
 import org.junit.Test;
-
-import AiStrategies.BasicStrategy;
+import org.mftech.AiStrategies.BasicStrategy;
+import org.mftech.Model.AiPlayer;
+import org.mftech.Model.Card;
+import org.mftech.Model.Player;
+import org.mftech.Model.Table;
+import org.mftech.Model.TableSettings;
+import org.mftech.Model.Enumerations.CardType;
+import org.mftech.Model.Enumerations.CardValue;
+import org.mftech.Model.Enumerations.CombinationType;
+import org.mftech.Model.Enumerations.RaisingPolicy;
 
 import static org.junit.Assert.*;
 
@@ -92,13 +103,13 @@ public class CombinationTest {
 
     @Test
     public void testStraight(){
-        cards.add(new Card(CardType.Clubs, CardValue.Two));
-        cards.add(new Card(CardType.Clubs, CardValue.Three));
-        tableCard.add(new Card(CardType.Diamonds, CardValue.Four));
-        tableCard.add(new Card(CardType.Hearts, CardValue.Five));
-        tableCard.add(new Card(CardType.Clubs, CardValue.Six));
-        tableCard.add(new Card(CardType.Diamonds, CardValue.Ace));
-        tableCard.add(new Card(CardType.Hearts, CardValue.Nine));
+        cards.add(new Card(CardType.Spades, CardValue.King));
+        cards.add(new Card(CardType.Spades, CardValue.Queen));
+        tableCard.add(new Card(CardType.Diamonds, CardValue.King));
+        tableCard.add(new Card(CardType.Diamonds, CardValue.Ten));
+        tableCard.add(new Card(CardType.Spades, CardValue.Nine));
+        tableCard.add(new Card(CardType.Hearts, CardValue.Seven));
+        tableCard.add(new Card(CardType.Clubs, CardValue.Jack));
 
         table.addCards(tableCard);
         player.setTable(table);
